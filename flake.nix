@@ -1,7 +1,7 @@
 {
   description = "Eiros: A NixOS configuration using Niri";
   outputs =
-    { nixpkgs, self, ... }@system_inputs:
+    { nixpkgs, niri, self, ... }@system_inputs:
     let
       import_modules = import ./resources/nix/import_modules.nix;
       inputs = system_inputs;
@@ -23,5 +23,9 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs?ref=25.05";
     };
+    niri = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:sodiboo/niri-flake";
+    }
   };
 }
