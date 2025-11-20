@@ -8,5 +8,5 @@ in
     description = "Enable flakes in Eiros";
     type = lib.types.bool;
   };
-  config.nix.settings.expermental-features = lib.mkIf eiros_nix.flake.enable "nix-command flakes";
+  config.nix.settings.experimental-features = lib.mkIf eiros_nix.flake.enable "nix-command flakes";
 }
