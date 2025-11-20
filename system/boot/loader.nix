@@ -4,9 +4,10 @@ let
 in
 {
   options.eiros.system.boot.loader = {
-    efi.can_touch_efi_vars = lib.mkEnableOption {
+    efi.can_touch_efi_vars = lib.mkOption {
       default = true;
       description = "Allow the kernel to touch EFI variables.";
+      type = lib.types.bool;
     };
     systemd.enable = lib.mkOption {
       default = true;

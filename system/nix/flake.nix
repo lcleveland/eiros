@@ -3,9 +3,10 @@ let
   eiros_nix = config.eiros.system.nix;
 in
 {
-  options.eiros.system.nix.flake.enable = lib.mkEnableOption {
+  options.eiros.system.nix.flake.enable = lib.mkOption {
     default = true;
     description = "Enable flakes in Eiros";
+    type = lib.types.bool;
   };
   config.nix.settings.expermental-features = lib.mkIf eiros_nix.flake.enable "nix-command flakes";
 }

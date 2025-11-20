@@ -4,9 +4,10 @@ let
 in
 {
   options.eiros.system.hardware.cpu = {
-    microcode.enable = lib.mkEnableOption {
+    microcode.enable = lib.mkOption {
       default = true;
       description = "Enables or disables CPU microcode support";
+      type = lib.types.bool;
     };
     vendor = lib.mkOption {
       default = "amd";
