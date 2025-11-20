@@ -1,5 +1,6 @@
 { config, lib, ... }:
 let
+  eiros_niri = config.eiros.system.desktop_environment.niri;
   eiros_uwsm = config.eiros.system.desktop_environment.uwsm;
 in
 {
@@ -12,5 +13,10 @@ in
   };
   config.programs.uwsm = lib.mkIf eiros_uwsm.enable {
     enable = true;
+    waylandCompositors = {
+      niri = lib.mkIf eiros_niri.enable {
+        prettyName = "Niri";
+      };
+    };
   };
 }
