@@ -15,6 +15,7 @@ in
   };
   config.boot.loader = {
     efi.canTouchEfiVariables = eiros_boot.loader.efi.can_touch_efi_vars;
-    systemd-boot.enable = eiros_boot.loader.systemd.enable;
+    #systemd-boot.enable = eiros_boot.loader.systemd.enable;
+    systemd-boot.enable = true;
   };
 }
