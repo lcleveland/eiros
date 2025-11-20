@@ -16,6 +16,8 @@ in
     waylandCompositors = {
       niri = lib.mkIf eiros_niri.enable {
         prettyName = "Niri";
+        comment = "Niri compositor managed by UWSM";
+        binPath = "/run/current-system/sw/bin/niri";
       };
     };
   };
