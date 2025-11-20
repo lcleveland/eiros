@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  eiros_hardware = config.eiros.system.hardware.keyboard;
+  eiros_hardware = config.eiros.system.hardware;
 in
 {
   options.eiros.system.hardware.keyboard = {
