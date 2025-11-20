@@ -8,5 +8,5 @@ in
     default = "eiros";
     description = "Hostname to use for the Eiros system.";
   };
-  config.networking.hostname = eiros_networking.hostname;
+  config.networking.hostName = eiros_networking.hostname;
 }
