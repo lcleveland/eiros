@@ -12,6 +12,7 @@
       inputs = system_inputs;
       base_modules = [
         /etc/nixos/hardware-configuration.nix
+        niri.nixosModules.niri
       ]
       ++ (import_modules ./system);
       make_vm = nixpkgs.lib.nixosSystem {
