@@ -8,5 +8,5 @@ in
     description = "Version of the NixOS state to use.";
     type = lib.types.str;
   };
-  config.nix.system.stateVersion = eiros_nix.state_version;
+  config.system.stateVersion = eiros_nix.state_version;
 }
