@@ -13,5 +13,5 @@ in
       "x86_64-linux"
     ];
   };
-  config.nix.nixpkgs.hostPlatform = eiros_nix.host_platform;
+  config.nixpkgs.hostPlatform = eiros_nix.host_platform;
 }
