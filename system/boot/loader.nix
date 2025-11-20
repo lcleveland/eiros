@@ -8,14 +8,14 @@ in
       default = true;
       description = "Allow the kernel to touch EFI variables.";
     };
-    systemd.enable = lib.mkEnableOption {
+    systemd.enable = lib.mkOption {
       default = true;
       description = "Use systemd for init";
+      type = lib.types.bool;
     };
   };
   config.boot.loader = {
     efi.canTouchEfiVariables = eiros_boot.loader.efi.can_touch_efi_vars;
-    #systemd-boot.enable = eiros_boot.loader.systemd.enable;
-    systemd-boot.enable = true;
+    systemd-boot.enable = eiros_boot.loader.systemd.enable;
   };
 }
