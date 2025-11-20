@@ -7,5 +7,5 @@ in
     default = true;
     description = "Allow unfree software in Eiros";
   };
-  config.nix.nixpkgs.config.allowUnfree = eiros_nix.allow_unfree_software.enable;
+  config.nixpkgs.config.allowUnfree = eiros_nix.allow_unfree_software.enable;
 }
