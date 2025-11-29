@@ -27,7 +27,7 @@
     };
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=25.11";
+      url = "github:nixos/nixpkgs?ref=25.11-beta";
     };
     niri = {
       inputs.nixpkgs.follows = "nixpkgs";
