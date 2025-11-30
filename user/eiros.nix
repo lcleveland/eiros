@@ -36,7 +36,7 @@ in
       isSystemUser = false;
       initialPassword = eiros_user.username;
     };
-    hjem.users.${eiros_user.username} = lib.mkIf eiros_user.enable {
+    hjem.users.${eiros_user.username} = {
       user = eiros_user.username;
       directory = "/home/${eiros_user.username}";
     };
