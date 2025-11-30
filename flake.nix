@@ -27,8 +27,8 @@
     };
   inputs = {
     mango = {
-url = "github:DreamMaoMao/mango";
-inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs = {
       url = "github:nixos/nixpkgs?ref=25.11-beta";
