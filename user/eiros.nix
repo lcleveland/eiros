@@ -34,7 +34,7 @@ in
       extraGroups = eiros_user.groups;
       isNormalUser = true;
       isSystemUser = false;
-      initialPassword = eiros_user.name;
+      initialPassword = eiros_user.username;
     };
   };
 }
