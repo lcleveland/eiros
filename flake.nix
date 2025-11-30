@@ -16,7 +16,8 @@
         inputs.mango.nixosModules.mango
         /etc/nixos/hardware-configuration.nix
       ]
-      ++ (import_modules ./system);
+      ++ (import_modules ./system)
+      ++ (import_modules ./user);
       make_vm = nixpkgs.lib.nixosSystem {
         modules = base_modules;
         specialArgs = { inherit inputs; };
