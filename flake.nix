@@ -2,6 +2,7 @@
   description = "Eiros: A NixOS configuration using MangoWC";
   outputs =
     {
+      hjem,
       mango,
       nixpkgs,
       self,
@@ -11,6 +12,7 @@
       import_modules = import ./resources/nix/import_modules.nix;
       inputs = system_inputs;
       base_modules = [
+        inputs.hjem.nixosModules.default
         inputs.mango.nixosModules.mango
         /etc/nixos/hardware-configuration.nix
       ]
@@ -26,6 +28,9 @@
       };
     };
   inputs = {
+    hjem = {
+      url = "github:feel-co/hjem";
+    };
     mango = {
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
