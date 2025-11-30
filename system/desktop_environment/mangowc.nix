@@ -7,4 +7,5 @@ description = "Enables the Mango Window Composer.";
 default = true;
 type = lib.types.bool;
 };
+config.programs.mango.enable = eiros_mangowc.enable;
   }
