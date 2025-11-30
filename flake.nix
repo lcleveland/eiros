@@ -1,5 +1,5 @@
 {
-  description = "Eiros: A NixOS configuration using Niri";
+  description = "Eiros: A NixOS configuration using MangoWC";
   outputs =
     {
       nixpkgs,
@@ -12,7 +12,6 @@
       inputs = system_inputs;
       base_modules = [
         /etc/nixos/hardware-configuration.nix
-        niri.nixosModules.niri
       ]
       ++ (import_modules ./system);
       make_vm = nixpkgs.lib.nixosSystem {
@@ -28,10 +27,6 @@
   inputs = {
     nixpkgs = {
       url = "github:nixos/nixpkgs?ref=25.11-beta";
-    };
-    niri = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:sodiboo/niri-flake";
     };
   };
 }
