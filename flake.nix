@@ -3,7 +3,6 @@
   outputs =
     {
       nixpkgs,
-      niri,
       self,
       ...
     }@system_inputs:
