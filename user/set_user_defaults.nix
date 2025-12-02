@@ -18,7 +18,6 @@ in
           "networkmanager"
         ];
         initialPassword = lib.mkDefault name;
-        isNormalUser = lib.mkDefault true;
         home = lib.mkDefault "/home/${name}";
       };
 
