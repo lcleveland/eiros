@@ -17,7 +17,7 @@
         /etc/nixos/hardware-configuration.nix
       ]
       ++ (import_modules ./system)
-      ++ (import_modules ./user);
+      ++ (import_modules ./users);
       make_default = nixpkgs.lib.nixosSystem {
         modules = base_modules;
         specialArgs = { inherit inputs; };
