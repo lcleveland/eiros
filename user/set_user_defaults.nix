@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  users = config.users.users;
+  users = builtins.attrNames options.users.users;
 in
 {
   config = {
