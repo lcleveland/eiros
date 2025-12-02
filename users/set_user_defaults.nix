@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  options,
-  ...
-}:
+{ config, lib, ... }:
+
+let
+  defaultUsers = config.eiros.users.default_user_list;
+in
 {
   config = lib.mkMerge (
     map (name: {
@@ -22,6 +21,6 @@
         directory = lib.mkDefault "/home/${name}";
         user = lib.mkDefault name;
       };
-    }) config.eiros.users.default_user_list
+    }) defaultUsers
   );
 }
