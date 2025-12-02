@@ -1,5 +1,4 @@
 { config, lib, ... }:
-
 let
   defaultUsers = config.eiros.users.default_user_list;
 in
