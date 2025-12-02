@@ -15,7 +15,7 @@ in
     };
   };
   config = lib.mkIf eiros_user.enable {
-    eiros.users.default_user_list = [ "eiros" ];
+    eiros.users.default_user_list = lib.mkAfter [ "eiros" ];
     users.users.eiros = {
       description = "Eiros";
     };

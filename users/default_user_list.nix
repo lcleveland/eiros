@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 {
   options.eiros.users.default_user_list = lib.mkOption {
     default = [ ];
