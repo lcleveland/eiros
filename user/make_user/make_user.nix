@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  make_base_user,
+  ...
+}:
 let
   eiros_desktop_environment = config.eiros.system.desktop_environment;
 in
@@ -21,7 +26,7 @@ in
             "wheel"
             "networkmanager"
           ];
-          initialPassword = username;
+          initialPassword = config.eiros.system.user.initial_password;
           isNormalUser = true;
         };
       }
