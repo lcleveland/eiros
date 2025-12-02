@@ -16,8 +16,6 @@ in
     };
   };
   config = lib.mkIf eiros_user.enable {
-    imports = [
-      (make_user { username = "eiros"; })
-    ];
+      make_user { username = "eiros"; }
   };
 }
