@@ -4,9 +4,6 @@
   options,
   ...
 }:
-let
-  users = config.eiros.users.default_user_list;
-in
 {
   options.eiros.users.default_user_list = lib.mkOption {
     type = lib.types.listOf lib.types.str;
@@ -30,6 +27,6 @@ in
         directory = lib.mkDefault "/home/${name}";
         user = lib.mkDefault name;
       };
-    }) users
+    }) config.eiros.users.default_user_list
   );
 }
