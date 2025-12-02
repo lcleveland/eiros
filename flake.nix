@@ -18,14 +18,14 @@
       ]
       ++ (import_modules ./system)
       ++ (import_modules ./user);
-      make_vm = nixpkgs.lib.nixosSystem {
+      make_default = nixpkgs.lib.nixosSystem {
         modules = base_modules;
         specialArgs = { inherit inputs; };
       };
     in
     {
       nixosConfigurations = {
-        vm = make_vm;
+        default = make_default;
       };
     };
   inputs = {
