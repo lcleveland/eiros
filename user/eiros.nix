@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  make_user,
   ...
 }:
 let
@@ -15,7 +14,9 @@ in
       type = lib.types.bool;
     };
   };
-  config = lib.mkIf eiros_user.enable (make_user {
-    username = "eiros";
-  });
+  config = lib.mkIf eiros_user.enable {
+    users.users.eiros = {
+      description = "Eiros";
+    };
+  };
 }
