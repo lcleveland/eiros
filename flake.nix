@@ -25,7 +25,7 @@
     in
     {
       nixosConfigurations = {
-        default = make_default;
+        vm = make_default;
       };
     };
   inputs = {
