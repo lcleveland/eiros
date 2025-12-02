@@ -4,10 +4,10 @@
   ...
 }:
 let
-  eiros_user = config.eiros.user.eiros;
+  eiros_user = config.eiros.users.eiros;
 in
 {
-  options.eiros.user.eiros = {
+  options.eiros.users.eiros = {
     enable = lib.mkOption {
       description = "Enable the default Eiros user";
       default = true;
@@ -15,6 +15,7 @@ in
     };
   };
   config = lib.mkIf eiros_user.enable {
+    eiros.users.default_user_list = lib.mkAfter [ "eiros" ];
     users.users.eiros = {
       description = "Eiros";
     };
