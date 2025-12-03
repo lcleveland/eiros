@@ -1,5 +1,5 @@
 {
-  inputs,
+  hjem,
   lib,
   pkgs,
   ...
@@ -12,7 +12,6 @@
         {
           name,
           config,
-          inputs,
           ...
         }:
         {
@@ -85,7 +84,7 @@
                 extraGroups = config.extraGroups;
               };
 
-              inputs.hjem.users.${name} = {
+              hjem.users.${name} = {
                 enable = true;
                 user = name;
                 directory = hjemDir;
