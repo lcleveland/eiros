@@ -1,4 +1,5 @@
 {
+  config,
   hjem,
   lib,
   pkgs,
@@ -94,7 +95,7 @@
                 initialPassword = initialPw;
                 extraGroups = config.extraGroups;
               }
-              // config.users; # merge extra users.users fields
+              // config.users.users.${name}; # merge extra users.users fields
 
               hjem.users.${name} = {
                 user = name;
