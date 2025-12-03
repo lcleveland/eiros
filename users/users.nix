@@ -6,7 +6,7 @@
 }:
 
 let
-  eiros_users = config.eiros.users or { };
+  eiros_users = builtins.attrNames options.eiros.users or { };
 in
 {
   options.eiros.users = lib.mkOption {
