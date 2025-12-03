@@ -25,5 +25,9 @@
       isNormalUser = true;
       extraGroups = lib.mkDefault user_config.extraGroups;
     }) config.eiros.users;
+    hjem.users = lib.mapAttrs (username: user_config: {
+      user = username;
+      directory = "/home/${username}";
+    }) config.eiros.users;
   };
 }
