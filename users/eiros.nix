@@ -3,9 +3,6 @@
   lib,
   ...
 }:
-let
-  eiros_user = config.eiros.users.eiros;
-in
 {
   options.eiros.users.eiros = {
     enable = lib.mkOption {
