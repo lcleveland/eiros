@@ -94,7 +94,7 @@
                 initialPassword = initialPw;
                 extraGroups = config.extraGroups;
               }
-              // config.user; # merge extra users.users fields
+              // config.users; # merge extra users.users fields
 
               hjem.users.${name} = {
                 user = name;
