@@ -97,6 +97,7 @@
               // config.users; # merge extra users.users fields
 
               hjem.users.${name} = {
+                enable = true;
                 user = name;
                 directory = hjemDir;
               }
