@@ -66,7 +66,7 @@ in
       name: ucfg:
       lib.mkIf ucfg.enable (
         let
-          homeDir = if ucfg.home != null then ucfg.home else "${defaultHomePrefix}/${name}";
+          homeDir = if ucfg.home != null then ucfg.home else "/home/${name}";
 
           shellPkg = if ucfg.shell != null then ucfg.shell else defaultShell;
 
