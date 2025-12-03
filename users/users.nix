@@ -21,7 +21,7 @@
     );
   };
   config = {
-    users.users = mapAttrs (username: user_config: {
+    users.users = lib.mapAttrs (username: user_config: {
       extraGroups = lib.mkDefault user_config.extraGroups;
     }) config.eiros.users;
   };
