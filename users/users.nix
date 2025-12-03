@@ -68,8 +68,6 @@ in
         let
           homeDir = if ucfg.home != null then ucfg.home else "/home/${name}";
 
-          shellPkg = if ucfg.shell != null then ucfg.shell else defaultShell;
-
           initialPw = if ucfg.initialPassword != null then ucfg.initialPassword else name;
         in
         {
@@ -77,7 +75,6 @@ in
             isNormalUser = true;
             description = ucfg.description;
             home = homeDir;
-            shell = shellPkg;
             initialPassword = initialPw;
             extraGroups = defaultGroups ++ ucfg.extraGroups;
           };
