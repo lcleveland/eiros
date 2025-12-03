@@ -4,7 +4,7 @@
     default = [ ];
     type = lib.types.attrsOf (
       lib.types.submodule (
-        { username, ... }:
+        { name, ... }:
         {
           options = {
             extra_groups = lib.mkOption {
@@ -16,7 +16,7 @@
               type = lib.types.listOf lib.types.str;
             };
             initial_password = lib.mkOption {
-              default = username;
+              default = name;
               description = "Initial password for the user.";
               type = lib.types.str;
             };
