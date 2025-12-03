@@ -1,7 +1,8 @@
 {
-  hjem,
+  config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -86,7 +87,7 @@
               initialPw = if config.initialPassword != null then config.initialPassword else name;
             in
             {
-              # users.users.<name>
+              # NixOS user
               users.users.${name} = {
                 isNormalUser = true;
                 description = config.description;
@@ -97,10 +98,9 @@
               }
               // config.users;
 
-              # hjem.users.<name>
+              # Hjem user
               hjem.users.${name} = {
                 enable = true;
-                user = name;
                 directory = hjemDir;
               }
               // config.hjem;
