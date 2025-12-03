@@ -1,5 +1,4 @@
 { lib, pkgs, ... }:
-
 {
   options.eiros.users = lib.mkOption {
     description = "Eiros-managed users that expand into users.users + hjem.users.";
