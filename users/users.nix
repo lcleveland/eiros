@@ -53,14 +53,20 @@
               description = "Initial password (defaults to username).";
             };
 
-            # Optional: extra fields merged into users.users.<name>
-            user = lib.mkOption {
+            hjemDirectory = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "hjem directory (defaults to same as home).";
+            };
+
+            # \U0001f539 Extra fields merged into users.users.<name>
+            users = lib.mkOption {
               type = lib.types.attrs;
               default = { };
               description = "Extra options merged into users.users.<name>.";
             };
 
-            # Optional: extra fields merged into hjem.users.<name>
+            # \U0001f539 Extra fields merged into hjem.users.<name>
             hjem = lib.mkOption {
               type = lib.types.attrs;
               default = { };
@@ -72,6 +78,8 @@
           config = lib.mkIf config.enable (
             let
               homeDir = if config.home != null then config.home else "/home/${name}";
+
+              hjemDir = if config.hjemDirectory != null then config.hjemDirectory else homeDir;
 
               shellPkg = if config.shell != null then config.shell else pkgs.bashInteractive;
 
@@ -86,15 +94,13 @@
                 initialPassword = initialPw;
                 extraGroups = config.extraGroups;
               }
-              // config.user;
+              // config.users; # merge extra users.users fields
 
               hjem.users.${name} = {
                 user = name;
-                directory = homeDir;
-                # if you want to use the hjem flake input, you can do it here, e.g.:
-                # modules = [ hjem.homeModules.default ];
+                directory = hjemDir;
               }
-              // config.hjem;
+              // config.hjem; # merge extra hjem.users fields
             }
           );
         }
