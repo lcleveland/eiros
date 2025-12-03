@@ -59,14 +59,14 @@
               description = "hjem directory (defaults to same as home).";
             };
 
-            # \U0001f539 Extra fields merged into users.users.<name>
+            # Extra fields merged into users.users.<name>
             users = lib.mkOption {
               type = lib.types.attrs;
               default = { };
               description = "Extra options merged into users.users.<name>.";
             };
 
-            # \U0001f539 Extra fields merged into hjem.users.<name>
+            # Extra fields merged into hjem.users.<name>
             hjem = lib.mkOption {
               type = lib.types.attrs;
               default = { };
@@ -86,6 +86,7 @@
               initialPw = if config.initialPassword != null then config.initialPassword else name;
             in
             {
+              # users.users.<name>
               users.users.${name} = {
                 isNormalUser = true;
                 description = config.description;
@@ -94,14 +95,15 @@
                 initialPassword = initialPw;
                 extraGroups = config.extraGroups;
               }
-              // config.users; # merge extra users.users fields
+              // config.users;
 
+              # hjem.users.<name>
               hjem.users.${name} = {
                 enable = true;
                 user = name;
                 directory = hjemDir;
               }
-              // config.hjem; # merge extra hjem.users fields
+              // config.hjem;
             }
           );
         }
