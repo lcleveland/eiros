@@ -22,12 +22,12 @@
   };
   config = {
     users.users = lib.mapAttrs (username: user_config: {
-      isNormalUser = true;
+      isNormalUser = lib.mkDefault true;
       extraGroups = lib.mkDefault user_config.extraGroups;
     }) config.eiros.users;
     hjem.users = lib.mapAttrs (username: user_config: {
       user = username;
-      directory = "/home/${username}";
+      directory = lib.mkDefault "/home/${username}";
     }) config.eiros.users;
   };
 }
