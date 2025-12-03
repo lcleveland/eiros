@@ -35,7 +35,6 @@
       user = username;
       directory = lib.mkDefault "/home/${username}";
       files = {
-        ".config/foo".text = lib.mkIf config.eiros.system.desktop_environment.mangowc.enable "bar";
       };
     }) config.eiros.users;
   };
