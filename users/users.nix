@@ -1,4 +1,5 @@
 {
+  config,
   hjem,
   lib,
   pkgs,
@@ -10,7 +11,7 @@
     description = "Eiros-managed users that expand into users.users + hjem.users.";
     type = lib.types.attrsOf (
       lib.types.submodule (
-        { name, config, ... }:
+        { name, ... }:
         {
           #### Per-Eiros-user options
           options = {
@@ -86,7 +87,8 @@
                 shell = shellPkg;
                 initialPassword = initialPw;
                 extraGroups = config.extraGroups;
-              };
+              }
+              // config.users.users;
 
               hjem.users.${name} = {
                 user = name;
