@@ -77,6 +77,7 @@
               };
 
               hjem.users.${name} = {
+                enable = true;
                 user = name;
                 directory = hjemDir;
               };
