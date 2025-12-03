@@ -2,7 +2,7 @@
 {
   options.eiros.users = lib.mkOption {
     default = [ ];
-    type = lib.types.attrOf (
+    type = lib.types.attrsOf (
       lib.types.submodule (
         { username, ... }:
         {
