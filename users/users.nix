@@ -40,7 +40,7 @@ in
             home = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = null;
-              description = "Home dir (defaults to ${defaultHomePrefix}/${name}).";
+              description = "Home dir ";
             };
 
             shell = lib.mkOption {
