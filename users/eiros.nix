@@ -1,8 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
+
+let
+  cfg = config.eiros.default_user;
+in
 {
   options.eiros.default_user = {
     enable = lib.mkOption {
@@ -11,9 +11,13 @@
       type = lib.types.bool;
     };
   };
-  config = lib.mkIf config.eiros.default_user.enable {
-    eiros.users.eiros = {
 
+  # If enabled, define eiros.users.eiros (data only, no reading from eiros.users here)
+  config = lib.mkIf cfg.enable {
+    eiros.users.eiros = {
+      # You can add per-user settings here later if you like
+      # description = "Eiros";
+      # extraGroups = [ "docker" ];
     };
   };
 }

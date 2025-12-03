@@ -6,7 +6,10 @@
 }:
 
 {
-  # 1. Declare Eiros user options
+  ###########################
+  ## 1. Declare Eiros user options
+  ###########################
+
   options.eiros.users = lib.mkOption {
     description = "Eiros-managed users";
     type = lib.types.attrsOf (
@@ -32,7 +35,7 @@
                 "wheel"
                 "networkmanager"
               ];
-              description = "Extra groups on top of defaults.";
+              description = "Extra groups for this user.";
             };
 
             home = lib.mkOption {
@@ -44,7 +47,7 @@
             shell = lib.mkOption {
               type = lib.types.nullOr lib.types.package;
               default = null;
-              description = "Shell for this user.";
+              description = "Shell (you can default this later if you like).";
             };
 
             initialPassword = lib.mkOption {
@@ -59,7 +62,10 @@
     default = { };
   };
 
-  # 2. Expand eiros.users.* into users.users.* + hjem.users.*
+  ###########################
+  ## 2. Turn eiros.users.* into users.users.* + hjem.users.*
+  ###########################
+
   config = lib.mkMerge (
     lib.mapAttrsToList (
       name: ucfg:
