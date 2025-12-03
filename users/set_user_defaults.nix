@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  hjem,
+  lib,
+  ...
+}:
 let
   #  defaultUsers = config.eiros.users.default_user_list;
 in
