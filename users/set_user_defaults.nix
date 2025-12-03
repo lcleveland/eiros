@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  defaultUsers = config.eiros.users.default_user_list;
+  #  defaultUsers = config.eiros.users.default_user_list;
 in
 {
   config = lib.mkMerge (
@@ -20,6 +20,6 @@ in
         directory = lib.mkDefault "/home/${name}";
         user = lib.mkDefault name;
       };
-    }) defaultUsers
+    }) [ "eiros" ]
   );
 }
