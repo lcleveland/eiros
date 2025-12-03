@@ -24,6 +24,7 @@
     users.users = lib.mapAttrs (username: user_config: {
       isNormalUser = true;
       group = "eiros";
+      groups.eiros = { };
       extraGroups = lib.mkDefault user_config.extraGroups;
     }) config.eiros.users;
   };
