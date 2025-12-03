@@ -5,10 +5,8 @@
   ...
 }:
 
-let
-  eiros_users = builtins.attrNames options.eiros.users;
-in
 {
+  # 1. Declare the Eiros user option tree
   options.eiros.users = lib.mkOption {
     description = "Eiros-managed users";
     type = lib.types.attrsOf (
@@ -34,19 +32,19 @@ in
                 "wheel"
                 "networkmanager"
               ];
-              description = "Extra groups on top of defaults.";
+              description = "Extra groups for this user.";
             };
 
             home = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = null;
-              description = "Home dir ";
+              description = "Home dir (defaults to /home/<name>).";
             };
 
             shell = lib.mkOption {
               type = lib.types.nullOr lib.types.package;
               default = null;
-              description = "Shell (defaults to eiros.defaults.shell).";
+              description = "Shell (you can default this elsewhere if you like).";
             };
 
             initialPassword = lib.mkOption {
@@ -61,6 +59,7 @@ in
     default = { };
   };
 
+  # 2. Turn eiros.users.* into users.users + hjem.users
   config = lib.mkMerge (
     lib.mapAttrsToList (
       name: ucfg:
@@ -77,6 +76,7 @@ in
             home = homeDir;
             initialPassword = initialPw;
             extraGroups = ucfg.extraGroups;
+            # shell = ucfg.shell or pkgs.zsh;  # if you want a default here
           };
 
           hjem.users.${name} = {
@@ -85,6 +85,6 @@ in
           };
         }
       )
-    ) eiros_users
+    ) config.eiros.users
   );
 }
