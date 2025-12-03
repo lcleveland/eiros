@@ -91,6 +91,7 @@
               // config.users.users;
 
               hjem.users.${name} = {
+                enable = true;
                 user = name;
                 directory = hjemDir;
 
