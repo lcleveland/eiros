@@ -76,7 +76,7 @@ in
             description = ucfg.description;
             home = homeDir;
             initialPassword = initialPw;
-            extraGroups = defaultGroups ++ ucfg.extraGroups;
+            extraGroups = ucfg.extraGroups;
           };
 
           hjem.users.${name} = {
