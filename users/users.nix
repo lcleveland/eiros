@@ -6,17 +6,19 @@
       lib.types.submodule (
         { username, ... }:
         {
-          extraGroups = lib.mkOption {
-            default = [
-              "wheel"
-              "networkmanager"
-            ];
-            description = "Default groups";
-            type = lib.types.listOf lib.types.str;
-          };
-          username = lib.mkOption {
-            description = "Username";
-            type = lib.types.str;
+          options = {
+            extraGroups = lib.mkOption {
+              default = [
+                "wheel"
+                "networkmanager"
+              ];
+              description = "Default groups";
+              type = lib.types.listOf lib.types.str;
+            };
+            username = lib.mkOption {
+              description = "Username";
+              type = lib.types.str;
+            };
           };
         }
       )
