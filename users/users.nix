@@ -1,21 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 
 {
-  ###########################
-  ## 1. Declare eiros.users.* options
-  ###########################
-
   options.eiros.users = lib.mkOption {
     description = "Eiros-managed users that expand into users.users + hjem.users.";
     type = lib.types.attrsOf (
       lib.types.submodule (
-        { name, ... }:
+        { name, config, ... }:
         {
+          #### Per-Eiros-user options
           options = {
             enable = lib.mkOption {
               type = lib.types.bool;
@@ -41,7 +33,7 @@
             home = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = null;
-              description = "Home directory (defaults to /home/<name>).";
+              description = "Home directory (defaults to /home/${name}).";
             };
 
             shell = lib.mkOption {
@@ -62,45 +54,37 @@
               description = "hjem directory (defaults to same as home).";
             };
           };
+
+          #### How each Eiros user expands into users.users + hjem.users
+          config = lib.mkIf config.enable (
+            let
+              homeDir = if config.home != null then config.home else "/home/${name}";
+
+              hjemDir = if config.hjemDirectory != null then config.hjemDirectory else homeDir;
+
+              shellPkg = if config.shell != null then config.shell else pkgs.bashInteractive;
+
+              initialPw = if config.initialPassword != null then config.initialPassword else name;
+            in
+            {
+              users.users.${name} = {
+                isNormalUser = true;
+                description = config.description;
+                home = homeDir;
+                shell = shellPkg;
+                initialPassword = initialPw;
+                extraGroups = config.extraGroups;
+              };
+
+              hjem.users.${name} = {
+                user = name;
+                directory = hjemDir;
+              };
+            }
+          );
         }
       )
     );
     default = { };
   };
-
-  ###########################
-  ## 2. Expand eiros.users.* \u2192 users.users.* + hjem.users.*
-  ###########################
-
-  config = lib.mkMerge (
-    lib.mapAttrsToList (
-      name: ucfg:
-      lib.mkIf ucfg.enable (
-        let
-          homeDir = if ucfg.home != null then ucfg.home else "/home/${name}";
-
-          hjemDir = if ucfg.hjemDirectory != null then ucfg.hjemDirectory else homeDir;
-
-          shellPkg = if ucfg.shell != null then ucfg.shell else pkgs.bashInteractive;
-
-          initialPw = if ucfg.initialPassword != null then ucfg.initialPassword else name;
-        in
-        {
-          users.users.${name} = {
-            isNormalUser = true;
-            description = ucfg.description;
-            home = homeDir;
-            shell = shellPkg;
-            initialPassword = initialPw;
-            extraGroups = ucfg.extraGroups;
-          };
-
-          hjem.users.${name} = {
-            user = name;
-            directory = hjemDir;
-          };
-        }
-      )
-    ) config.eiros.users
-  );
 }
