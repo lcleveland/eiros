@@ -2,7 +2,7 @@
 {
   options.eiros.users = lib.mkOption {
     default = [ ];
-    type = lib.types.listOf (
+    type = lib.types.attrOf (
       lib.types.submodule (
         { username, ... }:
         {
@@ -15,22 +15,14 @@
               description = "Default groups";
               type = lib.types.listOf lib.types.str;
             };
-            username = lib.mkOption {
-              description = "Username";
-              type = lib.types.str;
-            };
           };
         }
       )
     );
   };
   config = {
-    users.users = lib.listToAttrs (
-      map (user: {
-        extraGroups = lib.mkDefault user.extraGroups;
-        isNormalUser = true;
-        name = user.username;
-      }) config.eiros.users
-    );
+    users.users = mapAttrs (username: user_config: {
+      extraGroups = lib.mkDefault user_config.extraGroups;
+    }) config.eiros.users;
   };
 }
