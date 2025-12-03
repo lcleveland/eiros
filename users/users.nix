@@ -1,5 +1,4 @@
 {
-  config,
   hjem,
   lib,
   pkgs,
@@ -11,7 +10,7 @@
     description = "Eiros-managed users that expand into users.users + hjem.users.";
     type = lib.types.attrsOf (
       lib.types.submodule (
-        { name, ... }:
+        { name, config, ... }:
         {
           #### Per-Eiros-user options
           options = {
@@ -60,7 +59,14 @@
               description = "hjem directory (defaults to same as home).";
             };
 
-            # Optional extra hjem options to merge into hjem.users.<name>
+            # Extra fields merged into users.users.<name>
+            user = lib.mkOption {
+              type = lib.types.attrs;
+              default = { };
+              description = "Extra options merged into users.users.<name>.";
+            };
+
+            # Extra fields merged into hjem.users.<name>
             hjem = lib.mkOption {
               type = lib.types.attrs;
               default = { };
@@ -68,7 +74,7 @@
             };
           };
 
-          #### How each Eiros user expands into users.users + hjem.users
+          #### Expansion into users.users + hjem.users
           config = lib.mkIf config.enable (
             let
               homeDir = if config.home != null then config.home else "/home/${name}";
@@ -88,17 +94,13 @@
                 initialPassword = initialPw;
                 extraGroups = config.extraGroups;
               }
-              // config.users.users;
+              // config.user; # merge extra users.users fields
 
               hjem.users.${name} = {
-                enable = true;
                 user = name;
                 directory = hjemDir;
-
-                # Example of using the flake input inside the submodule:
-                # modules = [ hjem.homeModules.default ];
               }
-              // config.hjem;
+              // config.hjem; # merge extra hjem.users fields
             }
           );
         }
