@@ -13,6 +13,19 @@ in
   };
 
   config = lib.mkIf eiros_default_user.enable {
-    eiros.users.eiros = { };
+    eiros.users.eiros = {
+      mangowc = {
+        keybinds = {
+          quit = {
+            modifier_keys = [
+              "SUPER"
+              "SHIFT"
+            ];
+            key_symbol = "q";
+            mangowc_command = "quit";
+          };
+        };
+      };
+    };
   };
 }

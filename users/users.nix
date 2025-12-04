@@ -130,7 +130,6 @@ in
         user = username;
         directory = lib.mkDefault "/home/${username}";
         clobber = lib.mkDefault mangowc_cfg.clobber_home_directory;
-
         files.".config/mango/config.conf" =
           let
             make_bind_line =
