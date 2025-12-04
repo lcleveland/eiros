@@ -129,7 +129,7 @@ in
       lib.mkIf (config.eiros.system.desktop_environment.mangowc.enable && mangowc_cfg != null) {
         user = username;
         directory = lib.mkDefault "/home/${username}";
-        clobber = lib.mkDefault mangowc_cfg.clobber_home_directory;
+        clobberFiles = lib.mkDefault mangowc_cfg.clobber_home_directory;
         files.".config/mango/config.conf" =
           let
             make_bind_line =
