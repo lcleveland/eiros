@@ -16,6 +16,11 @@ in
     eiros.users.eiros = {
       mangowc = {
         keybinds = {
+          close_window = {
+            modifier_keys = [ "SUPER" ];
+            key_symbol = "q";
+            mangowc_command = "killclient";
+          };
           quit = {
             modifier_keys = [
               "SUPER"
