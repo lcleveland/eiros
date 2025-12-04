@@ -24,6 +24,12 @@ in
             key_symbol = "q";
             mangowc_command = "quit";
           };
+        terminal = {
+          modifier_keys = ["SUPER"];
+          key_symbol = "t";
+          mangowc_command = "spawn";
+          command_arguments = "warp-terminal";
+        }
         };
       };
     };
