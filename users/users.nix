@@ -136,7 +136,7 @@ in
               kb:
               let
                 modifier_keys_str = lib.concatStringsSep "+" kb.modifier_keys;
-                command_args_str = kb.command_arguments or "";
+                command_args_str = if kb.command_arguments == null then "" else kb.command_arguments;
               in
               "${modifier_keys_str},${kb.key_symbol},${kb.mangowc_command},${command_args_str}";
             extra_bind_attrs = builtins.foldl' (
