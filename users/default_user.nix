@@ -12,12 +12,8 @@ in
     };
   };
 
-  # If enabled, define eiros.users.eiros (data only, no reading from eiros.users here)
   config = lib.mkIf cfg.enable {
     eiros.users.eiros = {
-      # You can add per-user settings here later if you like
-      # description = "Eiros";
-      # extraGroups = [ "docker" ];
     };
   };
 }
