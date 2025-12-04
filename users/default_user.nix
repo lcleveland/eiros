@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  cfg = config.eiros.default_user;
+  eiros_default_user = config.eiros.default_user;
 in
 {
   options.eiros.default_user = {
@@ -12,8 +12,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    eiros.users.eiros = {
-    };
+  config = lib.mkIf eiros_default_user.enable {
+    eiros.users.eiros = { };
   };
 }
