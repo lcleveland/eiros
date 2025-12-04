@@ -27,6 +27,7 @@
   };
   config = {
     users.users = lib.mapAttrs (username: user_config: {
+      description = lib.mkDefault username;
       extraGroups = lib.mkDefault user_config.extra_groups;
       initialPassword = lib.mkDefault user_config.initial_password;
       isNormalUser = lib.mkDefault true;
