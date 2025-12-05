@@ -13,5 +13,7 @@ in
     description = "Enables helix (https://helix-editor.com/)";
     type = lib.types.bool;
   };
-  config.environment.systemPackages = lib.mkIf eiros_helix.enable [ pkgs.helix ];
+  config = lib.mkIf eiros_helix.enable {
+    environment.systemPackages = [ pkgs.helix ];
+  };
 }
