@@ -17,7 +17,7 @@ in
       mangowc = {
         keybinds = {
           spotlight = lib.mkIf config.eiros.system.desktop_environment.dank_material_shell.enable {
-            key_symbol = "SUPER";
+            modifier_keys = [ "SUPER" ];
             flag_modifiers = [ "r" ];
             mangowc_command = "spawn_shell";
             command_arguments = "dms ipc call spotlight toggle";
