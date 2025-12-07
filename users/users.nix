@@ -151,6 +151,9 @@ in
               ) { } (lib.attrValues mangowc_cfg.keybinds);
               merged_settings =
                 mangowc_cfg.settings
+                // {
+                  "exec-once" = [ "dms run" ];
+                }
                 // lib.mapAttrs (name: lines: (mangowc_cfg.settings.${name} or [ ]) ++ lines) extra_bind_attrs;
             in
             lib.mkIf (config.eiros.system.desktop_environment.mangowc.enable && mangowc_cfg != null) {
