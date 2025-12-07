@@ -151,8 +151,8 @@ in
               ) { } (lib.attrValues mangowc_cfg.keybinds);
               merged_settings =
                 mangowc_cfg.settings
-                // {
-                  (lib.mkIf config.eiros.system.desktop_environment.dank_material_shell.enable "exec-once" = [ "dms run" ];)
+                // lib.optionalAttrs config.eiros.system.desktop_environment.dank_material_shell.enable {
+                  "exec-once" = [ "dms run" ];
                 }
                 // lib.mapAttrs (name: lines: (mangowc_cfg.settings.${name} or [ ]) ++ lines) extra_bind_attrs;
             in
