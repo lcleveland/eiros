@@ -19,7 +19,7 @@ in
     boot = {
       plymouth = {
         enable = true;
-        theme = "hud3";
+        theme = "hud_3";
         themePackages = with pkgs; [ adi1090x-plymouth-themes ];
       };
       consoleLogLevel = 3;
