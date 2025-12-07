@@ -11,13 +11,15 @@ in
     };
   };
   config = lib.mkIf eiros_pipewire.enable {
-    hardware.pulseaudio.enable = false;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
+    services = {
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+      };
+      pulseaudio.enable = false;
+      security.rtkit.enable = true;
     };
-    security.rtkit.enable = true;
   };
 }
