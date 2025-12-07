@@ -12,6 +12,7 @@
       import_modules = import ./resources/nix/import_modules.nix;
       inputs = system_inputs;
       base_modules = [
+        inputs.dankMaterialShell.nixosModules.dankMaterialShell
         inputs.hjem.nixosModules.default
         inputs.mango.nixosModules.mango
         /etc/nixos/hardware-configuration.nix
@@ -29,6 +30,15 @@
       };
     };
   inputs = {
+    dank_material_shell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dgop.follows = "dgop";
+    };
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hjem = {
       url = "github:feel-co/hjem";
     };
