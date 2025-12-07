@@ -25,6 +25,11 @@
         modules = base_modules;
         specialArgs = { inherit inputs; };
       };
+      make_intel = nixpkgs.lib.nixosSystem {
+        modules = base_modules;
+        specialArgs = { inherit inputs; };
+        config.eiros.system.hardware.cpu.vendor = "intel";
+      };
     in
     {
       nixosConfigurations = {
