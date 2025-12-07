@@ -19,7 +19,7 @@ in
     enable = true;
     greeter = lib.mkIf eiros_dms.greeter.enable {
       enable = true;
-      compositor.name = "sway";
+      compositor.name = "hyprland";
     };
     systemd = {
       enable = true;
