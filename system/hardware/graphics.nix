@@ -9,8 +9,14 @@ in
       description = "Enable Eiros hardware graphics.";
       type = lib.types.bool;
     };
+    nvidia.enable = {
+      default = true;
+      description = "Enable Nvidia GPU support.";
+      type = lib.types.bool;
+    };
   };
-  config.hardware.graphics = lib.mkIf eiros_graphics.enable {
-    enable = true;
+  config.hardware = lib.mkIf eiros_graphics.enable {
+    graphics.enable = true;
+    nvidia.open = eiros_graphics.nvidia.enable;
   };
 }
