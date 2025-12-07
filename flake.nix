@@ -34,6 +34,7 @@
     {
       nixosConfigurations = {
         default = make_default;
+        intel = make_intel;
       };
     };
   inputs = {
