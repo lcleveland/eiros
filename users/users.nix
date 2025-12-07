@@ -126,37 +126,39 @@ in
       let
         mangowc_cfg = user_config.mangowc;
       in
-      lib.mkIf (config.eiros.system.desktop_environment.mangowc.enable && mangowc_cfg != null) {
+      {
         user = username;
         directory = lib.mkDefault "/home/${username}";
-        files.".config/mango/config.conf" =
-          let
-            make_bind_line =
-              kb:
-              let
-                modifier_keys_str = lib.concatStringsSep "+" kb.modifier_keys;
-                command_args_str = if kb.command_arguments == null then "" else kb.command_arguments;
-              in
-              "${modifier_keys_str},${kb.key_symbol},${kb.mangowc_command},${command_args_str}";
-            extra_bind_attrs = builtins.foldl' (
-              acc: kb:
-              let
-                flags_str = lib.concatStrings (kb.flag_modifiers or [ ]);
-                bind_key = "bind" + flags_str;
-                line = make_bind_line kb;
-                previous = acc.${bind_key} or [ ];
-              in
-              acc // { ${bind_key} = previous ++ [ line ]; }
-            ) { } (lib.attrValues mangowc_cfg.keybinds);
-            merged_settings =
-              mangowc_cfg.settings
-              // lib.mapAttrs (name: lines: (mangowc_cfg.settings.${name} or [ ]) ++ lines) extra_bind_attrs;
-          in
-          {
-            generator = mangowc_generator;
-            value = merged_settings;
-            clobber = lib.mkDefault mangowc_cfg.clobber_home_directory;
-          };
+        files = {
+          ".config/mango/config.conf" =
+            let
+              make_bind_line =
+                kb:
+                let
+                  modifier_keys_str = lib.concatStringsSep "+" kb.modifier_keys;
+                  command_args_str = if kb.command_arguments == null then "" else kb.command_arguments;
+                in
+                "${modifier_keys_str},${kb.key_symbol},${kb.mangowc_command},${command_args_str}";
+              extra_bind_attrs = builtins.foldl' (
+                acc: kb:
+                let
+                  flags_str = lib.concatStrings (kb.flag_modifiers or [ ]);
+                  bind_key = "bind" + flags_str;
+                  line = make_bind_line kb;
+                  previous = acc.${bind_key} or [ ];
+                in
+                acc // { ${bind_key} = previous ++ [ line ]; }
+              ) { } (lib.attrValues mangowc_cfg.keybinds);
+              merged_settings =
+                mangowc_cfg.settings
+                // lib.mapAttrs (name: lines: (mangowc_cfg.settings.${name} or [ ]) ++ lines) extra_bind_attrs;
+            in
+            lib.mkIf (config.eiros.system.desktop_environment.mangowc.enable && mangowc_cfg != null) {
+              generator = mangowc_generator;
+              value = merged_settings;
+              clobber = lib.mkDefault mangowc_cfg.clobber_home_directory;
+            };
+        };
       }
     ) config.eiros.users;
   };
