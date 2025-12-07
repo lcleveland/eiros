@@ -14,6 +14,7 @@
       inputs = system_inputs;
       base_modules = [
         inputs.dank_material_shell.nixosModules.dankMaterialShell
+        inputs.dank_material_shell.nixosModules.greeter
         inputs.hjem.nixosModules.default
         inputs.mango.nixosModules.mango
         /etc/nixos/hardware-configuration.nix
