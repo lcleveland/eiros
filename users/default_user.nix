@@ -16,6 +16,11 @@ in
     eiros.users.eiros = {
       mangowc = {
         keybinds = {
+          spotlight = lib.mkIf config.eiros.system.desktop_environment.dank_material_shell.enable {
+            key_symbol = "SUPER";
+            flag_modifiers = [ "r" ];
+            mangowc_command = "dms ipc call spotlight toggle";
+          };
           close_window = {
             modifier_keys = [ "SUPER" ];
             key_symbol = "q";
