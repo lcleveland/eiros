@@ -71,7 +71,7 @@ in
                                 };
                                 modifier_keys = lib.mkOption {
                                   type = lib.types.listOf lib.types.str;
-                                  default = [ "SUPER" ];
+                                  default = [ ];
                                   description = "Modifier keys joined using '+', e.g., [\"SUPER\" \"SHIFT\"].";
                                 };
                                 mangowc_command = lib.mkOption {
