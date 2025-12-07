@@ -19,7 +19,7 @@ in
         pulse.enable = true;
       };
       pulseaudio.enable = false;
-      security.rtkit.enable = true;
     };
+    security.rtkit.enable = true;
   };
 }
