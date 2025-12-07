@@ -19,7 +19,7 @@ in
     boot = {
       plymouth = {
         enable = true;
-        theme = "hud 3";
+        theme = "hud3";
       };
       consoleLogLevel = 3;
       initrd.verbose = false;
