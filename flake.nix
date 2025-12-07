@@ -2,6 +2,7 @@
   description = "Eiros: A NixOS configuration using MangoWC";
   outputs =
     {
+      dank_material_shell,
       hjem,
       mango,
       nixpkgs,
@@ -12,7 +13,7 @@
       import_modules = import ./resources/nix/import_modules.nix;
       inputs = system_inputs;
       base_modules = [
-        inputs.dankMaterialShell.nixosModules.dankMaterialShell
+        inputs.dank_material_shell.nixosModules.dankMaterialShell
         inputs.hjem.nixosModules.default
         inputs.mango.nixosModules.mango
         /etc/nixos/hardware-configuration.nix
