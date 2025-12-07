@@ -20,6 +20,7 @@ in
       plymouth = {
         enable = true;
         theme = "hud3";
+        themePackages = with pkgs; [ adi1090x-plymouth-themes ];
       };
       consoleLogLevel = 3;
       initrd.verbose = false;
