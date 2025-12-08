@@ -61,7 +61,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=25.11-beta";
+      url = "github:nixos/nixpkgs?ref=25.11";
     };
   };
 }
