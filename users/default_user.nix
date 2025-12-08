@@ -40,7 +40,7 @@ in
             modifier_keys = [ "SUPER" ];
             key_symbol = "t";
             mangowc_command = "spawn";
-            command_arguments = "warp-terminal";
+            command_arguments = "ghostty";
           };
         };
       };
