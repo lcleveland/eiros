@@ -23,7 +23,6 @@
       ++ (import_modules ./users);
       make_default = nixpkgs.lib.nixosSystem {
         modules = base_modules;
-        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
       };
       make_intel = nixpkgs.lib.nixosSystem {
