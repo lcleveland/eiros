@@ -14,6 +14,6 @@ in
     type = lib.types.bool;
   };
   config.environment.systemPackages = lib.mkIf eiros_ghostty.enable [
-    pkgs.ghostty-bin
+    pkgs.ghostty
   ];
 }
