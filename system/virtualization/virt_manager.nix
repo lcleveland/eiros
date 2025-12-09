@@ -13,12 +13,12 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Virtual machine manager GUI";
-      types = lib.types.bool;
+      type = lib.types.bool;
     };
     shared_folder_support.enable = {
       default = true;
       description = "Enable shared folder support in virt-manager";
-      types = lib.types.bool;
+      type = lib.types.bool;
     };
   };
   config = lib.mkIf (eiros_virtualization.enable && eiros_virtualization.virt_manager.enable) {

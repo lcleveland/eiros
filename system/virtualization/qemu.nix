@@ -13,7 +13,7 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable qemu virtual machines";
-      types = lib.types.bool;
+      type = lib.types.bool;
     };
   };
   config = lib.mkIf (eiros_virtualization.enable && eiros_qemu.enable) {
