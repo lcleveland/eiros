@@ -23,6 +23,7 @@ in
                 default = [
                   "wheel"
                   "networkmanager"
+                  "libvirtd"
                 ];
                 description = "Additional groups for the user.";
                 type = lib.types.listOf lib.types.str;
