@@ -21,7 +21,7 @@ in
       types = lib.types.bool;
     };
   };
-  config = lib.mkIf (eiros.virtualization.enable && eiros_virtualization.virt_manager.enable) {
+  config = lib.mkIf (eiros_virtualization.enable && eiros_virtualization.virt_manager.enable) {
     virtualisation.libvirtd = {
       enable = true;
       qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
