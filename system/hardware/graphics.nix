@@ -9,7 +9,7 @@ in
       description = "Enable Eiros hardware graphics.";
       type = lib.types.bool;
     };
-    nvidia.enable = {
+    nvidia.enable = lib.mkOption {
       default = true;
       description = "Enable Nvidia GPU support.";
       type = lib.types.bool;
