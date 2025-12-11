@@ -5,7 +5,7 @@ in
 {
   options.eiros.system.desktop_environment.soteria = {
     enable = lib.mkOption {
-      default = true;
+      default = false;
       description = "Enable Soteria";
       type = lib.types.bool;
     };
