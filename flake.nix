@@ -39,6 +39,17 @@
         ];
         specialArgs = { inherit inputs; };
       };
+      make_framework_16 = nixpkgs.lib.nixosSystem {
+        modules = base_modules ++ [
+          (
+            { ... }:
+            {
+              eiros.system.hardware.graphics.nvidia.enable = false;
+            }
+          )
+          nixos_hardware.nixosModules.framework-16-7040-amd
+        ];
+      };
     in
     {
       nixosConfigurations = {
