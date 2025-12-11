@@ -50,7 +50,7 @@
               }
             )
           ]
-          ++ nixos_hardware.nixosModules.framework-16-7040-amd;
+          ++ [ nixos_hardware.nixosModules.framework-16-7040-amd ];
       };
     in
     {
