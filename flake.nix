@@ -55,6 +55,7 @@
       nixosConfigurations = {
         default = make_default;
         intel = make_intel;
+        fw16 = make_framework_16;
       };
     };
   inputs = {
