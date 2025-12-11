@@ -6,6 +6,7 @@
       eiros_users,
       hjem,
       mango,
+      nixos_hardware,
       nixpkgs,
       self,
       ...
@@ -61,6 +62,9 @@
     mango = {
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos_hardware = {
+      url = "github:NixOS/nixos-hardware";
     };
     nixpkgs = {
       url = "github:nixos/nixpkgs?ref=25.11";
