@@ -15,7 +15,7 @@ in
       type = lib.types.bool;
     };
   };
-  config.programs.dankMaterialShell = lib.mkIf eiros_dms.enable {
+  config.programs.dank-material-shell = lib.mkIf eiros_dms.enable {
     enable = true;
     greeter = lib.mkIf eiros_dms.greeter.enable {
       enable = true;
