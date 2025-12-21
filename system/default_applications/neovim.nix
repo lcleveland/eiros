@@ -8,5 +8,8 @@ in
     description = "Whether or not to use NeoVim as the editor for Eiros";
     type = lib.types.bool;
   };
-  config.programs.neovim.defaultEditor = eiros_neovim.enable;
+  config.programs.neovim = lib.mkIf (eiros_neovim.enable) {
+    defaultEditor = true;
+    enable = true;
+  };
 }
