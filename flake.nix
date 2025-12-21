@@ -7,7 +7,6 @@
       eiros_users,
       hjem,
       mango,
-      nixos_hardware,
       nixpkgs,
       self,
       ...
