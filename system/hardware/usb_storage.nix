@@ -12,5 +12,8 @@ in
   };
   config = {
     services.udisks2.enable = eiros_usb.udiskie.enable;
+    environment.systemPackages = lib.mkIf (eiros_usb.udiskie.enable) [
+      pkgs.udiskie
+    ];
   };
 }
