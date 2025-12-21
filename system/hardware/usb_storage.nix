@@ -10,4 +10,7 @@ in
       type = lib.types.bool;
     };
   };
+  config = {
+    services.udisks2.enable = eiros_usb.udiskie.enable;
+  };
 }
