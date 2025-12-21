@@ -3,6 +3,7 @@
   outputs =
     {
       dank_material_shell,
+      eiros_hardware,
       eiros_users,
       hjem,
       mango,
@@ -19,11 +20,11 @@
         inputs.dank_material_shell.nixosModules.greeter
         inputs.hjem.nixosModules.default
         inputs.mango.nixosModules.mango
-        /etc/nixos/hardware-configuration.nix
       ]
       ++ (import_modules ./system)
       ++ (import_modules ./users)
-      ++ eiros_users.nixosModules.default;
+      ++ eiros_users.nixosModules.default
+      ++ eiros_hardware.nixosModules.default;
       make_default = nixpkgs.lib.nixosSystem {
         modules = base_modules;
         specialArgs = { inherit inputs; };
@@ -85,6 +86,9 @@
     };
     eiros_users = {
       url = "github:lcleveland/eiros.users";
+    };
+    eiros_hardware = {
+      url = "github:lcleveland/eiros.hardware";
     };
   };
 }
