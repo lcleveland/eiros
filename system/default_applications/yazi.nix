@@ -9,6 +9,11 @@ in
       description = "Enable yazi";
       type = lib.types.bool;
     };
+    default_file_browser.enable = lib.mkOption {
+      default = true;
+      description = "Enable yazi as the default file browser";
+      type = lib.types.bool;
+    };
   };
   config.programs.yazi = lib.mkIf eiros_yazi.enable {
     enable = true;
