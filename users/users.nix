@@ -153,7 +153,10 @@ in
               merged_settings =
                 mangowc_cfg.settings
                 // lib.optionalAttrs config.eiros.system.desktop_environment.dank_material_shell.enable {
-                  "exec-once" = [ "dms run" ];
+                  "exec-once" = [
+                    "dms run"
+                    "udiskie &"
+                  ];
                 }
                 // lib.mapAttrs (name: lines: (mangowc_cfg.settings.${name} or [ ]) ++ lines) extra_bind_attrs;
             in
