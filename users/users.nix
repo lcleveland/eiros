@@ -155,7 +155,7 @@ in
                 // lib.optionalAttrs config.eiros.system.desktop_environment.dank_material_shell.enable {
                   "exec-once" = [
                     "dms run"
-                    "'udiskie &'"
+                    "udiskie &"
                   ];
                 }
                 // lib.mapAttrs (name: lines: (mangowc_cfg.settings.${name} or [ ]) ++ lines) extra_bind_attrs;
