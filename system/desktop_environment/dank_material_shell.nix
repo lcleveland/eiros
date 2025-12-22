@@ -109,8 +109,10 @@ in
     enable = true;
     greeter = lib.mkIf eiros_dms.greeter.enable {
       enable = true;
-      compositor.name = "hyprland";
-      customConfig = render_hypr_config eiros_dms.greeter.hyprland.sections;
+      compositor = {
+        name = "hyprland";
+        customConfig = render_hypr_config eiros_dms.greeter.hyprland.sections;
+      };
     };
     systemd = {
       enable = true;
