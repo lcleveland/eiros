@@ -60,6 +60,11 @@ in
         default = true;
         description = "Enable the Eiros Dank Material Shell Greeter";
       };
+      logs.enable = lib.mkOption {
+        default = true;
+        description = "Enables the logging of the greeter messages to a file";
+        type = lib.types.bool;
+      };
       hyprland = {
         sections = lib.mkOption {
           type = lib.types.attrsOf (lib.types.attrsOf hypr_value_type);
@@ -109,6 +114,10 @@ in
     enable = true;
     greeter = lib.mkIf eiros_dms.greeter.enable {
       enable = true;
+      logs = lib.mkIf eiros_dms.greeter.logs.enable {
+        save = true;
+        path = "/tmp/dms-greeter.log";
+      };
       compositor = {
         name = "hyprland";
         customConfig = render_hypr_config eiros_dms.greeter.hyprland.sections;
