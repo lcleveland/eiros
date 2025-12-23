@@ -15,8 +15,13 @@ in
       type = lib.types.bool;
     };
   };
-  config.hardware = lib.mkIf eiros_graphics.enable {
-    graphics.enable = true;
-    nvidia.open = eiros_graphics.nvidia.enable;
+  config = lib.mkIf eiros_graphics.enable {
+    hardware.graphics.enable = true;
+    services.xserver.videoDrivers = lib.mkIf eiros_graphics.nvidia.enable [ "nvidia" ];
+    nvidia = lib.mkIf eiros_graphics.nvidia.enable {
+    modeSetting.enable = true;
+    open = true;
+    nvidiaSettings = true;
+    };
   };
 }
