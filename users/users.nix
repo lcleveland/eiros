@@ -159,6 +159,7 @@ in
                     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DISPLAY"
                     "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DISPLAY"
                     "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr 2>/dev/null || true"
+                    (lib.mkIf config.eiros.system.desktop_environment.keyring.enable "gnome-keyring-daemon --start --components=secrets,ssh")
                   ];
                 }
                 // lib.mapAttrs (name: lines: (mangowc_cfg.settings.${name} or [ ]) ++ lines) extra_bind_attrs;
