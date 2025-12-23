@@ -19,5 +19,10 @@ in
     enable = true;
     wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = lib.mkDefault [
+      "wlr"
+      "gtk"
+    ];
   };
+  services.dbus.enable = true;
 }
