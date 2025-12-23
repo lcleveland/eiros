@@ -19,7 +19,7 @@ in
     hardware.graphics.enable = true;
     services.xserver.videoDrivers = lib.mkIf eiros_graphics.nvidia.enable [ "nvidia" ];
     hardware.nvidia = lib.mkIf eiros_graphics.nvidia.enable {
-    modeSetting.enable = true;
+    modesetting.enable = true;
     open = true;
     nvidiaSettings = true;
     };
