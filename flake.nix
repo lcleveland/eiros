@@ -18,12 +18,12 @@
         inputs.dank_material_shell.nixosModules.dank-material-shell
         inputs.dank_material_shell.nixosModules.greeter
         inputs.eiros_hardware.nixosModules.default
+	inputs.eiros_users.nixosModules.default;
         inputs.hjem.nixosModules.default
         inputs.mango.nixosModules.mango
       ]
       ++ (import_modules ./system)
-      ++ (import_modules ./users)
-      ++ eiros_users.nixosModules.default;
+      ++ (import_modules ./users);
       make_default = nixpkgs.lib.nixosSystem {
         modules = base_modules;
         specialArgs = { inherit inputs; };
