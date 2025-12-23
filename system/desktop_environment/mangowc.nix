@@ -46,7 +46,11 @@ in
 
   config = lib.mkIf eiros_mangowc.enable {
     programs.mango.enable = true;
-
+    systemd.services.greetd.serviceConfig = {
+      Environment = [
+        "XDG_DATA_DIRS=/run/current-system/sw/share:/usr/share"
+      ];
+    };
     # required for greeters to list it
     services.displayManager.sessionPackages = [
       mango_session
