@@ -24,5 +24,4 @@ in
       "gtk"
     ];
   };
-  services.dbus.enable = true;
 }
