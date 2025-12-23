@@ -5,6 +5,7 @@
 }:
 let
   eiros_mangowc = config.eiros.system.desktop_environment.mangowc;
+in
 {
   options.eiros.system.desktop_environment.mangowc.enable = lib.mkOption {
     description = "Enables the Mango Window Composer.";
