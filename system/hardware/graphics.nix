@@ -18,7 +18,7 @@ in
   config = lib.mkIf eiros_graphics.enable {
     hardware.graphics.enable = true;
     services.xserver.videoDrivers = lib.mkIf eiros_graphics.nvidia.enable [ "nvidia" ];
-    nvidia = lib.mkIf eiros_graphics.nvidia.enable {
+    hardware.nvidia = lib.mkIf eiros_graphics.nvidia.enable {
     modeSetting.enable = true;
     open = true;
     nvidiaSettings = true;
