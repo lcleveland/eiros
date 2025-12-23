@@ -18,7 +18,7 @@
         inputs.dank_material_shell.nixosModules.dank-material-shell
         inputs.dank_material_shell.nixosModules.greeter
         inputs.eiros_hardware.nixosModules.default
-	inputs.eiros_users.nixosModules.default;
+	inputs.eiros_users.nixosModules.default
         inputs.hjem.nixosModules.default
         inputs.mango.nixosModules.mango
       ]
