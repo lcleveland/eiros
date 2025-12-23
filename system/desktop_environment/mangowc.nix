@@ -19,7 +19,7 @@ in
     programs.mango.enable = true;
 
     # Ensure DM/greeters can discover session .desktop shipped by mangoPkg
-    services.xserver.displayManager.sessionPackages = [ mangoPkg ];
+    services.displayManager.sessionPackages = [ mangoPkg ];
 
     # Optional but helps ensure the package’s share/ data is in the system profile
     environment.systemPackages = [ mangoPkg ];
