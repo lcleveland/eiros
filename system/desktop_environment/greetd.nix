@@ -5,7 +5,7 @@
   ...
 }:
 {
-  systemd.services.greetd = {
+  config.systemd.services.greetd = {
     # Make sure /run/current-system is ready before greetd/greeter scans sessions
     after = [
       "nixos-activation.service"
