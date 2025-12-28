@@ -38,7 +38,6 @@
     dank_material_shell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.dgop.follows = "dgop";
     };
     hjem = {
       url = "github:feel-co/hjem";
