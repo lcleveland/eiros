@@ -156,9 +156,7 @@ in
                   "exec-once" = [
                     "dms run"
                     "udiskie &"
-                    "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DISPLAY"
-                    "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DISPLAY"
-                    "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr 2>/dev/null || true"
+                    "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots"
                   ]
                   ++ lib.optionals config.eiros.system.desktop_environment.keyring.enable [
                     "gnome-keyring-daemon --start --components=secrets,ssh"
