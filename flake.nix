@@ -15,7 +15,7 @@
       import_modules = import ./resources/nix/import_modules.nix;
       inputs = system_inputs;
       base_modules = [
-        inputs.dank_material_shell.nixosModules.dank-material-shell
+        inputs.dank_material_shell.nixosModules.dankMaterialShell
         inputs.dank_material_shell.nixosModules.greeter
         inputs.eiros_hardware.nixosModules.default
         inputs.eiros_users.nixosModules.default
