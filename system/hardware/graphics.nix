@@ -57,6 +57,7 @@ in
     );
     hardware.graphics.extraPackages = lib.mkIf eiros_nvidia.enable [
       pkgs.nvidia-vaapi-driver
+      pkgs.egl-wayland
     ];
     environment.variables = lib.mkIf eiros_nvidia.enable {
       GBM_BACKEND = "nvidia-drm";
