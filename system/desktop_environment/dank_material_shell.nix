@@ -128,7 +128,7 @@ in
         exec ${pkgs.dbus}/bin/dbus-run-session ${pkgs.hyprland}/bin/Hyprland "$@"
       '')
     ];
-    programs.hyprland.enable = true;
+    #    programs.hyprland.enable = true;
     programs.dank-material-shell = lib.mkIf eiros_dms.enable {
       enable = true;
       greeter = lib.mkIf eiros_dms.greeter.enable {
