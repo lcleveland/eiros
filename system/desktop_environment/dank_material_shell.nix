@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_dms = config.eiros.system.desktop_environment.dank_material_shell;
   hypr_value_type = lib.types.either lib.types.str (lib.types.listOf lib.types.str);
