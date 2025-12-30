@@ -47,7 +47,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=unstable";
+      url = "github:nixos/nixpkgs/nixos-unstable";
     };
     eiros_users = {
       url = "github:lcleveland/eiros.users";
