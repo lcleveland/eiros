@@ -55,6 +55,14 @@ in
         nvtopPackages.nvidia
       ]
     );
+    hardware.opengl.extraPackages = lib.mkIf eiros_nvidia.enable [
+      pkgs.nvidia-vaapi-driver
+    ];
+    environment.variables = lib.mkIf eiros_nvidia.enable {
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      WLR_NO_HARDWARE_CURSORS = "1";
+    };
     nix.settings =
       lib.mkIf (eiros_nvidia.enable && eiros_nvidia.cuda.enable && eiros_nvidia.cuda.add_cache)
         {
