@@ -111,6 +111,18 @@ in
     };
   };
   config = {
+    environment.systemPackages = [
+      pkgs.dbus
+      (pkgs.writeShellScriptBin "start-hyprland" ''
+        #!/usr/bin/env bash
+        set -euo pipefail
+
+        # dms-greeter invokes: start-hyprland -- --config /path/to/config
+        if [[ "''${1:-}" == "--" ]]; then shift; fi
+
+        exec ${pkgs.dbus}/bin/dbus-run-session ${pkgs.hyprland}/bin/Hyprland "$@"
+      '')
+    ];
     programs.hyprland.enable = true;
     programs.dank-material-shell = lib.mkIf eiros_dms.enable {
       enable = true;
