@@ -55,7 +55,7 @@ in
         nvtopPackages.nvidia
       ]
     );
-    hardware.opengl.extraPackages = lib.mkIf eiros_nvidia.enable [
+    hardware.graphics.extraPackages = lib.mkIf eiros_nvidia.enable [
       pkgs.nvidia-vaapi-driver
     ];
     environment.variables = lib.mkIf eiros_nvidia.enable {
