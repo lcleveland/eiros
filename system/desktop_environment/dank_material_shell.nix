@@ -110,22 +110,25 @@ in
       };
     };
   };
-  config.programs.dank-material-shell = lib.mkIf eiros_dms.enable {
-    enable = true;
-    greeter = lib.mkIf eiros_dms.greeter.enable {
+  config = {
+    programs.hyprland.enable = true;
+    programs.dank-material-shell = lib.mkIf eiros_dms.enable {
       enable = true;
-      logs = lib.mkIf eiros_dms.greeter.logs.enable {
-        save = true;
-        path = "/tmp/dms-greeter.log";
+      greeter = lib.mkIf eiros_dms.greeter.enable {
+        enable = true;
+        logs = lib.mkIf eiros_dms.greeter.logs.enable {
+          save = true;
+          path = "/tmp/dms-greeter.log";
+        };
+        compositor = {
+          name = "hyprland";
+          customConfig = render_hypr_config eiros_dms.greeter.hyprland.sections;
+        };
       };
-      compositor = {
-        name = "hyprland";
-        customConfig = render_hypr_config eiros_dms.greeter.hyprland.sections;
+      systemd = {
+        enable = true;
+        restartIfChanged = true;
       };
-    };
-    systemd = {
-      enable = true;
-      restartIfChanged = true;
     };
   };
 }
