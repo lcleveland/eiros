@@ -6,17 +6,24 @@
 }:
 let
   eiros_virtualization = config.eiros.system.virtualization;
-  eiros_qemu = config.eiros.system.virtualization.qemu;
+  eiros_qemu = eiros_virtualization.qemu;
 in
 {
   options.eiros.system.virtualization.qemu = {
     enable = lib.mkOption {
       default = true;
-      description = "Enable qemu virtual machines";
+      description = "Enable QEMU virtual machines.";
       type = lib.types.bool;
     };
+
+    package = lib.mkOption {
+      default = pkgs.qemu;
+      description = "QEMU package to install.";
+      type = lib.types.package;
+    };
   };
-  config = lib.mkIf (eiros_virtualization.enable && eiros_qemu.enable) {
-    environment.systemPackages = [ pkgs.qemu ];
-  };
+
+  config.environment.systemPackages = lib.mkIf (eiros_virtualization.enable && eiros_qemu.enable) [
+    eiros_qemu.package
+  ];
 }
