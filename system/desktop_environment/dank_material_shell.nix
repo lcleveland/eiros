@@ -6,13 +6,16 @@
 }:
 let
   eiros_dms = config.eiros.system.desktop_environment.dank_material_shell;
+
   hypr_value_type = lib.types.either lib.types.str (lib.types.listOf lib.types.str);
+
   to_non_empty_list =
     v:
     let
-      lst = if lib.isList v then v else [ v ];
+      list = if lib.isList v then v else [ v ];
     in
-    lib.filter (s: s != "") (map toString lst);
+    lib.filter (s: s != "") (map toString list);
+
   render_hypr_config =
     sections:
     let
@@ -23,14 +26,16 @@ let
             lib.mapAttrsToList (
               k: v:
               let
-                vals = to_non_empty_list v;
+                values = to_non_empty_list v;
               in
-              map (vv: "${k} = ${vv}") vals
+              map (vv: "${k} = ${vv}") values
             ) kv
           );
         in
         lib.concatStringsSep "\n" pairs;
+
       indent_lines = s: lib.concatStringsSep "\n" (map (l: "  " + l) (lib.splitString "\n" s));
+
       render_section =
         section_name: kv:
         let
@@ -46,33 +51,38 @@ let
             ${indent_lines body}
             }
           '';
-      rendered = lib.concatStringsSep "\n\n" (
-        lib.filter (s: s != "") (lib.mapAttrsToList render_section sections)
-      );
     in
-    rendered;
+    lib.concatStringsSep "\n\n" (lib.filter (s: s != "") (lib.mapAttrsToList render_section sections));
+
+  start_hyprland = pkgs.writeShellScriptBin "start-hyprland" ''
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    # dms-greeter invokes: start-hyprland -- --config /path/to/config
+    if [[ "''${1:-}" == "--" ]]; then shift; fi
+
+    exec ${pkgs.dbus}/bin/dbus-run-session ${pkgs.hyprland}/bin/Hyprland "$@"
+  '';
+
+  greeter_hypr_config = render_hypr_config eiros_dms.greeter.hyprland.sections;
 in
 {
   options.eiros.system.desktop_environment.dank_material_shell = {
     enable = lib.mkOption {
-      type = lib.types.bool;
       default = true;
       description = "Enable the Eiros Dank Material Shell";
+      type = lib.types.bool;
     };
+
     greeter = {
       enable = lib.mkOption {
-        type = lib.types.bool;
         default = true;
         description = "Enable the Eiros Dank Material Shell Greeter";
-      };
-      logs.enable = lib.mkOption {
-        default = true;
-        description = "Enables the logging of the greeter messages to a file";
         type = lib.types.bool;
       };
+
       hyprland = {
         sections = lib.mkOption {
-          type = lib.types.attrsOf (lib.types.attrsOf hypr_value_type);
           default = { };
           description = ''
             Hyprland config sections for the greeter.
@@ -87,11 +97,11 @@ in
           example = {
             input = {
               kb_layout = "us";
-              kb_variant = "dvorak";
               kb_options = [
                 "caps:escape"
                 "compose:ralt"
               ];
+              kb_variant = "dvorak";
             };
 
             "" = {
@@ -103,48 +113,69 @@ in
                 "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
                 "dunst"
               ];
-            };
-            "" = {
               bind = [
                 "SUPER,Return,exec,kitty"
                 "SUPER,Q,killactive,"
               ];
             };
           };
+          type = lib.types.attrsOf (lib.types.attrsOf hypr_value_type);
+        };
+      };
+
+      logs = {
+        enable = lib.mkOption {
+          default = true;
+          description = "Enable logging of greeter messages to a file";
+          type = lib.types.bool;
+        };
+
+        path = lib.mkOption {
+          default = "/tmp/dms-greeter.log";
+          description = "Path for the greeter log file.";
+          type = lib.types.str;
         };
       };
     };
   };
+
   config = {
-    environment.systemPackages = [
-      pkgs.dbus
-      (pkgs.writeShellScriptBin "start-hyprland" ''
-        #!/usr/bin/env bash
-        set -euo pipefail
-
-        # dms-greeter invokes: start-hyprland -- --config /path/to/config
-        if [[ "''${1:-}" == "--" ]]; then shift; fi
-
-        exec ${pkgs.dbus}/bin/dbus-run-session ${pkgs.hyprland}/bin/Hyprland "$@"
-      '')
+    assertions = [
+      {
+        assertion = !eiros_dms.enable || !eiros_dms.greeter.enable || greeter_hypr_config != "";
+        message = "dank-material-shell greeter is enabled but no Hyprland config was rendered; set eiros.system.desktop_environment.dank_material_shell.greeter.hyprland.sections.";
+      }
     ];
-    #    programs.hyprland.enable = true;
-    programs.dank-material-shell = lib.mkIf eiros_dms.enable {
-      enable = true;
-      greeter = lib.mkIf eiros_dms.greeter.enable {
+
+    environment = {
+      systemPackages = lib.optionals (eiros_dms.enable && eiros_dms.greeter.enable) [
+        pkgs.dbus
+        start_hyprland
+      ];
+    };
+
+    programs = {
+      dank-material-shell = lib.mkIf eiros_dms.enable {
         enable = true;
-        logs = lib.mkIf eiros_dms.greeter.logs.enable {
-          save = true;
-          path = "/tmp/dms-greeter.log";
+
+        greeter = lib.mkIf eiros_dms.greeter.enable {
+          enable = true;
+
+          logs = lib.mkIf eiros_dms.greeter.logs.enable {
+            path = eiros_dms.greeter.logs.path;
+            save = true;
+          };
+
+          compositor = {
+            name = "hyprland";
+            customConfig = greeter_hypr_config;
+          };
         };
-        compositor = {
-          name = "hyprland";
-          customConfig = render_hypr_config eiros_dms.greeter.hyprland.sections;
+
+        systemd = {
+          enable = true;
+          restartIfChanged = true;
         };
-      };
-      systemd = {
-        enable = true;
-        restartIfChanged = true;
       };
     };
   };
