@@ -56,19 +56,8 @@ in
         FILE_MANAGER = "yazi";
         YAZI_FILE_MANAGER = "yazi";
       };
-    };
 
-    programs = {
-      yazi = {
-        enable = true;
-        package = eiros_yazi.package;
-      };
-    };
-
-    # Configure Yazi's opener in XDG config. This works regardless of whether
-    # your Yazi module exposes settings options.
-    xdg = lib.mkIf eiros_yazi.opener.enable {
-      configFile = {
+      etc = lib.mkIf eiros_yazi.opener.enable {
         "yazi/yazi.toml".text = ''
           [opener]
           open = [
@@ -80,6 +69,13 @@ in
             { name = "*", use = "open" }
           ]
         '';
+      };
+    };
+
+    programs = {
+      yazi = {
+        enable = true;
+        package = eiros_yazi.package;
       };
     };
   };
