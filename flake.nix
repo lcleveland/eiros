@@ -49,10 +49,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    eiros_hardware = {
-      url = "github:lcleveland/eiros.hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    eiros_hardware.url = "github:lcleveland/eiros.hardware";
 
     eiros_users = {
       url = "github:lcleveland/eiros.users";
