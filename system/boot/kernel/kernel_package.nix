@@ -14,13 +14,15 @@ in
     type = lib.types.attrs;
   };
 
-  assertions = [
-    {
-      assertion =
-        (eiros_kernel.kernel_package ? kernel) && (lib.isDerivation eiros_kernel.kernel_package.kernel);
-      message = "eiros.system.boot.kernel.kernel_package must be a linuxPackages set (an attrset containing a derivation at .kernel), e.g. pkgs.linuxPackages_latest.";
-    }
-  ];
+  config = {
+    assertions = [
+      {
+        assertion =
+          (eiros_kernel.kernel_package ? kernel) && (lib.isDerivation eiros_kernel.kernel_package.kernel);
+        message = "eiros.system.boot.kernel.kernel_package must be a linuxPackages set (an attrset containing a derivation at .kernel), e.g. pkgs.linuxPackages_latest.";
+      }
+    ];
 
-  config.boot.kernelPackages = eiros_kernel.kernel_package;
+    boot.kernelPackages = eiros_kernel.kernel_package;
+  };
 }
