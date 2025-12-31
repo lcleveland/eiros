@@ -1,22 +1,24 @@
 { config, lib, ... }:
 let
-  eiros_hardware = config.eiros.system.hardware;
+  eiros_keyboard = config.eiros.system.hardware.keyboard;
 in
 {
   options.eiros.system.hardware.keyboard = {
     layout = lib.mkOption {
-      type = lib.types.str;
       default = "us";
-      description = "Keyboard layout to use (xkb-data-style)";
-    };
-    variant = lib.mkOption {
+      description = "Keyboard layout to use (xkb-data-style).";
       type = lib.types.str;
+    };
+
+    variant = lib.mkOption {
       default = "";
-      description = "The layout variant to use";
+      description = "Keyboard layout variant to use.";
+      type = lib.types.str;
     };
   };
+
   config.services.xserver.xkb = {
-    layout = eiros_hardware.keyboard.layout;
-    variant = eiros_hardware.keyboard.variant;
+    layout = eiros_keyboard.layout;
+    variant = eiros_keyboard.variant;
   };
 }
