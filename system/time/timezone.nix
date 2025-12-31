@@ -1,9 +1,25 @@
 { config, lib, ... }:
+let
+  eiros_time = config.eiros.system.time;
+in
 {
-  options.eiros.system.time.time_zone = lib.mkOption {
-    type = lib.types.str;
-    default = "America/Chicago";
-    description = "The time zone in the system.";
+  options.eiros.system.time = {
+    time_zone = lib.mkOption {
+      default = "America/Chicago";
+      description = "The system time zone.";
+      type = lib.types.str;
+    };
+
+    timesync.enable = lib.mkOption {
+      default = true;
+      description = "Enable time synchronization (systemd-timesyncd).";
+      type = lib.types.bool;
+    };
   };
-  config.time.timeZone = config.eiros.system.time.time_zone;
+
+  config = {
+    time.timeZone = eiros_time.time_zone;
+
+    services.timesyncd.enable = eiros_time.timesync.enable;
+  };
 }
