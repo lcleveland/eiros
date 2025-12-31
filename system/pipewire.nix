@@ -4,22 +4,74 @@ let
 in
 {
   options.eiros.system.pipewire = {
+    alsa = {
+      enable = lib.mkOption {
+        default = true;
+        description = "Enable ALSA support for PipeWire";
+        type = lib.types.bool;
+      };
+
+      support_32_bit = lib.mkOption {
+        default = true;
+        description = "Enable 32-bit ALSA support (useful for Steam/Wine)";
+        type = lib.types.bool;
+      };
+    };
+
     enable = lib.mkOption {
       default = true;
-      description = "Enable pipewire";
+      description = "Enable PipeWire";
+      type = lib.types.bool;
+    };
+
+    jack.enable = lib.mkOption {
+      default = false;
+      description = "Enable PipeWire JACK support";
+      type = lib.types.bool;
+    };
+
+    rtkit.enable = lib.mkOption {
+      default = true;
+      description = "Enable RTKit for real-time audio scheduling";
       type = lib.types.bool;
     };
   };
+
   config = lib.mkIf eiros_pipewire.enable {
+    assertions = [
+      {
+        assertion = !config.services.pulseaudio.enable;
+        message = "eiros.system.pipewire.enable requires services.pulseaudio.enable = false";
+      }
+    ];
+
     services = {
       pipewire = {
         enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
+
+        alsa = {
+          enable = eiros_pipewire.alsa.enable;
+          support32Bit = eiros_pipewire.alsa.support_32_bit;
+        };
+
+        jack = {
+          enable = eiros_pipewire.jack.enable;
+        };
+
+        pulse = {
+          enable = true;
+        };
       };
-      pulseaudio.enable = false;
+
+      pulseaudio = {
+        enable = false;
+      };
     };
-    security.rtkit.enable = true;
+
+    security = {
+      rtkit = {
+        enable = eiros_pipewire.rtkit.enable;
+      };
+    };
   };
 }
