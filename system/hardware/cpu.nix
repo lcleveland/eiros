@@ -1,27 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 let
   eiros_cpu = config.eiros.system.hardware.cpu;
 
-  detected_vendor =
-    let
-      vendor = lib.toLower (pkgs.stdenv.hostPlatform.parsed.cpu.vendor or "");
-    in
-    if
-      lib.elem vendor [
-        "amd"
-        "intel"
-      ]
-    then
-      vendor
-    else
-      null;
-
-  effective_vendor = if eiros_cpu.vendor != null then eiros_cpu.vendor else detected_vendor;
+  vendor_is_set = eiros_cpu.vendor != null;
 in
 {
   options.eiros.system.hardware.cpu = {
@@ -33,7 +14,7 @@ in
 
     vendor = lib.mkOption {
       default = null;
-      description = "CPU vendor. If null, auto-detect from hostPlatform.";
+      description = "CPU vendor. If null, enable microcode updates for both AMD and Intel.";
       type = lib.types.nullOr (
         lib.types.enum [
           "amd"
@@ -44,17 +25,24 @@ in
   };
 
   config = {
-    assertions = [
-      {
-        assertion = effective_vendor != null;
-        message = "Unable to auto-detect CPU vendor; set eiros.system.hardware.cpu.vendor to \"amd\" or \"intel\".";
-      }
+    warnings = lib.optionals (eiros_cpu.microcode.enable && !vendor_is_set) [
+      "eiros.system.hardware.cpu.vendor is null; enabling microcode updates for both AMD and Intel."
     ];
 
     hardware = {
-      cpu = {
-        ${effective_vendor}.updateMicrocode = eiros_cpu.microcode.enable;
-      };
+      cpu = lib.mkMerge [
+        (lib.mkIf (eiros_cpu.vendor == "amd" || !vendor_is_set) {
+          amd = {
+            updateMicrocode = eiros_cpu.microcode.enable;
+          };
+        })
+
+        (lib.mkIf (eiros_cpu.vendor == "intel" || !vendor_is_set) {
+          intel = {
+            updateMicrocode = eiros_cpu.microcode.enable;
+          };
+        })
+      ];
     };
   };
 }
