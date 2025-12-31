@@ -11,7 +11,7 @@ in
     };
 
     dates = lib.mkOption {
-      default = "weekly";
+      default = "daily";
       description = "systemd OnCalendar schedule for nix-gc.";
       type = lib.types.str;
     };
