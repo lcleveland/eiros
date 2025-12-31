@@ -8,5 +8,6 @@ in
     description = "Allow users to create new accounts";
     type = lib.types.bool;
   };
+
   config.users.mutableUsers = eiros_accounts.mutable_users.enable;
 }
