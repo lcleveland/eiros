@@ -1,14 +1,15 @@
 { config, lib, ... }:
+let
+  eiros_power = config.eiros.system.hardware.power;
+in
 {
   options.eiros.system.hardware.power = {
     upower.enable = lib.mkOption {
-      type = lib.types.bool;
       default = true;
       description = "Enable UPower for power management.";
+      type = lib.types.bool;
     };
   };
 
-  config = {
-    services.upower.enable = config.eiros.system.hardware.power.upower.enable;
-  };
+  config.services.upower.enable = eiros_power.upower.enable;
 }
