@@ -6,11 +6,10 @@ in
   options.eiros.system.security.polkit = {
     enable = lib.mkOption {
       default = true;
-      description = "Enable Polkit";
+      description = "Enable Polkit.";
       type = lib.types.bool;
     };
   };
-  config.security.polkit = lib.mkIf eiros_polkit.enable {
-    enable = true;
-  };
+
+  config.security.polkit.enable = eiros_polkit.enable;
 }
