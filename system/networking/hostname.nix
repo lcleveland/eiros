@@ -3,10 +3,31 @@ let
   eiros_networking = config.eiros.system.networking;
 in
 {
-  options.eiros.system.networking.hostname = lib.mkOption {
-    type = lib.types.str;
-    default = "eiros";
-    description = "Hostname to use for the Eiros system.";
+  options.eiros.system.networking = {
+    hostname = lib.mkOption {
+      default = "eiros";
+      description = "Hostname to use for the Eiros system.";
+      type = lib.types.str;
+    };
+
+    domain = lib.mkOption {
+      default = null;
+      description = "Optional domain name (sets networking.domain).";
+      type = lib.types.nullOr lib.types.str;
+    };
   };
-  config.networking.hostName = eiros_networking.hostname;
+
+  config = {
+    assertions = [
+      {
+        assertion = eiros_networking.hostname != "";
+        message = "eiros.system.networking.hostname must not be empty.";
+      }
+    ];
+
+    networking = {
+      hostName = eiros_networking.hostname;
+      domain = eiros_networking.domain;
+    };
+  };
 }
