@@ -3,13 +3,36 @@ let
   eiros_neovim = config.eiros.system.default_applications.neovim;
 in
 {
-  options.eiros.system.default_applications.neovim.enable = lib.mkOption {
-    default = true;
-    description = "Whether or not to use NeoVim as the editor for Eiros";
-    type = lib.types.bool;
+  options.eiros.system.default_applications.neovim = {
+    default_editor = lib.mkOption {
+      default = true;
+      description = "Set NeoVim as the default editor ($EDITOR, $VISUAL).";
+      type = lib.types.bool;
+    };
+
+    enable = lib.mkOption {
+      default = true;
+      description = "Whether or not to use NeoVim as the editor for Eiros";
+      type = lib.types.bool;
+    };
+
+    vi_alias.enable = lib.mkOption {
+      default = true;
+      description = "Provide the vi alias via NeoVim.";
+      type = lib.types.bool;
+    };
+
+    vim_alias.enable = lib.mkOption {
+      default = true;
+      description = "Provide the vim alias via NeoVim.";
+      type = lib.types.bool;
+    };
   };
-  config.programs.neovim = lib.mkIf (eiros_neovim.enable) {
-    defaultEditor = true;
+
+  config.programs.neovim = lib.mkIf eiros_neovim.enable {
+    defaultEditor = eiros_neovim.default_editor;
     enable = true;
+    viAlias = eiros_neovim.vi_alias.enable;
+    vimAlias = eiros_neovim.vim_alias.enable;
   };
 }
