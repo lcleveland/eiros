@@ -1,5 +1,6 @@
 {
   description = "Eiros: A NixOS configuration using MangoWC";
+
   outputs =
     {
       dank_material_shell,
@@ -10,50 +11,61 @@
       nixpkgs,
       self,
       ...
-    }@system_inputs:
+    }:
     let
-      import_modules = import ./resources/nix/import_modules.nix;
-      inputs = system_inputs;
-      base_modules = [
-        inputs.dank_material_shell.nixosModules.dank-material-shell
-        inputs.dank_material_shell.nixosModules.greeter
-        inputs.eiros_hardware.nixosModules.default
-        inputs.eiros_users.nixosModules.default
-        inputs.hjem.nixosModules.default
-        inputs.mango.nixosModules.mango
-      ]
-      ++ (import_modules ./system)
-      ++ (import_modules ./users);
-      make_default = nixpkgs.lib.nixosSystem {
-        modules = base_modules;
-        specialArgs = { inherit inputs; };
+      inputs = {
+        inherit
+          dank_material_shell
+          eiros_hardware
+          eiros_users
+          hjem
+          mango
+          nixpkgs
+          ;
       };
+
+      import_modules = import ./resources/nix/import_modules.nix;
     in
     {
-      nixosConfigurations = {
-        default = make_default;
+      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+        modules = [
+          dank_material_shell.nixosModules.dank-material-shell
+          dank_material_shell.nixosModules.greeter
+          eiros_hardware.nixosModules.default
+          eiros_users.nixosModules.default
+          hjem.nixosModules.default
+          mango.nixosModules.mango
+        ]
+        ++ (import_modules ./system)
+        ++ (import_modules ./users);
+
+        specialArgs = { inherit inputs; };
       };
     };
+
   inputs = {
     dank_material_shell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hjem = {
-      url = "github:feel-co/hjem";
+
+    eiros_hardware = {
+      url = "github:lcleveland/eiros.hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    eiros_users = {
+      url = "github:lcleveland/eiros.users";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hjem.url = "github:feel-co/hjem";
+
     mango = {
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-    eiros_users = {
-      url = "github:lcleveland/eiros.users";
-    };
-    eiros_hardware = {
-      url = "github:lcleveland/eiros.hardware";
-    };
+
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 }
