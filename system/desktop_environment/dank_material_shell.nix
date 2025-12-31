@@ -63,8 +63,6 @@ let
 
     exec ${pkgs.dbus}/bin/dbus-run-session ${pkgs.hyprland}/bin/Hyprland "$@"
   '';
-
-  greeter_hypr_config = render_hypr_config eiros_dms.greeter.hyprland.sections;
 in
 {
   options.eiros.system.desktop_environment.dank_material_shell = {
@@ -94,31 +92,6 @@ in
             Special section name "":
               - renders top-level lines (no section wrapper)
           '';
-          example = {
-            input = {
-              kb_layout = "us";
-              kb_options = [
-                "caps:escape"
-                "compose:ralt"
-              ];
-              kb_variant = "dvorak";
-            };
-
-            "" = {
-              monitor = [
-                ",preferred,auto,1"
-                "HDMI-A-1,preferred,auto,1"
-              ];
-              exec-once = [
-                "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-                "dunst"
-              ];
-              bind = [
-                "SUPER,Return,exec,kitty"
-                "SUPER,Q,killactive,"
-              ];
-            };
-          };
           type = lib.types.attrsOf (lib.types.attrsOf hypr_value_type);
         };
       };
@@ -140,13 +113,6 @@ in
   };
 
   config = {
-    assertions = [
-      {
-        assertion = !eiros_dms.enable || !eiros_dms.greeter.enable || greeter_hypr_config != "";
-        message = "dank-material-shell greeter is enabled but no Hyprland config was rendered; set eiros.system.desktop_environment.dank_material_shell.greeter.hyprland.sections.";
-      }
-    ];
-
     environment = {
       systemPackages = lib.optionals (eiros_dms.enable && eiros_dms.greeter.enable) [
         pkgs.dbus
@@ -168,7 +134,7 @@ in
 
           compositor = {
             name = "hyprland";
-            customConfig = greeter_hypr_config;
+            customConfig = render_hypr_config eiros_dms.greeter.hyprland.sections;
           };
         };
 
