@@ -6,6 +6,16 @@
 }:
 let
   eiros_vivaldi = config.eiros.system.default_applications.vivaldi;
+
+  # Wrap Vivaldi to always use Wayland/Ozone
+  vivaldi-wayland = pkgs.vivaldi.overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
+
+    postFixup = (old.postFixup or "") + ''
+      wrapProgram $out/bin/vivaldi \
+        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+    '';
+  });
 in
 {
   options.eiros.system.default_applications.vivaldi = {
@@ -22,8 +32,8 @@ in
     };
 
     package = lib.mkOption {
-      default = pkgs.vivaldi;
-      description = "Vivaldi package to install.";
+      default = vivaldi-wayland;
+      description = "Vivaldi package to install (Wayland/Ozone wrapped).";
       type = lib.types.package;
     };
   };
@@ -36,18 +46,14 @@ in
       }
     ];
 
-    environment = {
-      systemPackages = [ eiros_vivaldi.package ];
-    };
+    environment.systemPackages = [
+      eiros_vivaldi.package
+    ];
 
-    xdg = {
-      mime = {
-        defaultApplications = {
-          "text/html" = [ eiros_vivaldi.desktop_file ];
-          "x-scheme-handler/http" = [ eiros_vivaldi.desktop_file ];
-          "x-scheme-handler/https" = [ eiros_vivaldi.desktop_file ];
-        };
-      };
+    xdg.mime.defaultApplications = {
+      "text/html" = [ eiros_vivaldi.desktop_file ];
+      "x-scheme-handler/http" = [ eiros_vivaldi.desktop_file ];
+      "x-scheme-handler/https" = [ eiros_vivaldi.desktop_file ];
     };
   };
 }
