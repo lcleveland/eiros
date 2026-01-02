@@ -53,16 +53,6 @@ let
           '';
     in
     lib.concatStringsSep "\n\n" (lib.filter (s: s != "") (lib.mapAttrsToList render_section sections));
-
-  start_hyprland = pkgs.writeShellScriptBin "start-hyprland" ''
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    # dms-greeter invokes: start-hyprland -- --config /path/to/config
-    if [[ "''${1:-}" == "--" ]]; then shift; fi
-
-    exec ${pkgs.dbus}/bin/dbus-run-session ${pkgs.hyprland}/bin/Hyprland "$@"
-  '';
 in
 {
   options.eiros.system.desktop_environment.dank_material_shell = {
@@ -113,13 +103,6 @@ in
   };
 
   config = {
-    environment = {
-      systemPackages = lib.optionals (eiros_dms.enable && eiros_dms.greeter.enable) [
-        pkgs.dbus
-        start_hyprland
-      ];
-    };
-
     programs = {
       dank-material-shell = lib.mkIf eiros_dms.enable {
         enable = true;
