@@ -7,13 +7,15 @@
 let
   eiros_vivaldi = config.eiros.system.default_applications.vivaldi;
 
-  # Wrap Vivaldi to always use Wayland/Ozone
+  # Wrap Vivaldi to always use Wayland/Ozone + allow external protocols
   vivaldi-wayland = pkgs.vivaldi.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
 
     postFixup = (old.postFixup or "") + ''
       wrapProgram $out/bin/vivaldi \
-        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+        --add-flags "--enable-features=UseOzonePlatform,ExternalProtocolDialog" \
+        --add-flags "--disable-features=IntentPicker" \
+        --add-flags "--ozone-platform=wayland"
     '';
   });
 in
@@ -54,6 +56,8 @@ in
       "text/html" = [ eiros_vivaldi.desktop_file ];
       "x-scheme-handler/http" = [ eiros_vivaldi.desktop_file ];
       "x-scheme-handler/https" = [ eiros_vivaldi.desktop_file ];
+      # (optional but harmless)
+      "x-scheme-handler/ninjarmm" = [ eiros_vivaldi.desktop_file ];
     };
   };
 }
