@@ -8,7 +8,7 @@ let
   eiros_virtualization = config.eiros.system.virtualization;
 in
 {
-  options.eiros.system.virtualization.podman.enable = lib.mkOption {
+  options.eiros.system.virtualization.distrobox.enable = lib.mkOption {
     default = true;
     description = "Enable distrobox";
     type = lib.types.bool;
