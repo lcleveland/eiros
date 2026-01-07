@@ -42,10 +42,6 @@ in
   };
 
   config = lib.mkIf eiros_keyring.enable {
-    environment.sessionVariables = {
-      # Make Electron apps (VS Code, etc.) use GNOME Keyring / Secret Service
-      ELECTRON_KEYRING = "gnome";
-    };
     programs = {
       seahorse = {
         enable = eiros_keyring.seahorse.enable;
