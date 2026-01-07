@@ -56,8 +56,6 @@ in
       "text/html" = [ eiros_vivaldi.desktop_file ];
       "x-scheme-handler/http" = [ eiros_vivaldi.desktop_file ];
       "x-scheme-handler/https" = [ eiros_vivaldi.desktop_file ];
-      # (optional but harmless)
-      "x-scheme-handler/ninjarmm" = [ eiros_vivaldi.desktop_file ];
     };
   };
 }
