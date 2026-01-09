@@ -47,9 +47,6 @@ in
         virtualisation = {
           containers = {
             enable = true;
-            containersConf.settings = {
-              containers.env_host = false;
-            };
           };
           podman = {
             enable = true;
