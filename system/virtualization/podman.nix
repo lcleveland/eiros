@@ -45,7 +45,12 @@ in
       # Podman baseline
       (lib.mkIf cfg.enable {
         virtualisation = {
-          containers.enable = true;
+          containers = {
+            enable = true;
+            containersConf.settings = {
+              containers.env_host = false;
+            };
+          };
           podman = {
             enable = true;
             dockerCompat = true;
