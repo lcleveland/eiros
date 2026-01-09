@@ -8,20 +8,17 @@
 let
   eiros_vivaldi = config.eiros.system.default_applications.vivaldi;
 
-  # Flags as plain argv tokens (NO shell quoting/escaping here).
+  # Flags as plain argv tokens (NO shell quoting/escaping).
   vivaldiFlags = [
+    # Wayland / Ozone
     "--ozone-platform=wayland"
-    "--enable-features=UseOzonePlatform,ExternalProtocolDialog"
+
+    # Keep your protocol + picker preferences
+    "--enable-features=UseOzonePlatform,ExternalProtocolDialog,WaylandLinuxDrmSyncobj"
     "--disable-features=IntentPicker"
 
-    "--use-gl=egl"
-    "--disable-angle"
-
-    "--enable-features=Vulkan"
-    "--use-vulkan"
-
-    # Optional: only if you truly need it
-    # "--render-node-override=/dev/dri/renderD129"
+    # On NixOS builds, ANGLE is required; force it to use OpenGL (not SwiftShader)
+    "--use-angle=gl"
   ];
 
   vivaldi-wayland = pkgs.vivaldi.overrideAttrs (old: {
@@ -50,7 +47,7 @@ in
 
     package = lib.mkOption {
       default = vivaldi-wayland;
-      description = "Vivaldi package to install (Wayland/EGL/Vulkan wrapped).";
+      description = "Vivaldi package to install (Wayland/Ozone wrapped).";
       type = lib.types.package;
     };
   };
