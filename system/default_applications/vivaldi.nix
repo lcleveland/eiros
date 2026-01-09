@@ -10,13 +10,16 @@ let
 
   vivaldiFlags = [
     "--ozone-platform=wayland"
-    "--enable-features=UseOzonePlatform,ExternalProtocolDialog,WaylandLinuxDrmSyncobj"
-    "--disable-features=IntentPicker,Vulkan"
 
-    "--use-angle=gl"
+    "--enable-features=UseOzonePlatform,ExternalProtocolDialog,WaylandLinuxDrmSyncobj,Vulkan"
+    "--disable-features=IntentPicker,DelegatedCompositing"
 
-    "--disable-gpu-sandbox"
+    # Force ANGLE to Vulkan (no OpenGL fallback)
+    "--use-angle=vulkan"
+
+    # Vulkan stability fixes
     "--disable-zero-copy"
+    "--disable-gpu-sandbox"
     "--num-raster-threads=1"
   ];
 
