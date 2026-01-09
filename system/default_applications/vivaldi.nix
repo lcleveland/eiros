@@ -8,16 +8,14 @@
 let
   eiros_vivaldi = config.eiros.system.default_applications.vivaldi;
 
-  # Centralized flags so they're easy to tweak.
+  # Centralized flags so they're easy to tweak/extend.
   vivaldiFlags = [
     # Wayland / Ozone
     "--ozone-platform=wayland"
     "--enable-features=UseOzonePlatform,ExternalProtocolDialog"
-
-    # Keep IntentPicker disabled (your existing behavior)
     "--disable-features=IntentPicker"
 
-    # Prefer native EGL on NVIDIA; avoid ANGLE-on-GL
+    # Prefer native EGL on NVIDIA; avoid ANGLE-on-GL path
     "--use-gl=egl"
     "--disable-angle"
 
@@ -25,16 +23,17 @@ let
     "--enable-features=Vulkan"
     "--use-vulkan"
 
-    # Optional: drop this unless you *need* it for multi-GPU selection
+    # Optional: only if you *need* it for multi-GPU selection
     # "--render-node-override=/dev/dri/renderD129"
   ];
 
+  # Wrap Vivaldi to always use Wayland/Ozone + your feature flags
   vivaldi-wayland = pkgs.vivaldi.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
 
     postFixup = (old.postFixup or "") + ''
       wrapProgram $out/bin/vivaldi \
-        --add-flags "${lib.escapeShellArg (lib.concatStringsSep " " vivaldiFlags)}"
+        --add-flags "${lib.concatStringsSep " " (map lib.escapeShellArg vivaldiFlags)}"
     '';
   });
 
