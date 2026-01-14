@@ -100,10 +100,23 @@ in
         };
       };
     };
+    search.enable = lib.mkOption {
+      default = true;
+      description = "Enable DankSearch";
+      type = lib.types.bool;
+    };
   };
 
   config = {
     programs = {
+      dsearch = lib.mkIf eiros_dms.search.enable {
+        enable = true;
+        systemd = {
+          enable = true;
+          target = "default.target";
+        };
+      };
+
       dank-material-shell = lib.mkIf eiros_dms.enable {
         enable = true;
 
