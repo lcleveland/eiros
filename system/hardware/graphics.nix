@@ -22,6 +22,12 @@ in
       type = lib.types.bool;
     };
 
+    enable_32_bit = lib.mkOption {
+      default = true;
+      description = "Enable 32-bit graphics libraries (for 32-bit applications).";
+      type = lib.types.bool;
+    };
+
     nvidia = {
       enable = lib.mkOption {
         default = true;
@@ -110,6 +116,8 @@ in
     hardware = {
       graphics = {
         enable = true;
+
+        enable32Bit = eiros_graphics.enable_32_bit;
 
         extraPackages = lib.mkIf nvidia_enabled [
           pkgs.egl-wayland
