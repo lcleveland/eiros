@@ -15,5 +15,5 @@ in
       type = lib.types.bool;
     };
   };
-  config.services.fprinted.enable = eiros_fingerprint_scanner.enable;
+  config.services.fprintd.enable = eiros_fingerprint_scanner.enable;
 }
