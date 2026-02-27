@@ -46,7 +46,6 @@
   inputs = {
     dank_material_shell = {
       url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     eiros_hardware.url = "github:lcleveland/eiros.hardware";
@@ -60,7 +59,6 @@
 
     mango = {
       url = "github:DreamMaoMao/mango";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixpkgs.url = "github:nixos/nixpkgs/master";
