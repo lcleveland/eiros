@@ -68,8 +68,6 @@ in
       };
     };
 
-    systemd.services.virt-secret-init-encryption.enable = false;
-
     virtualisation = {
       libvirtd = {
         enable = true;
