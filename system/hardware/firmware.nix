@@ -20,6 +20,12 @@ in
       description = "Additional firmware packages to install (added to hardware.firmware).";
       type = lib.types.listOf lib.types.package;
     };
+
+    enable_fwupd = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable fwupd (firmware update daemon, used by KDE Discover).";
+    };
   };
 
   config = {
@@ -33,5 +39,11 @@ in
       enableAllFirmware = eiros_firmware.enable_all_firmware;
       firmware = eiros_firmware.extra_packages;
     };
+
+    # Enable fwupd daemon
+    services.fwupd.enable = lib.mkIf eiros_firmware.enable_fwupd true;
+
+    # Optional: ensure fwupd CLI is available
+    environment.systemPackages = lib.mkIf eiros_firmware.enable_fwupd [ pkgs.fwupd ];
   };
 }
