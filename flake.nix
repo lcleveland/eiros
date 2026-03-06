@@ -59,10 +59,10 @@
     hjem.url = "github:feel-co/hjem";
 
     mango = {
-      url = "github:DreamMaoMao/mango?ref=main";
+      url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/master";
   };
 }
