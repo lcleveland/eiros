@@ -35,6 +35,12 @@ in
         type = lib.types.bool;
       };
 
+      enable_container_toolkit = lib.mkOption {
+        default = true;
+        description = "Enable NVIDIA Container Toolkit (for GPU support in containers).";
+        type = lib.types.bool;
+      };
+
       open.enable = lib.mkOption {
         default = true;
         description = "Enable the NVIDIA open kernel module (hardware.nvidia.open).";
@@ -150,6 +156,10 @@ in
           };
         })
       );
+
+      nvidia-container-toolkit = lib.mkIf (nvidia_enabled && eiros_nvidia.enable_container_toolkit) {
+        enable = true;
+      };
     };
 
     services = {
