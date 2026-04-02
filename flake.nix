@@ -49,14 +49,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    eiros_hardware.url = "github:lcleveland/eiros.hardware";
+    eiros_hardware = {
+      url = "github:lcleveland/eiros.hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     eiros_users = {
       url = "github:lcleveland/eiros.users";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hjem.url = "github:feel-co/hjem";
+    hjem = {
+      url = "github:feel-co/hjem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     mango = {
       url = "github:DreamMaoMao/mango";
