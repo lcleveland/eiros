@@ -12,6 +12,10 @@ in
   };
 
   config = {
-    system.stateVersion = eiros_nix.state_version;
+    warnings = lib.optionals (config.system.stateVersion != eiros_nix.state_version) [
+      "Changing system.stateVersion after installation can break existing systems. This should normally only be set once."
+    ];
+
+    system.stateVersion = lib.mkDefault eiros_nix.state_version;
   };
 }
