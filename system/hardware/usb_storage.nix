@@ -16,17 +16,8 @@ in
     };
   };
 
-  config = {
-    services = {
-      udisks2 = {
-        enable = eiros_usb_storage.udiskie.enable;
-      };
-    };
-
-    environment = {
-      systemPackages = lib.mkIf eiros_usb_storage.udiskie.enable [
-        pkgs.udiskie
-      ];
-    };
+  config = lib.mkIf eiros_usb_storage.udiskie.enable {
+    services.udisks2.enable = true;
+    environment.systemPackages = [ pkgs.udiskie ];
   };
 }

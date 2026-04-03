@@ -107,17 +107,9 @@ in
     };
   };
 
-  config = {
-    programs = {
-      dsearch = lib.mkIf eiros_dms.search.enable {
-        enable = true;
-        systemd = {
-          enable = true;
-          target = "default.target";
-        };
-      };
-
-      dank-material-shell = lib.mkIf eiros_dms.enable {
+  config = lib.mkMerge [
+    (lib.mkIf eiros_dms.enable {
+      programs.dank-material-shell = {
         enable = true;
 
         greeter = lib.mkIf eiros_dms.greeter.enable {
@@ -139,6 +131,16 @@ in
           restartIfChanged = true;
         };
       };
-    };
-  };
+    })
+
+    (lib.mkIf eiros_dms.search.enable {
+      programs.dsearch = {
+        enable = true;
+        systemd = {
+          enable = true;
+          target = "default.target";
+        };
+      };
+    })
+  ];
 }

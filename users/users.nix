@@ -175,6 +175,18 @@ in
   };
 
   config = {
+    assertions = lib.flatten (
+      lib.mapAttrsToList (
+        username: user_config:
+        lib.optional (
+          user_config.mangowc != null && !config.eiros.system.desktop_environment.mangowc.enable
+        ) {
+          assertion = false;
+          message = "User '${username}' has mangowc config but eiros.system.desktop_environment.mangowc.enable is false.";
+        }
+      ) config.eiros.users
+    );
+
     users.users = lib.mapAttrs (username: user_config: {
       description = lib.mkDefault username;
       extraGroups = lib.mkDefault user_config.extra_groups;
