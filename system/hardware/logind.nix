@@ -42,14 +42,12 @@ in
   };
 
   config = lib.mkIf eiros_logind.enable {
-    services.logind = {
-      lidSwitch = eiros_logind.lid_switch;
-      lidSwitchExternalPower = eiros_logind.lid_switch_external_power;
-      powerKey = eiros_logind.power_key;
-      settings.Login = {
-        IdleAction = eiros_logind.idle_action;
-        IdleActionSec = eiros_logind.idle_timeout_sec;
-      };
+    services.logind.settings.Login = {
+      HandleLidSwitch = eiros_logind.lid_switch;
+      HandleLidSwitchExternalPower = eiros_logind.lid_switch_external_power;
+      HandlePowerKey = eiros_logind.power_key;
+      IdleAction = eiros_logind.idle_action;
+      IdleActionSec = eiros_logind.idle_timeout_sec;
     };
   };
 }
