@@ -12,16 +12,18 @@ in
   config.i18n = {
     defaultLocale = eiros_language.locale;
 
-    extraLocaleSettings = {
-      LC_ADDRESS = eiros_language.locale;
-      LC_IDENTIFICATION = eiros_language.locale;
-      LC_MEASUREMENT = eiros_language.locale;
-      LC_MONETARY = eiros_language.locale;
-      LC_NAME = eiros_language.locale;
-      LC_NUMERIC = eiros_language.locale;
-      LC_PAPER = eiros_language.locale;
-      LC_TELEPHONE = eiros_language.locale;
-      LC_TIME = eiros_language.locale;
-    };
+    extraLocaleSettings = builtins.listToAttrs (
+      map (key: { name = key; value = eiros_language.locale; }) [
+        "LC_ADDRESS"
+        "LC_IDENTIFICATION"
+        "LC_MEASUREMENT"
+        "LC_MONETARY"
+        "LC_NAME"
+        "LC_NUMERIC"
+        "LC_PAPER"
+        "LC_TELEPHONE"
+        "LC_TIME"
+      ]
+    );
   };
 }
