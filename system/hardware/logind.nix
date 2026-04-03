@@ -1,0 +1,55 @@
+{ config, lib, ... }:
+let
+  eiros_logind = config.eiros.system.hardware.logind;
+in
+{
+  options.eiros.system.hardware.logind = {
+    enable = lib.mkOption {
+      default = true;
+      description = "Configure systemd-logind lid, power button, and idle behaviour.";
+      type = lib.types.bool;
+    };
+
+    lid_switch = lib.mkOption {
+      default = "suspend";
+      description = "Action when the lid is closed on battery (suspend, lock, ignore, hibernate, poweroff).";
+      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+    };
+
+    lid_switch_external_power = lib.mkOption {
+      default = "lock";
+      description = "Action when the lid is closed on external power (suspend, lock, ignore, hibernate, poweroff).";
+      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+    };
+
+    power_key = lib.mkOption {
+      default = "suspend";
+      description = "Action when the power button is pressed (suspend, lock, ignore, hibernate, poweroff).";
+      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+    };
+
+    idle_action = lib.mkOption {
+      default = "suspend";
+      description = "Action taken after idle_timeout_sec of inactivity (suspend, lock, ignore, hibernate, poweroff).";
+      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+    };
+
+    idle_timeout_sec = lib.mkOption {
+      default = 600;
+      description = "Seconds of inactivity before idle_action is triggered.";
+      type = lib.types.int;
+    };
+  };
+
+  config = lib.mkIf eiros_logind.enable {
+    services.logind = {
+      lidSwitch = eiros_logind.lid_switch;
+      lidSwitchExternalPower = eiros_logind.lid_switch_external_power;
+      powerKey = eiros_logind.power_key;
+      extraConfig = ''
+        IdleAction=${eiros_logind.idle_action}
+        IdleActionSec=${toString eiros_logind.idle_timeout_sec}
+      '';
+    };
+  };
+}
