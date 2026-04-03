@@ -20,7 +20,7 @@ in
 
     systemd_boot = {
       configuration_limit = lib.mkOption {
-        default = 10;
+        default = 3;
         description = "Number of systemd-boot entries (generations) to keep on the ESP.";
         type = lib.types.int;
       };

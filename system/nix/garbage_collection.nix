@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   eiros_gc = config.eiros.system.nix.garbage_collection;
 in
@@ -36,6 +36,12 @@ in
       };
     };
 
+    keep_generations = lib.mkOption {
+      default = 3;
+      description = "Keep only this many recent system generations. Runs alongside GC to prevent the boot partition from filling up.";
+      type = lib.types.int;
+    };
+
     disk_pressure = {
       min_free = lib.mkOption {
         default = 5 * 1024 * 1024 * 1024;
@@ -69,6 +75,16 @@ in
         min-free = eiros_gc.disk_pressure.min_free;
         max-free = eiros_gc.disk_pressure.max_free;
       };
+    };
+
+    # Prune system profile generations before GC so the collected store
+    # paths are actually freed, and so the ESP never exceeds keep_generations entries.
+    systemd.services.nix-gc = {
+      preStart = ''
+        ${pkgs.nix}/bin/nix-env \
+          -p /nix/var/nix/profiles/system \
+          --delete-generations +${toString eiros_gc.keep_generations}
+      '';
     };
   };
 }
