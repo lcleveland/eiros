@@ -8,14 +8,10 @@ let
   eiros_virtualization = config.eiros.system.virtualization;
   eiros_virt_manager = eiros_virtualization.virt_manager;
 
-  spice_gtk_package = pkgs.spice-gtk;
-  usbredir_package = pkgs.usbredir;
-  virt_viewer_package = pkgs.virt-viewer;
-
   extra_packages =
-    (lib.optionals eiros_virt_manager.spice_gtk.enable [ spice_gtk_package ])
-    ++ (lib.optionals eiros_virt_manager.usbredir.enable [ usbredir_package ])
-    ++ (lib.optionals eiros_virt_manager.virt_viewer.enable [ virt_viewer_package ]);
+    (lib.optionals eiros_virt_manager.spice_gtk.enable [ pkgs.spice-gtk ])
+    ++ (lib.optionals eiros_virt_manager.usbredir.enable [ pkgs.usbredir ])
+    ++ (lib.optionals eiros_virt_manager.virt_viewer.enable [ pkgs.virt-viewer ]);
 in
 {
   options.eiros.system.virtualization.virt_manager = {

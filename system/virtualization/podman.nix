@@ -6,7 +6,11 @@
 }:
 
 let
-  cfg = config.eiros.system.virtualization.podman;
+  eiros_virtualization = config.eiros.system.virtualization;
+  eiros_podman = eiros_virtualization.podman;
+
+  composePkg =
+    if eiros_podman.compose.provider == "podman-compose" then pkgs.podman-compose else pkgs.docker-compose;
 in
 {
   options.eiros.system.virtualization.podman = {
@@ -40,10 +44,10 @@ in
     };
   };
 
-  config = lib.mkIf config.eiros.system.virtualization.enable (
+  config = lib.mkIf eiros_virtualization.enable (
     lib.mkMerge [
       # Podman baseline
-      (lib.mkIf cfg.enable {
+      (lib.mkIf eiros_podman.enable {
         virtualisation = {
           containers = {
             enable = true;
@@ -57,15 +61,8 @@ in
       })
 
       # Compose provider installation
-      (lib.mkIf (cfg.enable && cfg.compose.enable) {
-        environment.systemPackages =
-          let
-            composePkg =
-              if cfg.compose.provider == "podman-compose" then pkgs.podman-compose else pkgs.docker-compose;
-          in
-          [
-            composePkg
-          ];
+      (lib.mkIf (eiros_podman.enable && eiros_podman.compose.enable) {
+        environment.systemPackages = [ composePkg ];
       })
     ]
   );

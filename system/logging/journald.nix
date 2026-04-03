@@ -72,15 +72,13 @@ in
   };
 
   config = lib.mkIf eiros_journald.enable {
-    services.journald = {
-      extraConfig = ''
-        Storage=${if eiros_journald.persistent.enable then "persistent" else "volatile"}
-        SystemMaxUse=${eiros_journald.retention.max_use}
-        SystemMaxFileSize=${eiros_journald.retention.max_file_size}
-        MaxRetentionSec=${eiros_journald.retention.max_retention_sec}
-        RateLimitIntervalSec=${eiros_journald.rate_limit.interval_sec}
-        RateLimitBurst=${toString eiros_journald.rate_limit.burst}
-      '';
+    services.journald.settings.Journal = {
+      Storage = if eiros_journald.persistent.enable then "persistent" else "volatile";
+      SystemMaxUse = eiros_journald.retention.max_use;
+      SystemMaxFileSize = eiros_journald.retention.max_file_size;
+      MaxRetentionSec = eiros_journald.retention.max_retention_sec;
+      RateLimitIntervalSec = eiros_journald.rate_limit.interval_sec;
+      RateLimitBurst = eiros_journald.rate_limit.burst;
     };
 
     systemd.services.eiros-journal-vacuum = lib.mkIf eiros_journald.vacuum.enable {
