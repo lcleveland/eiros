@@ -26,6 +26,13 @@ in
       # Disable APST autonomous power state transitions on NVMe.
       # Prevents 30–100 ms latency spikes when the drive wakes from low-power state.
       "nvme_core.default_ps_max_latency_us=0"
+
+      # IOMMU passthrough: reduces overhead for KVM guest DMA operations.
+      "iommu=pt"
+
+      # Move interrupt handling into kernel threads — improves compositor
+      # frame timing by reducing hardirq latency under load.
+      "threadirqs"
     ];
 
     boot.kernel.sysctl = lib.mkIf eiros_tuning.sysctl.enable {
