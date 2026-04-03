@@ -36,7 +36,8 @@ in
     ];
 
     boot.kernel.sysctl = lib.mkIf eiros_tuning.sysctl.enable {
-      # No swap — prevent the kernel from reclaiming anonymous memory.
+      # No swap configured — discourage the kernel from reclaiming anonymous
+      # memory. Does not fully prevent swapping if a swap device is added later.
       "vm.swappiness" = 0;
 
       # Reduce VFS cache reclaim aggressiveness; lowers desktop latency spikes.

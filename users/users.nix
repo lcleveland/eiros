@@ -34,9 +34,6 @@ let
           "dms run"
           "udiskie &"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots"
-        ]
-        ++ lib.optionals config.eiros.system.desktop_environment.keyring.enable [
-          "gnome-keyring-daemon --start --components=secrets,ssh"
         ];
     };
 
