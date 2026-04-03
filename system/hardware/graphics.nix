@@ -115,10 +115,14 @@ in
 
     environment = {
       variables = lib.mkIf nvidia_enabled (
-        {
+        # In PRIME offload mode the compositor runs on the iGPU (Mesa).
+        # Setting GBM_BACKEND/GLX vendor globally would force all apps through
+        # the NVIDIA stack even when rendered on the iGPU — only set these when
+        # the NVIDIA GPU is the sole display driver (no PRIME or sync mode).
+        (lib.optionalAttrs (!prime_offload_enabled) {
           GBM_BACKEND = "nvidia-drm";
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        }
+        })
         // (lib.optionalAttrs eiros_nvidia.wayland.wlr_no_hardware_cursors.enable {
           WLR_NO_HARDWARE_CURSORS = "1";
         })

@@ -22,10 +22,18 @@ in
       type = lib.types.str;
     };
 
-    auto_optimise_store.enable = lib.mkOption {
-      default = true;
-      description = "Enable automatic Nix store optimisation (dedup/optimise).";
-      type = lib.types.bool;
+    optimise = {
+      enable = lib.mkOption {
+        default = true;
+        description = "Enable scheduled Nix store optimisation (dedup/hard-link). Runs out-of-band rather than inline during builds.";
+        type = lib.types.bool;
+      };
+
+      dates = lib.mkOption {
+        default = [ "03:45" ];
+        description = "systemd OnCalendar schedule for nix store optimisation.";
+        type = lib.types.listOf lib.types.str;
+      };
     };
 
     disk_pressure = {
@@ -51,9 +59,12 @@ in
         options = "--delete-older-than ${eiros_gc.delete_older_than}";
       };
 
-      settings = {
-        auto-optimise-store = eiros_gc.auto_optimise_store.enable;
+      optimise = lib.mkIf eiros_gc.optimise.enable {
+        automatic = true;
+        dates = eiros_gc.optimise.dates;
+      };
 
+      settings = {
         # Disk pressure GC: Nix will try to GC when low on space.
         min-free = eiros_gc.disk_pressure.min_free;
         max-free = eiros_gc.disk_pressure.max_free;

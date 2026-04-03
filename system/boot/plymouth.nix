@@ -62,8 +62,12 @@ in
     };
 
     theme_packages = lib.mkOption {
-      default = [ pkgs.adi1090x-plymouth-themes ];
-      description = "Packages providing Plymouth themes (added to boot.plymouth.themePackages).";
+      default = [
+        (pkgs.adi1090x-plymouth-themes.override {
+          selected_themes = [ "hud_3" ];
+        })
+      ];
+      description = "Packages providing Plymouth themes (added to boot.plymouth.themePackages). Defaults to only the hud_3 theme to minimise initrd closure size.";
       type = lib.types.listOf lib.types.package;
     };
   };
