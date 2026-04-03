@@ -7,7 +7,7 @@ in
 {
   options.eiros.system.hardware.cpu = {
     iommu.enable = lib.mkOption {
-      default = true;
+      default = false;
       description = "Enable IOMMU (intel_iommu=on or amd_iommu=on). Required for KVM DMA isolation and effective use of iommu=pt. Requires vendor to be set.";
       type = lib.types.bool;
     };
