@@ -46,10 +46,10 @@ in
       lidSwitch = eiros_logind.lid_switch;
       lidSwitchExternalPower = eiros_logind.lid_switch_external_power;
       powerKey = eiros_logind.power_key;
-      extraConfig = ''
-        IdleAction=${eiros_logind.idle_action}
-        IdleActionSec=${toString eiros_logind.idle_timeout_sec}
-      '';
+      settings.Login = {
+        IdleAction = eiros_logind.idle_action;
+        IdleActionSec = eiros_logind.idle_timeout_sec;
+      };
     };
   };
 }
