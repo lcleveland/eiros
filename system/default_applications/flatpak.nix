@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.eiros.system.default_applications.flatpak;
+  eiros_flatpak = config.eiros.system.default_applications.flatpak;
 
   discoverPkg =
     if pkgs ? kdePackages && pkgs.kdePackages ? discover then
@@ -31,14 +31,17 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf eiros_flatpak.enable {
+
+    warnings = lib.optional (eiros_flatpak.discover && discoverPkg == null)
+      "eiros: flatpak.discover = true but no Discover package found in pkgs";
 
     services.flatpak.enable = true;
 
     # Discover support
-    services.packagekit.enable = lib.mkIf cfg.discover true;
+    services.packagekit.enable = lib.mkIf eiros_flatpak.discover true;
 
-    environment.systemPackages = lib.optionals cfg.discover (
+    environment.systemPackages = lib.optionals eiros_flatpak.discover (
       lib.optionals (discoverPkg != null) [ discoverPkg ]
     );
 
