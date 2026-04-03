@@ -41,6 +41,5 @@ in
     };
 
     services.fwupd.enable = eiros_firmware.enable_fwupd;
-    environment.systemPackages = lib.optionals eiros_firmware.enable_fwupd [ pkgs.fwupd ];
   };
 }

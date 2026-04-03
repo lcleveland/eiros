@@ -39,11 +39,9 @@ in
     services.flatpak.enable = true;
 
     # Discover support
-    services.packagekit.enable = lib.mkIf eiros_flatpak.discover true;
+    services.packagekit.enable = eiros_flatpak.discover;
 
-    environment.systemPackages = lib.optionals eiros_flatpak.discover (
-      lib.optionals (discoverPkg != null) [ discoverPkg ]
-    );
+    environment.systemPackages = lib.optionals (eiros_flatpak.discover && discoverPkg != null) [ discoverPkg ];
 
     # Flathub remote (exact method from NixOS documentation)
     systemd.services.flatpak-repo = {

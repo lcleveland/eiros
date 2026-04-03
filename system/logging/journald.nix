@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   eiros_journald = config.eiros.system.logging.journald;
 in
@@ -85,9 +85,8 @@ in
       description = "Eiros journal vacuum";
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${config.systemd.package}/bin/journalctl --vacuum-size=${eiros_journald.vacuum.keep_free}";
+        ExecStart = "${pkgs.systemd}/bin/journalctl --vacuum-size=${eiros_journald.vacuum.keep_free}";
       };
-      wantedBy = [ "multi-user.target" ];
     };
 
     systemd.timers.eiros-journal-vacuum = lib.mkIf eiros_journald.vacuum.enable {
