@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   eiros_xdg_portal = config.eiros.system.desktop_environment.xdg_portal;
 in
