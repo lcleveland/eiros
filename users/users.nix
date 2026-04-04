@@ -65,8 +65,7 @@ let
         acc // { ${bind_key} = previous ++ [ line ]; }
       ) { } (lib.attrValues mangowc_cfg.keybinds);
     in
-    { rootcolor = config.eiros.system.desktop_environment.mangowc.background_color; }
-    // mangowc_cfg.settings
+    mangowc_cfg.settings
     // mangowc_systemd_exec_once
     // dms_exec_once
     // wallpaper_exec_once mangowc_cfg

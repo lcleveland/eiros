@@ -10,12 +10,6 @@ in
       type = lib.types.bool;
     };
 
-    background_color = lib.mkOption {
-      default = "0x323232ff";
-      description = "MangoWC root background color in 0xRRGGBBAA format. Set to match your DMS theme for a seamless greeter-to-session transition.";
-      type = lib.types.str;
-    };
-
     systemd = {
       enable = lib.mkOption {
         default = true;
