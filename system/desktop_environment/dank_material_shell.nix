@@ -211,6 +211,8 @@ in
         systemd = {
           enable = true;
           restartIfChanged = true;
+          target = lib.mkIf config.eiros.system.desktop_environment.mangowc.systemd.enable
+            "mango-session.target";
         };
       };
     })
