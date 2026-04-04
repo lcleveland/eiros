@@ -123,6 +123,64 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.virtualization.*` | KVM, Podman, Distrobox |
 | `eiros.users.*` | User accounts, MangoWC keybinds, wallpaper |
 
+## Default MangoWC Keybinds
+
+Applied to all users when `mangowc.default_keybinds.enable = true` (the default). Per-user keybinds with matching names override these.
+
+### Window Management
+
+| Keybind | Action |
+|---|---|
+| `Super + Q` | Close focused window |
+| `Super + Shift + Q` | Quit MangoWC |
+| `Super + G` | Toggle floating |
+| `Super + M` | Toggle maximize |
+| `Super + Tab` | Toggle overview |
+| `Super + Shift + R` | Reload config |
+
+### Navigation
+
+| Keybind | Action |
+|---|---|
+| `Super + H` | Focus left |
+| `Super + L` | Focus right |
+| `Super + K` | Focus up |
+| `Super + J` | Focus down |
+| `Super + Shift + H` | Swap window left |
+| `Super + Shift + L` | Swap window right |
+| `Super + Shift + K` | Swap window up |
+| `Super + Shift + J` | Swap window down |
+| `Ctrl + Shift + H` | Move window to monitor left |
+| `Ctrl + Shift + L` | Move window to monitor right |
+| `Ctrl + Shift + K` | Move window to monitor up |
+| `Ctrl + Shift + J` | Move window to monitor down |
+
+### Tags (Workspaces)
+
+| Keybind | Action |
+|---|---|
+| `Super + 1–9` | Switch to tag 1–9 |
+| `Super + Shift + 1–9` | Move window to tag 1–9 |
+
+### Applications
+
+| Keybind | Action |
+|---|---|
+| `Super + T` | Launch terminal (Ghostty) |
+| `Super + F` | Launch file browser (Ghostty + Yazi) |
+
+### DMS Integration
+
+These keybinds are only active when `eiros.system.desktop_environment.dank_material_shell.enable = true`.
+
+| Keybind | Action |
+|---|---|
+| `Super + D` | Toggle DMS Spotlight |
+| `Super + Escape` | Lock screen |
+| `Super + N` | Toggle night mode |
+| `Super + Shift + S` | Screenshot (no file, copies to clipboard) |
+| `Ctrl + Shift + V` | Paste from clipboard history |
+
 ## Flake Inputs
 
 | Input | Source | Purpose |
