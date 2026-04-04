@@ -9,6 +9,28 @@ in
       description = "Enable the Mango Window Composer.";
       type = lib.types.bool;
     };
+
+    systemd = {
+      enable = lib.mkOption {
+        default = true;
+        description = "Propagate Wayland session environment variables into systemd and D-Bus on MangoWC startup.";
+        type = lib.types.bool;
+      };
+
+      variables = lib.mkOption {
+        default = [
+          "DISPLAY"
+          "WAYLAND_DISPLAY"
+          "XDG_CURRENT_DESKTOP"
+          "XDG_SESSION_TYPE"
+          "NIXOS_OZONE_WL"
+          "XCURSOR_THEME"
+          "XCURSOR_SIZE"
+        ];
+        description = "Environment variables to import into the systemd user session on MangoWC startup.";
+        type = lib.types.listOf lib.types.str;
+      };
+    };
   };
 
   config = lib.mkIf eiros_mangowc.enable {
