@@ -58,6 +58,12 @@ in
   };
 
   config = lib.mkIf eiros_gc.enable {
+    assertions = [
+      {
+        assertion = eiros_gc.disk_pressure.min_free < eiros_gc.disk_pressure.max_free;
+        message = "eiros.system.nix.garbage_collection.disk_pressure.min_free must be less than max_free.";
+      }
+    ];
     nix = {
       gc = {
         automatic = true;

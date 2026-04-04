@@ -4,6 +4,12 @@ let
 in
 {
   options.eiros.system.hardware.keyboard = {
+    enable = lib.mkOption {
+      default = true;
+      description = "Configure the system keyboard layout via xkb.";
+      type = lib.types.bool;
+    };
+
     layout = lib.mkOption {
       default = "us";
       description = "Keyboard layout to use (xkb-data-style).";
@@ -17,8 +23,10 @@ in
     };
   };
 
-  config.services.xserver.xkb = {
-    layout = eiros_keyboard.layout;
-    variant = eiros_keyboard.variant;
+  config = lib.mkIf eiros_keyboard.enable {
+    services.xserver.xkb = {
+      layout = eiros_keyboard.layout;
+      variant = eiros_keyboard.variant;
+    };
   };
 }

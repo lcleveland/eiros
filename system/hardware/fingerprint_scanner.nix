@@ -16,7 +16,13 @@ in
         "login"
         "sudo"
       ];
-      description = "PAM services to enable fingerprint authentication for.";
+      description = ''
+        PAM services to enable fingerprint authentication for.
+
+        WARNING: "sudo" is included by default. This means a fingerprint
+        can authorize privilege escalation without a password. Remove "sudo"
+        from this list if that is undesirable in your environment.
+      '';
       type = lib.types.listOf lib.types.str;
     };
   };

@@ -72,6 +72,13 @@ in
   };
 
   config = lib.mkIf eiros_journald.enable {
+    assertions = [
+      {
+        assertion = eiros_journald.rate_limit.burst > 0;
+        message = "eiros.system.logging.journald.rate_limit.burst must be greater than 0.";
+      }
+    ];
+
     services.journald.extraConfig = ''
       Storage=${if eiros_journald.persistent.enable then "persistent" else "volatile"}
       SystemMaxUse=${eiros_journald.retention.max_use}

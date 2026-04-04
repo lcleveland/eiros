@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   eiros_io = config.eiros.system.hardware.io_scheduler;
+  scheduler_type = lib.types.enum [ "none" "mq-deadline" "bfq" "kyber" ];
 in
 {
   options.eiros.system.hardware.io_scheduler = {
@@ -13,19 +14,19 @@ in
     nvme_scheduler = lib.mkOption {
       default = "none";
       description = "I/O scheduler for NVMe devices. 'none' is recommended as NVMe drives manage their own queues.";
-      type = lib.types.str;
+      type = scheduler_type;
     };
 
     ssd_scheduler = lib.mkOption {
       default = "mq-deadline";
       description = "I/O scheduler for SATA SSDs. 'mq-deadline' provides low latency with bounded wait times.";
-      type = lib.types.str;
+      type = scheduler_type;
     };
 
     hdd_scheduler = lib.mkOption {
       default = "bfq";
       description = "I/O scheduler for HDDs. 'bfq' provides fair queuing optimised for rotational media.";
-      type = lib.types.str;
+      type = scheduler_type;
     };
   };
 
