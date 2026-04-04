@@ -204,7 +204,10 @@ in
 
           compositor = {
             name = "mango";
-            customConfig = mangowc_generator (make_mango_config eiros_dms.greeter.mango);
+            customConfig = mangowc_generator (
+              { rootcolor = config.eiros.system.desktop_environment.mangowc.background_color; }
+              // make_mango_config eiros_dms.greeter.mango
+            );
           };
         };
 
