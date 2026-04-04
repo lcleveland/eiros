@@ -35,10 +35,19 @@ in
         description = "CJK font packages.";
         type = lib.types.listOf lib.types.package;
       };
+
+      nerd = lib.mkOption {
+        default = [ pkgs.nerd-fonts.jetbrains-mono ];
+        description = "Nerd Font packages. Provides glyph icons used by terminal prompts (e.g. spaceship) and tools like eza.";
+        type = lib.types.listOf lib.types.package;
+      };
     };
   };
 
   config = lib.mkIf eiros_fonts.enable {
-    fonts.packages = eiros_fonts.packages.base ++ eiros_fonts.packages.cjk;
+    fonts.packages =
+      eiros_fonts.packages.base
+      ++ eiros_fonts.packages.cjk
+      ++ eiros_fonts.packages.nerd;
   };
 }

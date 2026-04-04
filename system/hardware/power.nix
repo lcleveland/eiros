@@ -12,8 +12,8 @@ in
 
     cpu_governor = lib.mkOption {
       default = "schedutil";
-      description = "CPU frequency scaling governor. schedutil is recommended for modern kernels as it hooks directly into the scheduler.";
-      type = lib.types.str;
+      description = "CPU frequency scaling governor. Set to null when using power_profiles (power-profiles-daemon). schedutil is recommended for modern kernels as it hooks directly into the scheduler.";
+      type = lib.types.nullOr lib.types.str;
     };
   };
 
