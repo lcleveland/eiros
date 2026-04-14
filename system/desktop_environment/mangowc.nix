@@ -26,6 +26,7 @@ in
           "NIXOS_OZONE_WL"
           "XCURSOR_THEME"
           "XCURSOR_SIZE"
+          "GNOME_KEYRING_CONTROL"
         ];
         description = "Environment variables to import into the systemd user session on MangoWC startup.";
         type = lib.types.listOf lib.types.str;
