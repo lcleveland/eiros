@@ -27,10 +27,20 @@ in
       type = lib.types.listOf lib.types.str;
     };
   };
-  config = lib.mkIf eiros_fingerprint.enable {
-    services.fprintd.enable = true;
-    security.pam.services.login.fprintAuth = true;
-    security.pam.services.sudo.fprintAuth = true;
-    security.pam.services.greetd.rules.auth.fprintd.enable = false;
-  };
+  config = lib.mkIf eiros_fingerprint.enable (
+    lib.mkMerge [
+      {
+        security.pam.services.greetd.fprintAuth = false;
+      }
+      {
+        services.fprintd.enable = true;
+        security.pam.services = builtins.listToAttrs (
+          map (service_name: {
+            name = service_name;
+            value.fprintAuth = true;
+          }) eiros_fingerprint.pam_services
+        );
+      }
+    ]
+  );
 }
