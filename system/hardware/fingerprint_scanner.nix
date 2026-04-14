@@ -27,17 +27,14 @@ in
       type = lib.types.listOf lib.types.str;
     };
   };
-  config = lib.mkIf eiros_fingerprint.enable (
-    lib.mkMerge [
-      {
-        services.fprintd.enable = true;
-        security.pam.services = lib.genAttrs eiros_fingerprint.pam_services (_: {
-          fprintAuth = true;
-        });
-      }
-      {
-        security.pam.services.greetd.fprintAuth = false;
-      }
-    ]
-  );
+  config = lib.mkIf eiros_fingerprint.enable {
+    services.fprintd.enable = true;
+    security.pam.services =
+      lib.genAttrs eiros_fingerprint.pam_services (_: {
+        fprintAuth = true;
+      })
+      // {
+        greetd.fprintAuth = false;
+      };
+  };
 }
