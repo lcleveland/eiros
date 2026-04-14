@@ -12,7 +12,6 @@ in
 
     pam_services = lib.mkOption {
       default = [
-        "greetd"
         "login"
         "sudo"
       ];
