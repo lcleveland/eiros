@@ -25,6 +25,18 @@ in
       };
 
       mango = {
+        keyboard_layout = lib.mkOption {
+          default = "us";
+          description = "Keyboard layout for the greeter's MangoWC.";
+          type = lib.types.str;
+        };
+
+        keyboard_variant = lib.mkOption {
+          default = "";
+          description = "Keyboard layout variant for the greeter's MangoWC.";
+          type = lib.types.str;
+        };
+
         settings = lib.mkOption {
           default = { };
           description = "Raw MangoWC settings for the greeter, written as key=value pairs.";
@@ -104,6 +116,9 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf eiros_dms.enable {
+      eiros_dms.greeter.mango.settings.xkb_layout = eiros_dms.greeter.mango.keyboard_layout;
+      eiros_dms.greeter.mango.settings.xkb_variant = eiros_dms.greeter.mango.keyboard_variant;
+
       environment.systemPackages = lib.optionals eiros_dms.enable_clipboard_paste [ pkgs.wtype ];
 
       programs.dank-material-shell = {
