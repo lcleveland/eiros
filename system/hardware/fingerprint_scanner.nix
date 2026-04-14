@@ -32,10 +32,12 @@ in
 
     security.pam.services =
       lib.genAttrs eiros_fingerprint.pam_services (_: {
-        fprintAuth = true;
+        fprintAuth = lib.mkDefault true;
       })
       // {
-        greetd.rules.auth.fprintd.enable = lib.mkForce false;
+        greetd = {
+          fprintAuth = lib.mkOverride 49 false;
+        };
       };
   };
 }
