@@ -36,7 +36,7 @@ in
         });
       }
       {
-        security.pam.services.greetd.fprintAuth = lib.mkIf config.services.fprintd.enable false;
+        security.pam.services.greetd.fprintAuth = false;
       }
     ]
   );
