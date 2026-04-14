@@ -11,20 +11,23 @@ let
       mangowc_systemd = config.eiros.system.desktop_environment.mangowc.systemd;
       vars_str = lib.concatStringsSep " " mangowc_systemd.variables;
     in
-    lib.optionalAttrs (config.eiros.system.desktop_environment.mangowc.enable && mangowc_systemd.enable) {
-      "exec-once" = [
-        "systemctl --user import-environment ${vars_str}"
-        "dbus-update-activation-environment --systemd ${vars_str}"
-      ];
-    };
+    lib.optionalAttrs (config.eiros.system.desktop_environment.mangowc.enable && mangowc_systemd.enable)
+      {
+        "exec-once" = [
+          "systemctl --user import-environment ${vars_str}"
+          "dbus-update-activation-environment --systemd ${vars_str}"
+          "gnome-keyring-daemon --start --components=secrets"
+        ];
+      };
 
   dms_exec_once =
-    lib.optionalAttrs config.eiros.system.desktop_environment.dank_material_shell.enable {
-      "exec-once" = [
-        "dms run"
-        "udiskie &"
-      ];
-    };
+    lib.optionalAttrs config.eiros.system.desktop_environment.dank_material_shell.enable
+      {
+        "exec-once" = [
+          "dms run"
+          "udiskie &"
+        ];
+      };
 
   wallpaper_exec_once =
     mangowc_cfg:
@@ -36,9 +39,10 @@ let
     mangowc_cfg:
     let
       effective_keybinds =
-        (lib.optionalAttrs mangowc_cfg.default_keybinds.enable default_keybinds)
-        // mangowc_cfg.keybinds;
-      effective_cfg = mangowc_cfg // { keybinds = effective_keybinds; };
+        (lib.optionalAttrs mangowc_cfg.default_keybinds.enable default_keybinds) // mangowc_cfg.keybinds;
+      effective_cfg = mangowc_cfg // {
+        keybinds = effective_keybinds;
+      };
     in
     make_mangowc_config effective_cfg
     // mangowc_systemd_exec_once
@@ -135,12 +139,12 @@ in
     assertions = lib.flatten (
       lib.mapAttrsToList (
         username: user_config:
-        lib.optional (
-          user_config.mangowc != null && !config.eiros.system.desktop_environment.mangowc.enable
-        ) {
-          assertion = false;
-          message = "User '${username}' has mangowc config but eiros.system.desktop_environment.mangowc.enable is false.";
-        }
+        lib.optional
+          (user_config.mangowc != null && !config.eiros.system.desktop_environment.mangowc.enable)
+          {
+            assertion = false;
+            message = "User '${username}' has mangowc config but eiros.system.desktop_environment.mangowc.enable is false.";
+          }
       ) config.eiros.users
     );
 
