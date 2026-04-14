@@ -117,10 +117,10 @@ in
   config = lib.mkMerge [
     (lib.mkIf eiros_dms.enable {
       eiros.system.desktop_environment.dank_material_shell.greeter.mango.settings = {
-        xkb_layout = eiros_dms.greeter.mango.keyboard_layout;
+        xkb_rules_layout = eiros_dms.greeter.mango.keyboard_layout;
       }
       // lib.optionalAttrs (eiros_dms.greeter.mango.keyboard_variant != "") {
-        xkb_variant = eiros_dms.greeter.mango.keyboard_variant;
+        xkb_rules_variant = eiros_dms.greeter.mango.keyboard_variant;
       };
 
       environment.systemPackages = lib.optionals eiros_dms.enable_clipboard_paste [ pkgs.wtype ];
