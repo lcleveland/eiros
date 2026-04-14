@@ -33,6 +33,10 @@ let
         ++ (lib.optional (
           mangowc_cfg.wallpaper != null
         ) "dms ipc call wallpaper set ${mangowc_cfg.wallpaper}");
+
+      _ = builtins.trace "DEBUG base attrs: ${builtins.toJSON (builtins.attrNames base)}" null;
+      __ = builtins.trace "DEBUG base.exec-once: ${builtins.toJSON (base."exec-once" or "MISSING")}" null;
+      ___ = builtins.trace "DEBUG extra_exec_once: ${builtins.toJSON extra_exec_once}" null;
     in
     base
     // {
@@ -96,7 +100,9 @@ in
                       };
 
                       settings = lib.mkOption {
-                        default = { };
+                        default = {
+                          "exec-once" = [ "echo test" ];
+                        };
                         description = "Raw MangoWC settings written as key=value pairs.";
                         type = lib.types.attrsOf (
                           lib.types.oneOf [
