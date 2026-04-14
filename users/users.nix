@@ -6,35 +6,6 @@ let
 
   default_keybinds = config.eiros.system.desktop_environment.mangowc.default_keybinds.keybinds;
 
-  mangowc_systemd_exec_once =
-    let
-      mangowc_systemd = config.eiros.system.desktop_environment.mangowc.systemd;
-      vars_str = lib.concatStringsSep " " mangowc_systemd.variables;
-    in
-    lib.optionalAttrs (config.eiros.system.desktop_environment.mangowc.enable && mangowc_systemd.enable)
-      {
-        "exec-once" = [
-          "systemctl --user import-environment ${vars_str}"
-          "dbus-update-activation-environment --systemd ${vars_str}"
-          "gnome-keyring-daemon --start --components=secrets"
-        ];
-      };
-
-  dms_exec_once =
-    lib.optionalAttrs config.eiros.system.desktop_environment.dank_material_shell.enable
-      {
-        "exec-once" = [
-          "dms run"
-          "udiskie &"
-        ];
-      };
-
-  wallpaper_exec_once =
-    mangowc_cfg:
-    lib.optionalAttrs (mangowc_cfg.wallpaper != null) {
-      "exec-once" = [ "dms ipc call wallpaper set ${mangowc_cfg.wallpaper}" ];
-    };
-
   make_user_mangowc_config =
     mangowc_cfg:
     let
@@ -43,11 +14,30 @@ let
       effective_cfg = mangowc_cfg // {
         keybinds = effective_keybinds;
       };
+
+      mangowc_systemd = config.eiros.system.desktop_environment.mangowc.systemd;
+      vars_str = lib.concatStringsSep " " mangowc_systemd.variables;
+
+      base = make_mangowc_config effective_cfg;
+
+      extra_exec_once =
+        (lib.optionals (config.eiros.system.desktop_environment.mangowc.enable && mangowc_systemd.enable) [
+          "systemctl --user import-environment ${vars_str}"
+          "dbus-update-activation-environment --systemd ${vars_str}"
+          "gnome-keyring-daemon --start --components=secrets"
+        ])
+        ++ (lib.optionals config.eiros.system.desktop_environment.dank_material_shell.enable [
+          "dms run"
+          "udiskie &"
+        ])
+        ++ (lib.optional (
+          mangowc_cfg.wallpaper != null
+        ) "dms ipc call wallpaper set ${mangowc_cfg.wallpaper}");
     in
-    make_mangowc_config effective_cfg
-    // mangowc_systemd_exec_once
-    // dms_exec_once
-    // wallpaper_exec_once mangowc_cfg;
+    base
+    // {
+      "exec-once" = (base."exec-once" or [ ]) ++ extra_exec_once;
+    };
 in
 {
   options = {
