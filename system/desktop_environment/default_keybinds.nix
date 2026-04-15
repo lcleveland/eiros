@@ -4,6 +4,7 @@ let
   inherit (helpers) keybind_submodule;
 
   dms_enabled = config.eiros.system.desktop_environment.dank_material_shell.enable;
+  eiros_commands = config.eiros.system.desktop_environment.mangowc.default_keybinds.commands;
 
   tags = builtins.genList (i: i + 1) 9;
 
@@ -44,8 +45,8 @@ let
   static_binds = {
     close_window           = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "q";      mangowc_command = "killclient";           command_arguments = null; };
     quit_mangowc           = { modifier_keys = [ "SUPER" "SHIFT" ]; flag_modifiers = [ "s" ]; key_symbol = "q";      mangowc_command = "quit";                 command_arguments = null; };
-    launch_file_browser    = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "f";      mangowc_command = "spawn";                command_arguments = "ghostty -e yazi"; };
-    launch_terminal        = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "t";      mangowc_command = "spawn";                command_arguments = "ghostty"; };
+    launch_file_browser    = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "f";      mangowc_command = "spawn";                command_arguments = eiros_commands.file_browser; };
+    launch_terminal        = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "t";      mangowc_command = "spawn";                command_arguments = eiros_commands.terminal; };
     window_toggle_float    = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "g";      mangowc_command = "togglefloating";       command_arguments = null; };
     window_toggle_maximize = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "m";      mangowc_command = "togglemaximizescreen"; command_arguments = null; };
     overview_toggle        = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "Tab";    mangowc_command = "toggleoverview";       command_arguments = null; };
@@ -73,6 +74,20 @@ let
 in
 {
   options.eiros.system.desktop_environment.mangowc.default_keybinds = {
+    commands = {
+      terminal = lib.mkOption {
+        default = "ghostty";
+        description = "Command used to launch the terminal emulator.";
+        type = lib.types.str;
+      };
+
+      file_browser = lib.mkOption {
+        default = "ghostty -e yazi";
+        description = "Command used to launch the file browser.";
+        type = lib.types.str;
+      };
+    };
+
     keybinds = lib.mkOption {
       default = { };
       description = "The resolved set of default MangoWC keybinds. Read this from users.nix to merge with per-user keybinds.";

@@ -17,11 +17,72 @@ in
       type = lib.types.bool;
     };
 
+    systemd = {
+      enable = lib.mkOption {
+        default = true;
+        description = "Enable DankMaterialShell systemd startup.";
+        type = lib.types.bool;
+      };
+
+      restart_if_changed = lib.mkOption {
+        default = true;
+        description = "Auto-restart dms.service when dank-material-shell changes.";
+        type = lib.types.bool;
+      };
+
+      target = lib.mkOption {
+        default = "graphical-session.target";
+        description = "Systemd target to bind DankMaterialShell to.";
+        type = lib.types.str;
+      };
+    };
+
+    plugins = lib.mkOption {
+      default = { };
+      description = "DMS plugins to install and enable.";
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            enable = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Whether to enable this plugin.";
+            };
+            src = lib.mkOption {
+              type = lib.types.either lib.types.package lib.types.path;
+              description = "Source of the plugin package or path.";
+            };
+            settings = lib.mkOption {
+              type = lib.types.attrsOf lib.types.anything;
+              default = { };
+              description = "Plugin settings as an attribute set.";
+            };
+          };
+        }
+      );
+    };
+
     greeter = {
       enable = lib.mkOption {
         default = true;
         description = "Enable the Eiros Dank Material Shell Greeter.";
         type = lib.types.bool;
+      };
+
+      compositor = {
+        name = lib.mkOption {
+          default = "mango";
+          description = "Compositor to run the greeter in.";
+          type = lib.types.enum [
+            "niri"
+            "hyprland"
+            "sway"
+            "labwc"
+            "mango"
+            "scroll"
+            "miracle"
+          ];
+        };
       };
 
       mango = {
@@ -54,6 +115,18 @@ in
           description = "Structured MangoWC keybind declarations for the greeter.";
           type = lib.types.attrsOf keybind_submodule;
         };
+      };
+
+      config_files = lib.mkOption {
+        default = [ ];
+        description = "Config files to copy into the greeter data directory.";
+        type = lib.types.listOf lib.types.path;
+      };
+
+      config_home = lib.mkOption {
+        default = null;
+        description = "User home directory to copy DMS configurations for the greeter. If DMS config files are in non-standard locations, use config_files instead.";
+        type = lib.types.nullOr lib.types.str;
       };
 
       logs = {
@@ -107,10 +180,26 @@ in
       type = lib.types.bool;
     };
 
-    search.enable = lib.mkOption {
-      default = true;
-      description = "Enable DankSearch.";
-      type = lib.types.bool;
+    search = {
+      enable = lib.mkOption {
+        default = true;
+        description = "Enable DankSearch.";
+        type = lib.types.bool;
+      };
+
+      systemd = {
+        enable = lib.mkOption {
+          default = true;
+          description = "Enable the dsearch systemd user service.";
+          type = lib.types.bool;
+        };
+
+        target = lib.mkOption {
+          default = "default.target";
+          description = "Systemd target for the dsearch service.";
+          type = lib.types.str;
+        };
+      };
     };
   };
 
@@ -144,8 +233,13 @@ in
         enableSystemMonitoring = eiros_dms.enable_system_monitoring;
         enableVPN = eiros_dms.enable_vpn;
 
+        plugins = eiros_dms.plugins;
+
         greeter = lib.mkIf eiros_dms.greeter.enable {
           enable = true;
+
+          configFiles = eiros_dms.greeter.config_files;
+          configHome = eiros_dms.greeter.config_home;
 
           logs = lib.mkIf eiros_dms.greeter.logs.enable {
             path = eiros_dms.greeter.logs.path;
@@ -153,14 +247,16 @@ in
           };
 
           compositor = {
-            name = "mango";
-            customConfig = mangowc_generator (make_mangowc_config eiros_dms.greeter.mango);
+            name = eiros_dms.greeter.compositor.name;
+            customConfig = lib.optionalString (eiros_dms.greeter.compositor.name == "mango")
+              (mangowc_generator (make_mangowc_config eiros_dms.greeter.mango));
           };
         };
 
         systemd = {
-          enable = true;
-          restartIfChanged = true;
+          enable = eiros_dms.systemd.enable;
+          restartIfChanged = eiros_dms.systemd.restart_if_changed;
+          target = eiros_dms.systemd.target;
         };
       };
     })
@@ -169,8 +265,8 @@ in
       programs.dsearch = {
         enable = true;
         systemd = {
-          enable = true;
-          target = "default.target";
+          enable = eiros_dms.search.systemd.enable;
+          target = eiros_dms.search.systemd.target;
         };
       };
     })

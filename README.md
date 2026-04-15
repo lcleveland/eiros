@@ -115,12 +115,19 @@ All options are under the `eiros.*` namespace:
 
 | Namespace | Description |
 |---|---|
-| `eiros.system.hardware.*` | CPU vendor, GPU, power, peripherals |
-| `eiros.system.boot.*` | Bootloader, kernel, Plymouth theme |
-| `eiros.system.networking.*` | Hostname, DNS, NetworkManager |
-| `eiros.system.security.*` | Firewall, SSH, GPG |
-| `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals |
-| `eiros.system.virtualization.*` | KVM, Podman, Distrobox |
+| `eiros.system.hardware.*` | CPU vendor, GPU, power, peripherals, printing, Bluetooth |
+| `eiros.system.boot.*` | Bootloader, kernel params, sysctl tuning, Plymouth theme |
+| `eiros.system.networking.*` | Hostname, DNS, NetworkManager, IWD |
+| `eiros.system.security.*` | Firewall, SSH, GPG, polkit, PAM |
+| `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, keybind commands |
+| `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld |
+| `eiros.system.default_applications.*` | Neovim/nixvim opts and plugins, Zsh history and options, Vivaldi flags, fzf defaults, Flatpak |
+| `eiros.system.virtualization.*` | KVM, Podman (DNS, Docker compat), Distrobox |
+| `eiros.system.fonts.*` | Font packages and fontconfig defaults |
+| `eiros.system.logging.*` | journald retention, rate limiting, vacuum |
+| `eiros.system.time.*` | Timezone, timesync |
+| `eiros.system.language.*` | Locale |
+| `eiros.system.pipewire.*` | PipeWire, ALSA, JACK, PulseAudio compat, RTKit |
 | `eiros.users.*` | User accounts, MangoWC keybinds, wallpaper |
 
 ## Default MangoWC Keybinds
@@ -166,8 +173,17 @@ Applied to all users when `mangowc.default_keybinds.enable = true` (the default)
 
 | Keybind | Action |
 |---|---|
-| `Super + T` | Launch terminal (Ghostty) |
-| `Super + F` | Launch file browser (Ghostty + Yazi) |
+| `Super + T` | Launch terminal (default: `ghostty`) |
+| `Super + F` | Launch file browser (default: `ghostty -e yazi`) |
+
+The commands behind these binds are configurable:
+
+```nix
+eiros.system.desktop_environment.mangowc.default_keybinds.commands = {
+  terminal     = "foot";
+  file_browser = "foot -e yazi";
+};
+```
 
 ### Media and Brightness
 

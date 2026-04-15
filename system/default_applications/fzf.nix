@@ -9,14 +9,26 @@ in
       description = "Install fzf for interactive fuzzy finding (Ctrl+R history, Ctrl+T file picker).";
       type = lib.types.bool;
     };
+
+    default_command = lib.mkOption {
+      default = "fd --type f --hidden --follow --exclude .git";
+      description = "Command used by fzf to generate the file list (FZF_DEFAULT_COMMAND).";
+      type = lib.types.str;
+    };
+
+    default_opts = lib.mkOption {
+      default = "--preview 'bat --color=always --style=numbers {}'";
+      description = "Default fzf options passed to every invocation (FZF_DEFAULT_OPTS).";
+      type = lib.types.str;
+    };
   };
 
   config = lib.mkIf eiros_fzf.enable {
     environment.systemPackages = [ pkgs.fzf ];
 
     environment.variables = {
-      FZF_DEFAULT_COMMAND = "fd --type f --hidden --follow --exclude .git";
-      FZF_DEFAULT_OPTS    = "--preview 'bat --color=always --style=numbers {}'";
+      FZF_DEFAULT_COMMAND = eiros_fzf.default_command;
+      FZF_DEFAULT_OPTS    = eiros_fzf.default_opts;
     };
 
     programs.zsh.interactiveShellInit = ''

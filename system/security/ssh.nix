@@ -21,6 +21,12 @@ in
       description = "Whether to allow root login over SSH (no, yes, prohibit-password).";
       type = lib.types.enum [ "no" "yes" "prohibit-password" ];
     };
+
+    kbd_interactive_authentication = lib.mkOption {
+      default = false;
+      description = "Allow keyboard-interactive authentication over SSH. Disabled by default — use key-based or password auth instead.";
+      type = lib.types.bool;
+    };
   };
 
   config = lib.mkMerge [
@@ -33,7 +39,7 @@ in
         enable = true;
         settings = {
           PasswordAuthentication = eiros_ssh.password_authentication;
-          KbdInteractiveAuthentication = false;
+          KbdInteractiveAuthentication = eiros_ssh.kbd_interactive_authentication;
           PermitRootLogin = eiros_ssh.permit_root_login;
         };
       };

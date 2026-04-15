@@ -40,6 +40,190 @@ in
       description = "Use the host system nixpkgs instead of evaluating a second nixpkgs instance. Maps to programs.nixvim.nixpkgs.useGlobalPackages.";
       type = lib.types.bool;
     };
+
+    opts = {
+      number = lib.mkOption {
+        default = true;
+        description = "Show absolute line numbers.";
+        type = lib.types.bool;
+      };
+
+      relative_number = lib.mkOption {
+        default = true;
+        description = "Show relative line numbers.";
+        type = lib.types.bool;
+      };
+
+      clipboard = lib.mkOption {
+        default = [ "unnamedplus" ];
+        description = "Clipboard registers to use (maps to vim 'clipboard' option).";
+        type = lib.types.listOf lib.types.str;
+      };
+
+      undo_file = lib.mkOption {
+        default = true;
+        description = "Persist undo history across sessions.";
+        type = lib.types.bool;
+      };
+
+      auto_write_all = lib.mkOption {
+        default = true;
+        description = "Automatically write all buffers when leaving them.";
+        type = lib.types.bool;
+      };
+
+      tab_stop = lib.mkOption {
+        default = 2;
+        description = "Number of spaces a tab counts for.";
+        type = lib.types.int;
+      };
+
+      shift_width = lib.mkOption {
+        default = 2;
+        description = "Number of spaces used for each indentation step.";
+        type = lib.types.int;
+      };
+
+      expand_tab = lib.mkOption {
+        default = true;
+        description = "Insert spaces instead of tab characters.";
+        type = lib.types.bool;
+      };
+
+      split_right = lib.mkOption {
+        default = true;
+        description = "Open vertical splits to the right.";
+        type = lib.types.bool;
+      };
+
+      split_below = lib.mkOption {
+        default = true;
+        description = "Open horizontal splits below.";
+        type = lib.types.bool;
+      };
+
+      cursor_line = lib.mkOption {
+        default = true;
+        description = "Highlight the line containing the cursor.";
+        type = lib.types.bool;
+      };
+    };
+
+    plugins = {
+      lualine.enable = lib.mkOption {
+        default = true;
+        description = "Enable lualine status bar.";
+        type = lib.types.bool;
+      };
+
+      bufferline.enable = lib.mkOption {
+        default = true;
+        description = "Enable bufferline tab bar.";
+        type = lib.types.bool;
+      };
+
+      which_key.enable = lib.mkOption {
+        default = true;
+        description = "Enable which-key keybind hints.";
+        type = lib.types.bool;
+      };
+
+      indent_blankline.enable = lib.mkOption {
+        default = true;
+        description = "Enable indent-blankline indentation guides.";
+        type = lib.types.bool;
+      };
+
+      telescope.enable = lib.mkOption {
+        default = true;
+        description = "Enable telescope fuzzy finder.";
+        type = lib.types.bool;
+      };
+
+      neo_tree.enable = lib.mkOption {
+        default = true;
+        description = "Enable neo-tree file explorer.";
+        type = lib.types.bool;
+      };
+
+      gitsigns.enable = lib.mkOption {
+        default = true;
+        description = "Enable gitsigns git decorations.";
+        type = lib.types.bool;
+      };
+
+      comment.enable = lib.mkOption {
+        default = true;
+        description = "Enable comment.nvim for easy commenting.";
+        type = lib.types.bool;
+      };
+
+      nvim_autopairs.enable = lib.mkOption {
+        default = true;
+        description = "Enable nvim-autopairs automatic bracket pairing.";
+        type = lib.types.bool;
+      };
+
+      treesitter = {
+        enable = lib.mkOption {
+          default = true;
+          description = "Enable treesitter syntax highlighting and parsing.";
+          type = lib.types.bool;
+        };
+
+        grammar_packages = lib.mkOption {
+          default = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            nix
+            lua
+            bash
+            json
+            yaml
+            toml
+            markdown
+            markdown_inline
+          ];
+          description = "Treesitter grammar packages to install.";
+          type = lib.types.listOf lib.types.package;
+        };
+      };
+
+      lspconfig.enable = lib.mkOption {
+        default = true;
+        description = "Enable nvim-lspconfig LSP client.";
+        type = lib.types.bool;
+      };
+
+      cmp = {
+        enable = lib.mkOption {
+          default = true;
+          description = "Enable nvim-cmp completion engine.";
+          type = lib.types.bool;
+        };
+
+        auto_enable_sources = lib.mkOption {
+          default = true;
+          description = "Automatically enable completion sources.";
+          type = lib.types.bool;
+        };
+
+        sources = lib.mkOption {
+          default = [
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "buffer"; }
+            { name = "path"; }
+          ];
+          description = "Completion sources for nvim-cmp.";
+          type = lib.types.listOf (lib.types.attrsOf lib.types.str);
+        };
+      };
+
+      luasnip.enable = lib.mkOption {
+        default = true;
+        description = "Enable LuaSnip snippet engine.";
+        type = lib.types.bool;
+      };
+    };
   };
 
   config = lib.mkIf (eiros_neovim.enable && eiros_nixvim.enable) {
@@ -55,71 +239,57 @@ in
 
       # --- Editor behavior ---
       opts = {
-        number = true;
-        relativenumber = true;
-        clipboard = [ "unnamedplus" ];
-        undofile = true;
-        autowriteall = true;
-        tabstop = 2;
-        shiftwidth = 2;
-        expandtab = true;
-        splitright = true;
-        splitbelow = true;
-        cursorline = true;
+        number = eiros_nixvim.opts.number;
+        relativenumber = eiros_nixvim.opts.relative_number;
+        clipboard = eiros_nixvim.opts.clipboard;
+        undofile = eiros_nixvim.opts.undo_file;
+        autowriteall = eiros_nixvim.opts.auto_write_all;
+        tabstop = eiros_nixvim.opts.tab_stop;
+        shiftwidth = eiros_nixvim.opts.shift_width;
+        expandtab = eiros_nixvim.opts.expand_tab;
+        splitright = eiros_nixvim.opts.split_right;
+        splitbelow = eiros_nixvim.opts.split_below;
+        cursorline = eiros_nixvim.opts.cursor_line;
       };
 
       # --- UI plugins ---
       plugins = {
         web-devicons.enable = true;
 
-        lualine.enable = true;
+        lualine.enable = eiros_nixvim.plugins.lualine.enable;
 
-        bufferline.enable = true;
+        bufferline.enable = eiros_nixvim.plugins.bufferline.enable;
 
-        which-key.enable = true;
+        which-key.enable = eiros_nixvim.plugins.which_key.enable;
 
-        indent-blankline.enable = true;
+        indent-blankline.enable = eiros_nixvim.plugins.indent_blankline.enable;
 
         # --- Navigation / editing ---
-        telescope.enable = true;
+        telescope.enable = eiros_nixvim.plugins.telescope.enable;
 
-        neo-tree.enable = true;
+        neo-tree.enable = eiros_nixvim.plugins.neo_tree.enable;
 
-        gitsigns.enable = true;
+        gitsigns.enable = eiros_nixvim.plugins.gitsigns.enable;
 
-        comment.enable = true;
+        comment.enable = eiros_nixvim.plugins.comment.enable;
 
-        nvim-autopairs.enable = true;
+        nvim-autopairs.enable = eiros_nixvim.plugins.nvim_autopairs.enable;
 
         # --- LSP / completion ---
         treesitter = {
-          enable = true;
-          grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-            nix
-            lua
-            bash
-            json
-            yaml
-            toml
-            markdown
-            markdown_inline
-          ];
+          enable = eiros_nixvim.plugins.treesitter.enable;
+          grammarPackages = eiros_nixvim.plugins.treesitter.grammar_packages;
         };
 
-        lspconfig.enable = true;
+        lspconfig.enable = eiros_nixvim.plugins.lspconfig.enable;
 
         cmp = {
-          enable = true;
-          autoEnableSources = true;
-          settings.sources = [
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
-            { name = "buffer"; }
-            { name = "path"; }
-          ];
+          enable = eiros_nixvim.plugins.cmp.enable;
+          autoEnableSources = eiros_nixvim.plugins.cmp.auto_enable_sources;
+          settings.sources = eiros_nixvim.plugins.cmp.sources;
         };
 
-        luasnip.enable = true;
+        luasnip.enable = eiros_nixvim.plugins.luasnip.enable;
       };
 
       extraPlugins = eiros_nixvim.extra_plugins;

@@ -40,6 +40,18 @@ in
         ];
       };
     };
+
+    docker_compat = lib.mkOption {
+      default = true;
+      description = "Enable Docker compatibility shim so Docker CLI commands work with Podman.";
+      type = lib.types.bool;
+    };
+
+    dns_enabled = lib.mkOption {
+      default = true;
+      description = "Enable DNS resolution for containers in the default Podman network.";
+      type = lib.types.bool;
+    };
   };
 
   config = lib.mkIf eiros_virtualization.enable (
@@ -52,8 +64,8 @@ in
           };
           podman = {
             enable = true;
-            dockerCompat = true;
-            defaultNetwork.settings.dns_enabled = true;
+            dockerCompat = eiros_podman.docker_compat;
+            defaultNetwork.settings.dns_enabled = eiros_podman.dns_enabled;
           };
         };
       })

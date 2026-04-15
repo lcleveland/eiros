@@ -29,6 +29,12 @@ in
       description = "Install KDE Discover for managing Flatpak applications.";
       type = lib.types.bool;
     };
+
+    flathub_url = lib.mkOption {
+      default = "https://flathub.org/repo/flathub.flatpakrepo";
+      description = "URL of the Flathub repository file to register as a Flatpak remote.";
+      type = lib.types.str;
+    };
   };
 
   config = lib.mkIf eiros_flatpak.enable {
@@ -52,7 +58,7 @@ in
       path = [ pkgs.flatpak ];
 
       script = ''
-        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        flatpak remote-add --if-not-exists flathub ${eiros_flatpak.flathub_url}
       '';
     };
   };

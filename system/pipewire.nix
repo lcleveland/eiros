@@ -30,6 +30,12 @@ in
       type = lib.types.bool;
     };
 
+    pulse.enable = lib.mkOption {
+      default = true;
+      description = "Enable PipeWire PulseAudio compatibility layer.";
+      type = lib.types.bool;
+    };
+
     rtkit.enable = lib.mkOption {
       default = true;
       description = "Enable RTKit for real-time audio scheduling.";
@@ -59,7 +65,7 @@ in
         };
 
         pulse = {
-          enable = true;
+          enable = eiros_pipewire.pulse.enable;
         };
       };
 

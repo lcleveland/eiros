@@ -63,6 +63,18 @@ in
         type = lib.types.listOf lib.types.str;
       };
     };
+
+    hist_size = lib.mkOption {
+      default = 50000;
+      description = "Maximum number of history entries to keep.";
+      type = lib.types.int;
+    };
+
+    set_options = lib.mkOption {
+      default = [ "HIST_IGNORE_DUPS" "HIST_IGNORE_SPACE" "SHARE_HISTORY" ];
+      description = "Zsh options to enable (setopt).";
+      type = lib.types.listOf lib.types.str;
+    };
   };
 
   config = lib.mkIf eiros_zsh.enable {
@@ -74,8 +86,8 @@ in
       autosuggestions.enable = eiros_zsh.autosuggestions.enable;
       syntaxHighlighting.enable = eiros_zsh.syntax_highlighting.enable;
 
-      histSize = 50000;
-      setOptions = [ "HIST_IGNORE_DUPS" "HIST_IGNORE_SPACE" "SHARE_HISTORY" ];
+      histSize = eiros_zsh.hist_size;
+      setOptions = eiros_zsh.set_options;
 
       shellAliases = lib.mkMerge [
         (lib.mkIf eiros_eza.enable {

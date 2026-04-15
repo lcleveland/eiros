@@ -17,10 +17,18 @@ in
       type = lib.types.listOf lib.types.package;
     };
 
-    discovery.enable = lib.mkOption {
-      default = true;
-      description = "Enable Avahi mDNS-based network printer discovery.";
-      type = lib.types.bool;
+    discovery = {
+      enable = lib.mkOption {
+        default = true;
+        description = "Enable Avahi mDNS-based network printer discovery.";
+        type = lib.types.bool;
+      };
+
+      nssmdns4 = lib.mkOption {
+        default = true;
+        description = "Enable Avahi's nssmdns4 NSS module for resolving .local hostnames via mDNS over IPv4.";
+        type = lib.types.bool;
+      };
     };
   };
 
@@ -53,7 +61,7 @@ in
 
       services.avahi = lib.mkIf eiros_printing.discovery.enable {
         enable = true;
-        nssmdns4 = true;
+        nssmdns4 = eiros_printing.discovery.nssmdns4;
       };
     })
 

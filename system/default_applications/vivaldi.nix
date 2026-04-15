@@ -25,7 +25,8 @@ let
     # Disables Chromium's GPU process sandbox. This is a security regression but
     # may be required to work around rendering issues with certain NVIDIA driver
     # and Vulkan combinations. Opt-in via disable_gpu_sandbox = true.
-    ++ lib.optionals eiros_vivaldi.disable_gpu_sandbox [ "--disable-gpu-sandbox" ];
+    ++ lib.optionals eiros_vivaldi.disable_gpu_sandbox [ "--disable-gpu-sandbox" ]
+    ++ eiros_vivaldi.extra_flags;
 
   vivaldi-wayland = pkgs.vivaldi.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
@@ -42,6 +43,12 @@ in
       default = false;
       description = "Disable Chromium's GPU process sandbox (--disable-gpu-sandbox). This is a security regression — only enable if needed to work around NVIDIA/Vulkan rendering issues.";
       type = lib.types.bool;
+    };
+
+    extra_flags = lib.mkOption {
+      default = [ ];
+      description = "Additional command-line flags appended to the Vivaldi wrapper.";
+      type = lib.types.listOf lib.types.str;
     };
 
     desktop_file = lib.mkOption {
