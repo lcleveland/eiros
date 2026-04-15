@@ -11,9 +11,21 @@ in
         type = lib.types.bool;
       };
     };
+    playerctl = {
+      enable = lib.mkOption {
+        default = true;
+        description = "Install playerctl for media playback control.";
+        type = lib.types.bool;
+      };
+    };
   };
 
-  config = lib.mkIf eiros_sound.pactl.enable {
-    environment.systemPackages = [ pkgs.pulseaudio ];
-  };
+  config = lib.mkMerge [
+    (lib.mkIf eiros_sound.pactl.enable {
+      environment.systemPackages = [ pkgs.pulseaudio ];
+    })
+    (lib.mkIf eiros_sound.playerctl.enable {
+      environment.systemPackages = [ pkgs.playerctl ];
+    })
+  ];
 }
