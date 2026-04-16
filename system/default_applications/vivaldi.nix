@@ -12,8 +12,8 @@ let
     [
       "--ozone-platform=wayland"
 
-      "--enable-features=UseOzonePlatform,ExternalProtocolDialog,WaylandLinuxDrmSyncobj,Vulkan"
-      "--disable-features=IntentPicker,DelegatedCompositing"
+      "--enable-features=UseOzonePlatform,ExternalProtocolDialog,Vulkan"
+      "--disable-features=IntentPicker,DelegatedCompositing,WaylandLinuxDrmSyncobj"
 
       # Force ANGLE to Vulkan (no OpenGL fallback)
       "--use-angle=vulkan"
