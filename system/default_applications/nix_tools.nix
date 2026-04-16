@@ -1,4 +1,4 @@
-# Installs Nix language tooling: nil LSP server and nixfmt-rfc-style formatter.
+# Installs Nix language tooling: nil LSP server and nixfmt formatter.
 { config, lib, pkgs, ... }:
 let
   eiros_nix_tools = config.eiros.system.default_applications.nix_tools;
@@ -29,7 +29,7 @@ in
 
     formatter.enable = lib.mkOption {
       default = true;
-      description = "Install nixfmt-rfc-style, the RFC-style Nix code formatter.";
+      description = "Install nixfmt, the RFC-style Nix code formatter.";
       example = lib.literalExpression ''
         {
           eiros.system.default_applications.nix_tools.formatter.enable = false;
@@ -42,6 +42,6 @@ in
   config = lib.mkIf eiros_nix_tools.enable {
     environment.systemPackages =
       lib.optionals eiros_nix_tools.lsp.enable [ pkgs.nil ]
-      ++ lib.optionals eiros_nix_tools.formatter.enable [ pkgs.nixfmt-rfc-style ];
+      ++ lib.optionals eiros_nix_tools.formatter.enable [ pkgs.nixfmt ];
   };
 }
