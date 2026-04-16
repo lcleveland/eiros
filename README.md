@@ -14,6 +14,7 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 - **Security-first defaults** — UFW firewall enabled, SSH disabled, no password auth over SSH, optional sops-nix secret management
 - **Virtualization** — KVM/QEMU, Libvirt, Podman, Distrobox, Virt Manager
 - **Shell toolchain** — zoxide, atuin, delta, lazygit, pay-respects, and optional Zellij multiplexer alongside the existing fzf/yazi/eza/bat/ripgrep stack
+- **Declarative Neovim** — fully configured via nixvim with LSP, treesitter, completion, telescope, and plugin ecosystem
 
 ## Directory Structure
 
@@ -130,6 +131,8 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.language.*` | Locale |
 | `eiros.system.sound.*` | pactl/playerctl keybind tools, PipeWire (ALSA, JACK, PulseAudio compat, RTKit), EasyEffects audio EQ (off by default), Helvum patchbay GUI (off by default) |
 | `eiros.system.earlyoom.*` | Early OOM killer thresholds and process preferences |
+| `eiros.system.accounts.*` | Mutable user account management |
+| `eiros.system.documentation.*` | man pages and NixOS documentation |
 | `eiros.users.*` | User accounts, MangoWC keybinds, wallpaper |
 
 ## Default MangoWC Keybinds
@@ -220,10 +223,11 @@ These keybinds are only active when `eiros.system.desktop_environment.dank_mater
 
 | Input | Source | Purpose |
 |---|---|---|
-| `nixpkgs` | NixOS/nixpkgs | Package set (tracks master) |
+| `nixpkgs` | NixOS/nixpkgs | Package set (tracks nixos-unstable) |
 | `dank_material_shell` | AvengeMedia | DMS desktop shell and greeter modules |
 | `hjem` | feel-co | Home directory management |
 | `mango` | DreamMaoMao | MangoWC compositor module |
+| `nixvim` | nix-community/nixvim | Declarative Neovim configuration |
 | `eiros_hardware` | lcleveland/eiros.hardware | Hardware configuration (override with your own) |
 | `eiros_users` | lcleveland/eiros.users | User configuration (override with your own) |
 | `sops-nix` | Mic92/sops-nix | Declarative secret management via SOPS + age/GPG |
