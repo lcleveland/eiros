@@ -18,6 +18,9 @@ let
       # Prevent GPU raster flickering/tearing on NVIDIA/Wayland
       "--disable-zero-copy"
       "--num-raster-threads=1"
+
+      # Use OpenGL ANGLE backend to reduce text flickering on NVIDIA/Wayland
+      "--use-angle=opengl"
     ]
     # Disables Chromium's GPU process sandbox. This is a security regression but
     # may be required to work around rendering issues with certain NVIDIA driver
