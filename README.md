@@ -35,7 +35,7 @@ eiros/
 └── resources/
     └── nix/
         ├── import_modules.nix      # Recursive module auto-loader
-        └── render_hypr_config.nix  # Hyprland config renderer
+        └── mangowc_helpers.nix     # MangoWC keybind submodule and config helpers
 ```
 
 ## Usage
@@ -121,7 +121,7 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.security.*` | Firewall, SSH, GPG, polkit, PAM |
 | `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, keybind commands |
 | `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld |
-| `eiros.system.default_applications.*` | Neovim/nixvim opts and plugins, Zsh history and options, Vivaldi flags, fzf defaults, Flatpak |
+| `eiros.system.default_applications.*` | Neovim/nixvim opts and plugins, Zsh history and options, Vivaldi flags, fzf defaults, Flatpak, mpv, imv, zathura, btop, ncdu, archive tools (zip/p7zip), Nix LSP and formatter |
 | `eiros.system.virtualization.*` | KVM, Podman (DNS, Docker compat), Distrobox |
 | `eiros.system.fonts.*` | Font packages and fontconfig defaults |
 | `eiros.system.logging.*` | journald retention, rate limiting, vacuum |
@@ -206,9 +206,13 @@ These keybinds are only active when `eiros.system.desktop_environment.dank_mater
 |---|---|
 | `Super + D` | Toggle DMS Spotlight |
 | `Super + Escape` | Lock screen |
-| `Super + N` | Toggle night mode |
+| `Super + N` | Toggle notification center |
+| `Super + Shift + N` | Toggle night mode |
 | `Super + Shift + S` | Screenshot (no file, copies to clipboard) |
 | `Ctrl + Shift + V` | Paste from clipboard history |
+| `Super + V` | Toggle clipboard history panel |
+| `Super + ,` | Open DMS settings |
+| `Super + Y` | Next wallpaper |
 
 ## Flake Inputs
 
