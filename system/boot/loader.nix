@@ -9,21 +9,33 @@ in
       can_touch_efi_vars = lib.mkOption {
         default = true;
         description = "Allow the kernel to touch EFI variables.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.loader.efi.can_touch_efi_vars = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
       enable = lib.mkOption {
         default = true;
         description = "Enable EFI boot support.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.loader.efi.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
       sys_mount_point = lib.mkOption {
         default = "/boot";
         description = "Mount point of the EFI system partition (e.g. \"/boot\" or \"/boot/efi\").";
-        example = "/boot/efi";
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.loader.efi.sys_mount_point = "/boot/efi";
+          }
+        '';
         type = lib.types.str;
       };
     };
@@ -32,14 +44,22 @@ in
       configuration_limit = lib.mkOption {
         default = 3;
         description = "Number of systemd-boot entries (generations) to keep on the ESP.";
-        example = 5;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.loader.systemd_boot.configuration_limit = 5;
+          }
+        '';
         type = lib.types.int;
       };
 
       enable = lib.mkOption {
         default = true;
         description = "Enable systemd-boot.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.loader.systemd_boot.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
     };

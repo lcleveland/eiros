@@ -8,7 +8,11 @@ in
     state_version = lib.mkOption {
       default = "25.11";
       description = "Version of the NixOS state to use.";
-      example = "24.11";
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.state_version = "24.11";
+        }
+      '';
       type = lib.types.str;
     };
   };

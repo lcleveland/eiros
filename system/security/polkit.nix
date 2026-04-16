@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable Polkit.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.security.polkit.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

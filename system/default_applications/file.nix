@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.file.enable = lib.mkOption {
     default = true;
     description = "Install file for determining file types.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.file.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

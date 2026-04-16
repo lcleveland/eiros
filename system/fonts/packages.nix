@@ -13,7 +13,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable font package installation.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.fonts.packages.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -26,7 +30,11 @@ in
           noto-fonts-color-emoji
         ];
         description = "Base font packages.";
-        example = lib.literalExpression "[ pkgs.noto-fonts pkgs.inter ]";
+        example = lib.literalExpression ''
+          {
+            eiros.system.fonts.packages.packages.base = [ pkgs.noto-fonts pkgs.inter ];
+          }
+        '';
         type = lib.types.listOf lib.types.package;
       };
 
@@ -36,14 +44,22 @@ in
           noto-fonts-cjk-serif
         ];
         description = "CJK font packages.";
-        example = lib.literalExpression "[ pkgs.noto-fonts-cjk-sans ]";
+        example = lib.literalExpression ''
+          {
+            eiros.system.fonts.packages.packages.cjk = [ pkgs.noto-fonts-cjk-sans ];
+          }
+        '';
         type = lib.types.listOf lib.types.package;
       };
 
       nerd = lib.mkOption {
         default = [ pkgs.nerd-fonts.jetbrains-mono ];
         description = "Nerd Font packages. Provides glyph icons used by terminal prompts (e.g. spaceship) and tools like eza.";
-        example = lib.literalExpression "[ pkgs.nerd-fonts.fira-code ]";
+        example = lib.literalExpression ''
+          {
+            eiros.system.fonts.packages.packages.nerd = [ pkgs.nerd-fonts.fira-code ];
+          }
+        '';
         type = lib.types.listOf lib.types.package;
       };
     };

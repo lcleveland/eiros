@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable kernel parameter and sysctl performance tuning.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.boot.kernel.tuning.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -20,10 +24,14 @@ in
         "threadirqs"
       ];
       description = "Kernel parameters for performance tuning.";
-      example = [
-        "quiet"
-        "mitigations=off"
-      ];
+      example = lib.literalExpression ''
+        {
+          eiros.system.boot.kernel.tuning.kernel_params = [
+            "quiet"
+            "mitigations=off"
+          ];
+        }
+      '';
       type = lib.types.listOf lib.types.str;
     };
 
@@ -31,7 +39,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Enable sysctl VM and scheduler tuning.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.kernel.tuning.sysctl.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
@@ -47,7 +59,11 @@ in
           "kernel.nmi_watchdog" = 0;
         };
         description = "Sysctl settings for VM and scheduler tuning.";
-        example = lib.literalExpression ''{ "vm.swappiness" = 10; "vm.vfs_cache_pressure" = 100; }'';
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.kernel.tuning.sysctl.settings = { "vm.swappiness" = 10; "vm.vfs_cache_pressure" = 100; };
+          }
+        '';
         type = lib.types.attrsOf lib.types.anything;
       };
     };

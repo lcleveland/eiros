@@ -13,14 +13,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable Qalculate.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.qalculate.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     package = lib.mkOption {
       default = pkgs.qalculate-gtk;
       description = "Qalculate package to install.";
-      example = lib.literalExpression "pkgs.qalculate-gtk";
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.qalculate.package = pkgs.qalculate-gtk;
+        }
+      '';
       type = lib.types.package;
     };
   };

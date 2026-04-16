@@ -22,21 +22,33 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable Flatpak support.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.flatpak.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     discover = lib.mkOption {
       default = true;
       description = "Install KDE Discover for managing Flatpak applications.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.flatpak.discover = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     flathub_url = lib.mkOption {
       default = "https://flathub.org/repo/flathub.flatpakrepo";
       description = "URL of the Flathub repository file to register as a Flatpak remote.";
-      example = "https://flathub.org/repo/flathub.flatpakrepo";
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.flatpak.flathub_url = "https://flathub.org/repo/flathub.flatpakrepo";
+        }
+      '';
       type = lib.types.str;
     };
   };

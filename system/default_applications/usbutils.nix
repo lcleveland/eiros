@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.usbutils.enable = lib.mkOption {
     default = true;
     description = "Install usbutils (lsusb) for USB device inspection.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.usbutils.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

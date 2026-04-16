@@ -7,7 +7,11 @@ in
   options.eiros.system.desktop_environment.xwayland.enable = lib.mkOption {
     default = true;
     description = "Enable XWayland for running X11 applications under Wayland.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.desktop_environment.xwayland.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

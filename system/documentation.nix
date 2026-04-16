@@ -8,14 +8,22 @@ in
     man.enable = lib.mkOption {
       default = true;
       description = "Install man pages for system packages.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.documentation.man.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     nixos.enable = lib.mkOption {
       default = false;
       description = "Install NixOS option documentation (large closure, off by default).";
-      example = true;
+      example = lib.literalExpression ''
+        {
+          eiros.system.documentation.nixos.enable = true;
+        }
+      '';
       type = lib.types.bool;
     };
   };

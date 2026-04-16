@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.pciutils.enable = lib.mkOption {
     default = true;
     description = "Install pciutils (lspci) for PCI device inspection.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.pciutils.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

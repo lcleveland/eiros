@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable Bluetooth support.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.bluetooth.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -16,7 +20,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Enable Bluetooth audio support optimized for PipeWire.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.bluetooth.pipewire.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
@@ -27,12 +35,16 @@ in
           "Media"
         ];
         description = "Bluetooth audio roles to enable (PipeWire/BlueZ). Valid BlueZ General.Enable values: Controller, Bredr, Hs, Audio, Source, Sink, Health, Media.";
-        example = [
-          "Source"
-          "Sink"
-          "Media"
-          "Health"
-        ];
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.bluetooth.pipewire.roles = [
+              "Source"
+              "Sink"
+              "Media"
+              "Health"
+            ];
+          }
+        '';
         type = lib.types.listOf (lib.types.enum [
           "Controller"
           "Bredr"

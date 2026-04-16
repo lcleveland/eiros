@@ -39,7 +39,11 @@ in
       disable = lib.mkOption {
         default = false;
         description = "Disable Chromium's GPU process sandbox (--disable-gpu-sandbox). This is a security regression — only enable if needed to work around NVIDIA/Vulkan rendering issues.";
-        example = true;
+        example = lib.literalExpression ''
+          {
+            eiros.system.default_applications.vivaldi.gpu_sandbox.disable = true;
+          }
+        '';
         type = lib.types.bool;
       };
     };
@@ -47,28 +51,44 @@ in
     extra_flags = lib.mkOption {
       default = [ ];
       description = "Additional command-line flags appended to the Vivaldi wrapper.";
-      example = [ "--force-dark-mode" ];
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.vivaldi.extra_flags = [ "--force-dark-mode" ];
+        }
+      '';
       type = lib.types.listOf lib.types.str;
     };
 
     desktop_file = lib.mkOption {
       default = "vivaldi.desktop";
       description = "Desktop file used for default browser associations.";
-      example = "vivaldi-stable.desktop";
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.vivaldi.desktop_file = "vivaldi-stable.desktop";
+        }
+      '';
       type = lib.types.str;
     };
 
     enable = lib.mkOption {
       default = true;
       description = "Enable Vivaldi as the default browser.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.vivaldi.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     package = lib.mkOption {
       default = vivaldi-wayland;
       description = "Vivaldi package to install (Wayland/Ozone wrapped).";
-      example = lib.literalExpression "pkgs.vivaldi";
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.vivaldi.package = pkgs.vivaldi;
+        }
+      '';
       type = lib.types.package;
     };
   };

@@ -17,7 +17,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable podman.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.podman.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -25,7 +29,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Install a compose provider so `podman compose` / `podman-compose` works.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.virtualization.podman.compose.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
@@ -37,7 +45,11 @@ in
           - "podman-compose": python-based tool (`podman-compose ...`)
           - "docker-compose": Docker Compose v2 binary (`podman compose ...` can use it as provider)
         '';
-        example = "docker-compose";
+        example = lib.literalExpression ''
+          {
+            eiros.system.virtualization.podman.compose.provider = "docker-compose";
+          }
+        '';
         type = lib.types.enum [
           "podman-compose"
           "docker-compose"
@@ -48,14 +60,22 @@ in
     docker_compat = lib.mkOption {
       default = true;
       description = "Enable Docker compatibility shim so Docker CLI commands work with Podman.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.podman.docker_compat = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     dns_enabled = lib.mkOption {
       default = true;
       description = "Enable DNS resolution for containers in the default Podman network.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.podman.dns_enabled = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

@@ -8,14 +8,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable direnv for per-directory automatic environment activation.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.direnv.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     nix_direnv.enable = lib.mkOption {
       default = true;
       description = "Enable nix-direnv integration. Caches nix develop shells so direnv reloads are fast and GC-safe.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.direnv.nix_direnv.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

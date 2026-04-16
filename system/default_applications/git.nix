@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable Git.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.git.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

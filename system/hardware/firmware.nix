@@ -14,7 +14,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Enable all supported firmware.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.firmware.all_firmware.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
     };
@@ -22,7 +26,11 @@ in
     extra_packages = lib.mkOption {
       default = [ ];
       description = "Additional firmware packages to install (added to hardware.firmware).";
-      example = lib.literalExpression "[ pkgs.rtl8761b-firmware ]";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.firmware.extra_packages = [ pkgs.rtl8761b-firmware ];
+        }
+      '';
       type = lib.types.listOf lib.types.package;
     };
 
@@ -30,7 +38,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Enable fwupd (firmware update daemon, used by KDE Discover).";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.firmware.fwupd.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
     };

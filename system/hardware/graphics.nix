@@ -20,7 +20,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable Eiros hardware graphics.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.graphics.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -28,7 +32,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Enable 32-bit graphics libraries (for 32-bit applications).";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.graphics.bits_32.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
     };
@@ -37,7 +45,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Enable NVIDIA GPU support.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.graphics.nvidia.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
@@ -45,7 +57,11 @@ in
         enable = lib.mkOption {
           default = true;
           description = "Enable NVIDIA Container Toolkit (for GPU support in containers).";
-          example = false;
+          example = lib.literalExpression ''
+            {
+              eiros.system.hardware.graphics.nvidia.container_toolkit.enable = false;
+            }
+          '';
           type = lib.types.bool;
         };
       };
@@ -53,7 +69,11 @@ in
       open.enable = lib.mkOption {
         default = true;
         description = "Enable the NVIDIA open kernel module (hardware.nvidia.open).";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.graphics.nvidia.open.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
@@ -61,7 +81,11 @@ in
         enable = lib.mkOption {
           default = true;
           description = "Install the nvidia-settings GUI tool.";
-          example = false;
+          example = lib.literalExpression ''
+            {
+              eiros.system.hardware.graphics.nvidia.settings.enable = false;
+            }
+          '';
           type = lib.types.bool;
         };
       };
@@ -70,35 +94,55 @@ in
         enable = lib.mkOption {
           default = false;
           description = "Enable NVIDIA PRIME (hybrid graphics) configuration.";
-          example = true;
+          example = lib.literalExpression ''
+            {
+              eiros.system.hardware.graphics.nvidia.prime.enable = true;
+            }
+          '';
           type = lib.types.bool;
         };
 
         intel_bus_id = lib.mkOption {
           default = null;
           description = "Intel iGPU PCI Bus ID (e.g. \"PCI:0:2:0\"). Required when PRIME is enabled.";
-          example = "PCI:0:2:0";
+          example = lib.literalExpression ''
+            {
+              eiros.system.hardware.graphics.nvidia.prime.intel_bus_id = "PCI:0:2:0";
+            }
+          '';
           type = lib.types.nullOr lib.types.str;
         };
 
         nvidia_bus_id = lib.mkOption {
           default = null;
           description = "NVIDIA dGPU PCI Bus ID (e.g. \"PCI:1:0:0\"). Required when PRIME is enabled.";
-          example = "PCI:1:0:0";
+          example = lib.literalExpression ''
+            {
+              eiros.system.hardware.graphics.nvidia.prime.nvidia_bus_id = "PCI:1:0:0";
+            }
+          '';
           type = lib.types.nullOr lib.types.str;
         };
 
         offload.enable = lib.mkOption {
           default = true;
           description = "Enable PRIME render offload (recommended default for laptops).";
-          example = false;
+          example = lib.literalExpression ''
+            {
+              eiros.system.hardware.graphics.nvidia.prime.offload.enable = false;
+            }
+          '';
           type = lib.types.bool;
         };
 
         sync.enable = lib.mkOption {
           default = false;
           description = "Enable PRIME sync (use instead of offload).";
-          example = true;
+          example = lib.literalExpression ''
+            {
+              eiros.system.hardware.graphics.nvidia.prime.sync.enable = true;
+            }
+          '';
           type = lib.types.bool;
         };
       };
@@ -107,7 +151,11 @@ in
         wlr_no_hardware_cursors.enable = lib.mkOption {
           default = true;
           description = "Set WLR_NO_HARDWARE_CURSORS=1 (wlroots cursor workaround).";
-          example = false;
+          example = lib.literalExpression ''
+            {
+              eiros.system.hardware.graphics.nvidia.wayland.wlr_no_hardware_cursors.enable = false;
+            }
+          '';
           type = lib.types.bool;
         };
       };

@@ -12,7 +12,11 @@ in
     enable = lib.mkOption {
       default = false;
       description = "Enable fingerprint scanner support via fprintd.";
-      example = true;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.fingerprint_scanner.enable = true;
+        }
+      '';
       type = lib.types.bool;
     };
     pam_services = lib.mkOption {
@@ -26,11 +30,15 @@ in
         can authorize privilege escalation without a password. Remove "sudo"
         from this list if that is undesirable in your environment.
       '';
-      example = [
-        "login"
-        "sudo"
-        "polkit-1"
-      ];
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.fingerprint_scanner.pam_services = [
+            "login"
+            "sudo"
+            "polkit-1"
+          ];
+        }
+      '';
       type = lib.types.listOf lib.types.str;
     };
   };

@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.bat.enable = lib.mkOption {
     default = true;
     description = "Install bat, a cat replacement with syntax highlighting and git integration.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.bat.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

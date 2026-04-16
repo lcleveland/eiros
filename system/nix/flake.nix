@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable flakes in Eiros.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.flake.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

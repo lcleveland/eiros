@@ -7,7 +7,11 @@ in
   options.eiros.system.nix.nix_ld.enable = lib.mkOption {
     default = true;
     description = "Enable nix-ld, allowing unpatched binaries to run without manual patchelf. Useful with distrobox and Flatpak where pre-compiled binaries are common.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.nix.nix_ld.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

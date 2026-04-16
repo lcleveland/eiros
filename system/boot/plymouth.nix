@@ -13,7 +13,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Activate the Eiros Plymouth theme";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.boot.plymouth.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -26,10 +30,14 @@ in
         "rd.systemd.show_status=auto"
       ];
       description = "Kernel parameters applied when quiet boot is enabled.";
-      example = [
-        "quiet"
-        "splash"
-      ];
+      example = lib.literalExpression ''
+        {
+          eiros.system.boot.plymouth.kernel_params = [
+            "quiet"
+            "splash"
+          ];
+        }
+      '';
       type = lib.types.listOf lib.types.str;
     };
 
@@ -37,7 +45,11 @@ in
       timeout = lib.mkOption {
         default = 0;
         description = "Boot loader timeout (seconds) when Plymouth is enabled.";
-        example = 5;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.plymouth.loader.timeout = 5;
+          }
+        '';
         type = lib.types.int;
       };
     };
@@ -46,21 +58,33 @@ in
       console_log_level = lib.mkOption {
         default = 3;
         description = "Console log level when quiet boot is enabled.";
-        example = 0;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.plymouth.quiet_boot.console_log_level = 0;
+          }
+        '';
         type = lib.types.int;
       };
 
       enable = lib.mkOption {
         default = true;
         description = "Enable quiet boot settings (kernel params, reduced logging).";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.plymouth.quiet_boot.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
       initrd_verbose = lib.mkOption {
         default = false;
         description = "Whether the initrd should be verbose when quiet boot is enabled.";
-        example = true;
+        example = lib.literalExpression ''
+          {
+            eiros.system.boot.plymouth.quiet_boot.initrd_verbose = true;
+          }
+        '';
         type = lib.types.bool;
       };
     };
@@ -68,7 +92,11 @@ in
     theme = lib.mkOption {
       default = "hud_3";
       description = "Plymouth theme name to use.";
-      example = "bgrt";
+      example = lib.literalExpression ''
+        {
+          eiros.system.boot.plymouth.theme = "bgrt";
+        }
+      '';
       type = lib.types.str;
     };
 
@@ -79,7 +107,11 @@ in
         })
       ];
       description = "Packages providing Plymouth themes (added to boot.plymouth.themePackages). Defaults to only the hud_3 theme to minimise initrd closure size.";
-      example = lib.literalExpression "[ pkgs.nixos-bgrt-plymouth ]";
+      example = lib.literalExpression ''
+        {
+          eiros.system.boot.plymouth.theme_packages = [ pkgs.nixos-bgrt-plymouth ];
+        }
+      '';
       type = lib.types.listOf lib.types.package;
     };
   };

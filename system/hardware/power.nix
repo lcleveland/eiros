@@ -8,21 +8,33 @@ in
     upower.enable = lib.mkOption {
       default = true;
       description = "Enable UPower for power management.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.power.upower.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     cpu_governor = lib.mkOption {
       default = "schedutil";
       description = "CPU frequency scaling governor. Set to null when using power_profiles (power-profiles-daemon). schedutil is recommended for modern kernels as it hooks directly into the scheduler.";
-      example = "performance";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.power.cpu_governor = "performance";
+        }
+      '';
       type = lib.types.nullOr lib.types.str;
     };
 
     power_profiles.enable = lib.mkOption {
       default = false;
       description = "Enable power-profiles-daemon for dynamic CPU power profiles (performance, balanced, power-saver). Integrates with the DMS control center. Incompatible with cpu_governor — set that to null when enabling this.";
-      example = true;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.power.power_profiles.enable = true;
+        }
+      '';
       type = lib.types.bool;
     };
   };

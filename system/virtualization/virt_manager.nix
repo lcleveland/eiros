@@ -19,35 +19,55 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Virtual machine manager GUI.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.virt_manager.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     shared_folder_support.enable = lib.mkOption {
       default = true;
       description = "Enable shared folder support in virt-manager (virtiofsd).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.virt_manager.shared_folder_support.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     spice_gtk.enable = lib.mkOption {
       default = true;
       description = "Install spice-gtk for SPICE client integration.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.virt_manager.spice_gtk.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     usbredir.enable = lib.mkOption {
       default = true;
       description = "Install usbredir for USB redirection support.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.virt_manager.usbredir.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     virt_viewer.enable = lib.mkOption {
       default = true;
       description = "Install virt-viewer for viewing virtual machine consoles.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.virt_manager.virt_viewer.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

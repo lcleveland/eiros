@@ -9,7 +9,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Install pactl for PulseAudio/PipeWire volume control via keybinds.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.sound.pactl.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
     };
@@ -17,7 +21,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Install playerctl for media playback control.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.sound.playerctl.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
     };

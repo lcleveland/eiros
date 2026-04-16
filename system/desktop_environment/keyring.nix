@@ -17,7 +17,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable GNOME Keyring.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.desktop_environment.keyring.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -26,24 +30,36 @@ in
         "login"
       ];
       description = "PAM services to enable GNOME Keyring integration for.";
-      example = [
-        "login"
-        "sddm"
-      ];
+      example = lib.literalExpression ''
+        {
+          eiros.system.desktop_environment.keyring.pam_services = [
+            "login"
+            "sddm"
+          ];
+        }
+      '';
       type = lib.types.listOf lib.types.str;
     };
 
     seahorse.enable = lib.mkOption {
       default = true;
       description = "Enable Seahorse (GNOME Keyring GUI).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.desktop_environment.keyring.seahorse.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     ssh_agent.enable = lib.mkOption {
       default = false;
       description = "Enable the OpenSSH agent (programs.ssh.startAgent).";
-      example = true;
+      example = lib.literalExpression ''
+        {
+          eiros.system.desktop_environment.keyring.ssh_agent.enable = true;
+        }
+      '';
       type = lib.types.bool;
     };
   };

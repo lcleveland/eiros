@@ -8,14 +8,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable periodic fstrim to maintain SSD/NVMe performance and longevity.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.fstrim.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     interval = lib.mkOption {
       default = "weekly";
       description = "systemd OnCalendar schedule for fstrim.";
-      example = "monthly";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.fstrim.interval = "monthly";
+        }
+      '';
       type = lib.types.str;
     };
   };

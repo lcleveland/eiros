@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable Fontconfig.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.fonts.font_config.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -22,10 +26,14 @@ in
           "Noto Sans Mono CJK KR"
         ];
         description = "Default monospace fonts.";
-        example = [
-          "FiraCode Nerd Font Mono"
-          "monospace"
-        ];
+        example = lib.literalExpression ''
+          {
+            eiros.system.fonts.font_config.default_fonts.monospace = [
+              "FiraCode Nerd Font Mono"
+              "monospace"
+            ];
+          }
+        '';
         type = lib.types.listOf lib.types.str;
       };
 
@@ -39,10 +47,14 @@ in
           "Noto Color Emoji"
         ];
         description = "Default sans-serif fonts.";
-        example = [
-          "Noto Sans"
-          "sans-serif"
-        ];
+        example = lib.literalExpression ''
+          {
+            eiros.system.fonts.font_config.default_fonts.sans_serif = [
+              "Noto Sans"
+              "sans-serif"
+            ];
+          }
+        '';
         type = lib.types.listOf lib.types.str;
       };
 
@@ -55,17 +67,25 @@ in
           "Noto Serif CJK KR"
         ];
         description = "Default serif fonts.";
-        example = [
-          "Noto Serif"
-          "serif"
-        ];
+        example = lib.literalExpression ''
+          {
+            eiros.system.fonts.font_config.default_fonts.serif = [
+              "Noto Serif"
+              "serif"
+            ];
+          }
+        '';
         type = lib.types.listOf lib.types.str;
       };
 
       emoji = lib.mkOption {
         default = [ "Noto Color Emoji" ];
         description = "Default emoji fonts.";
-        example = [ "Noto Color Emoji" ];
+        example = lib.literalExpression ''
+          {
+            eiros.system.fonts.font_config.default_fonts.emoji = [ "Noto Color Emoji" ];
+          }
+        '';
         type = lib.types.listOf lib.types.str;
       };
     };

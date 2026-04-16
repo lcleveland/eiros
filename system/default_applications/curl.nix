@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.curl.enable = lib.mkOption {
     default = true;
     description = "Install curl for command-line HTTP/HTTPS transfers.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.curl.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

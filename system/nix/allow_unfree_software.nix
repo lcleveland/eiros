@@ -8,7 +8,11 @@ in
     allow_unfree_software.enable = lib.mkOption {
       default = true;
       description = "Allow unfree software in Eiros.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.allow_unfree_software.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -20,10 +24,14 @@ in
         matching. If empty, all unfree packages are allowed when
         allow_unfree_software.enable is true.
       '';
-      example = [
-        "nvidia"
-        "vivaldi"
-      ];
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.allow_unfree_software.predicates = [
+            "nvidia"
+            "vivaldi"
+          ];
+        }
+      '';
       type = lib.types.listOf lib.types.str;
     };
   };

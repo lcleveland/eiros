@@ -8,14 +8,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable XDG Desktop Portal (wlroots + GTK) for Wayland desktop integration.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.desktop_environment.xdg_portal.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     extra_portals = lib.mkOption {
       default = [ pkgs.xdg-desktop-portal-gtk ];
       description = "Additional XDG portal backend packages to install alongside xdg-desktop-portal-wlr.";
-      example = lib.literalExpression "[ pkgs.xdg-desktop-portal-kde ]";
+      example = lib.literalExpression ''
+        {
+          eiros.system.desktop_environment.xdg_portal.extra_portals = [ pkgs.xdg-desktop-portal-kde ];
+        }
+      '';
       type = lib.types.listOf lib.types.package;
     };
   };

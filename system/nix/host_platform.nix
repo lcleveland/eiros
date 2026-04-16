@@ -8,7 +8,11 @@ in
     host_platform = lib.mkOption {
       default = "x86_64-linux";
       description = "The platform that the Nix daemon is running on.";
-      example = "aarch64-linux";
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.host_platform = "aarch64-linux";
+        }
+      '';
       type = lib.types.enum [
         "aarch64-darwin"
         "aarch64-linux"

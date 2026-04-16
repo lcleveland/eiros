@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.wget.enable = lib.mkOption {
     default = true;
     description = "Install wget for command-line file downloading.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.wget.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

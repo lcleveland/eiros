@@ -8,7 +8,11 @@ in
     iwd.enable = lib.mkOption {
       default = true;
       description = "Use iwd as the Wi-Fi backend (via NetworkManager).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.networking.iwd.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -16,7 +20,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Use NetworkManager for network configuration.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.networking.network_manager.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
     };

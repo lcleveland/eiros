@@ -13,7 +13,11 @@ in
     udiskie.enable = lib.mkOption {
       default = true;
       description = "Enable USB storage automount support (udisks2 + udiskie).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.usb_storage.udiskie.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

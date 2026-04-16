@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.eza.enable = lib.mkOption {
     default = true;
     description = "Install eza, a modern ls replacement with colour, icons, and git status.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.eza.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

@@ -7,7 +7,11 @@ in
   options.eiros.system.accounts.mutable_users.enable = lib.mkOption {
     default = true;
     description = "Allow users to create new accounts.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.accounts.mutable_users.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

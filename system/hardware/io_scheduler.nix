@@ -9,28 +9,44 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Set I/O schedulers per device type via udev rules.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.io_scheduler.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     nvme_scheduler = lib.mkOption {
       default = "none";
       description = "I/O scheduler for NVMe devices. 'none' is recommended as NVMe drives manage their own queues.";
-      example = "mq-deadline";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.io_scheduler.nvme_scheduler = "mq-deadline";
+        }
+      '';
       type = scheduler_type;
     };
 
     ssd_scheduler = lib.mkOption {
       default = "mq-deadline";
       description = "I/O scheduler for SATA SSDs. 'mq-deadline' provides low latency with bounded wait times.";
-      example = "none";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.io_scheduler.ssd_scheduler = "none";
+        }
+      '';
       type = scheduler_type;
     };
 
     hdd_scheduler = lib.mkOption {
       default = "bfq";
       description = "I/O scheduler for HDDs. 'bfq' provides fair queuing optimised for rotational media.";
-      example = "mq-deadline";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.io_scheduler.hdd_scheduler = "mq-deadline";
+        }
+      '';
       type = scheduler_type;
     };
   };

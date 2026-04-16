@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.unzip.enable = lib.mkOption {
     default = true;
     description = "Install unzip for extracting ZIP archives.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.unzip.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

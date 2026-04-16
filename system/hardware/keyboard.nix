@@ -8,21 +8,33 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Configure the system keyboard layout via xkb.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.keyboard.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     layout = lib.mkOption {
       default = "us";
       description = "Keyboard layout to use (xkb-data-style).";
-      example = "de";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.keyboard.layout = "de";
+        }
+      '';
       type = lib.types.str;
     };
 
     variant = lib.mkOption {
       default = "";
       description = "Keyboard layout variant to use.";
-      example = "nodeadkeys";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.keyboard.variant = "nodeadkeys";
+        }
+      '';
       type = lib.types.str;
     };
   };

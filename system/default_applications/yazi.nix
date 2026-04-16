@@ -13,14 +13,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable Yazi file manager.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.yazi.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     default_file_browser.enable = lib.mkOption {
       default = true;
       description = "Use Yazi as the default file browser (terminal-centric).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.yazi.default_file_browser.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -28,21 +36,33 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Enable a sensible default opener for Yazi (installs xdg-utils and configures Yazi to use xdg-open).";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.default_applications.yazi.opener.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
       package = lib.mkOption {
         default = pkgs.xdg-utils;
         description = "Package providing the opener command (default: xdg-utils for xdg-open).";
-        example = lib.literalExpression "pkgs.handlr-regex";
+        example = lib.literalExpression ''
+          {
+            eiros.system.default_applications.yazi.opener.package = pkgs.handlr-regex;
+          }
+        '';
         type = lib.types.package;
       };
 
       command = lib.mkOption {
         default = "xdg-open";
         description = "Command Yazi should use to open files (e.g. xdg-open).";
-        example = "handlr open";
+        example = lib.literalExpression ''
+          {
+            eiros.system.default_applications.yazi.opener.command = "handlr open";
+          }
+        '';
         type = lib.types.str;
       };
     };
@@ -50,14 +70,22 @@ in
     shell_integration.enable = lib.mkOption {
       default = true;
       description = "Add a `y` shell function that opens yazi and cd's to the last directory on exit.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.yazi.shell_integration.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     package = lib.mkOption {
       default = pkgs.yazi;
       description = "Yazi package to install.";
-      example = lib.literalExpression "pkgs.yazi";
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.yazi.package = pkgs.yazi;
+        }
+      '';
       type = lib.types.package;
     };
   };

@@ -82,14 +82,22 @@ in
       terminal = lib.mkOption {
         default = "ghostty";
         description = "Command used to launch the terminal emulator.";
-        example = "alacritty";
+        example = lib.literalExpression ''
+          {
+            eiros.system.desktop_environment.mangowc.default_keybinds.commands.terminal = "alacritty";
+          }
+        '';
         type = lib.types.str;
       };
 
       file_browser = lib.mkOption {
         default = "ghostty -e yazi";
         description = "Command used to launch the file browser.";
-        example = "alacritty -e lf";
+        example = lib.literalExpression ''
+          {
+            eiros.system.desktop_environment.mangowc.default_keybinds.commands.file_browser = "alacritty -e lf";
+          }
+        '';
         type = lib.types.str;
       };
     };
@@ -99,10 +107,12 @@ in
       description = "The resolved set of default MangoWC keybinds. Read this from users.nix to merge with per-user keybinds.";
       example = lib.literalExpression ''
         {
-          close_window = {
-            modifier_keys = [ "SUPER" ];
-            key_symbol = "q";
-            mangowc_command = "killclient";
+          eiros.system.desktop_environment.mangowc.default_keybinds.keybinds = {
+            close_window = {
+              modifier_keys = [ "SUPER" ];
+              key_symbol = "q";
+              mangowc_command = "killclient";
+            };
           };
         }
       '';

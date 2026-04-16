@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable the GnuPG agent for GPG key management, commit signing, and pass/age workflows.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.security.gpg.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -16,7 +20,11 @@ in
       enable = lib.mkOption {
         default = false;
         description = "Use gpg-agent as the SSH agent (replaces ssh-agent with GPG-backed SSH keys).";
-        example = true;
+        example = lib.literalExpression ''
+          {
+            eiros.system.security.gpg.ssh_support.enable = true;
+          }
+        '';
         type = lib.types.bool;
       };
     };
@@ -24,7 +32,11 @@ in
     pinentry_flavor = lib.mkOption {
       default = "gnome3";
       description = "Pinentry flavor for GPG passphrase prompts (gnome3, gtk2, curses, tty, qt).";
-      example = "curses";
+      example = lib.literalExpression ''
+        {
+          eiros.system.security.gpg.pinentry_flavor = "curses";
+        }
+      '';
       type = lib.types.enum [ "curses" "emacs" "gnome3" "gtk2" "qt" "rofi" "tty" ];
     };
   };

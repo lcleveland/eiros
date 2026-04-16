@@ -8,14 +8,22 @@ in
     hostname = lib.mkOption {
       default = "eiros";
       description = "Hostname to use for the Eiros system.";
-      example = "my-machine";
+      example = lib.literalExpression ''
+        {
+          eiros.system.networking.hostname = "my-machine";
+        }
+      '';
       type = lib.types.str;
     };
 
     domain = lib.mkOption {
       default = null;
       description = "Optional domain name (sets networking.domain).";
-      example = "local";
+      example = lib.literalExpression ''
+        {
+          eiros.system.networking.domain = "local";
+        }
+      '';
       type = lib.types.nullOr lib.types.str;
     };
   };

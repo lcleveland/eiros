@@ -8,14 +8,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable systemd-resolved as the stub DNS resolver. Improves split-DNS, DNSSEC, and LLMNR support, particularly on a roaming laptop.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.networking.resolved.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     dnssec = lib.mkOption {
       default = "allow-downgrade";
       description = "DNSSEC validation mode (true, allow-downgrade, false).";
-      example = "true";
+      example = lib.literalExpression ''
+        {
+          eiros.system.networking.resolved.dnssec = "true";
+        }
+      '';
       type = lib.types.enum [ "true" "allow-downgrade" "false" ];
     };
   };

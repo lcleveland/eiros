@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable the Mango Window Composer.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.desktop_environment.mangowc.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -16,7 +20,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Propagate Wayland session environment variables into systemd and D-Bus on MangoWC startup.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.desktop_environment.mangowc.systemd.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
@@ -32,10 +40,14 @@ in
           "GNOME_KEYRING_CONTROL"
         ];
         description = "Environment variables to import into the systemd user session on MangoWC startup.";
-        example = [
-          "WAYLAND_DISPLAY"
-          "XDG_CURRENT_DESKTOP"
-        ];
+        example = lib.literalExpression ''
+          {
+            eiros.system.desktop_environment.mangowc.systemd.variables = [
+              "WAYLAND_DISPLAY"
+              "XDG_CURRENT_DESKTOP"
+            ];
+          }
+        '';
         type = lib.types.listOf lib.types.str;
       };
     };

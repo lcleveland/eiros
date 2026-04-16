@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.wl_clipboard.enable = lib.mkOption {
     default = true;
     description = "Install wl-clipboard (wl-copy/wl-paste) for Wayland clipboard integration.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.wl_clipboard.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

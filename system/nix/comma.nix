@@ -8,14 +8,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Install comma, allowing any nixpkgs program to be run without installing it (e.g. , cowsay hello).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.comma.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     nix_index.enable = lib.mkOption {
       default = true;
       description = "Install nix-index and run nix-index to build the file database. Required for comma to resolve package names.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.nix.comma.nix_index.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

@@ -7,7 +7,11 @@ in
   options.eiros.system.hardware.irqbalance.enable = lib.mkOption {
     default = true;
     description = "Distribute hardware IRQs across CPU cores to reduce bottlenecks from NVIDIA and NVMe interrupt load.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.hardware.irqbalance.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

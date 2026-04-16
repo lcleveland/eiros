@@ -12,7 +12,11 @@ in
   options.eiros.system.boot.kernel.kernel_package = lib.mkOption {
     default = pkgs.linuxPackages_latest;
     description = "The kernel package set to use for Eiros (e.g. pkgs.linuxPackages_latest).";
-    example = lib.literalExpression "pkgs.linuxPackages";
+    example = lib.literalExpression ''
+      {
+        eiros.system.boot.kernel.kernel_package = pkgs.linuxPackages;
+      }
+    '';
     type = lib.types.attrs;
   };
 

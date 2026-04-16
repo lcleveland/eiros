@@ -8,14 +8,22 @@ in
     time_zone = lib.mkOption {
       default = "America/Chicago";
       description = "The system time zone. Must be a valid IANA timezone (e.g. \"America/Chicago\", \"Europe/London\").";
-      example = "Europe/London";
+      example = lib.literalExpression ''
+        {
+          eiros.system.time.time_zone = "Europe/London";
+        }
+      '';
       type = lib.types.str;
     };
 
     timesync.enable = lib.mkOption {
       default = true;
       description = "Enable time synchronization (systemd-timesyncd).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.time.timesync.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };

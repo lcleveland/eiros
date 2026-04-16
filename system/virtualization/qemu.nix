@@ -14,14 +14,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable QEMU virtual machines.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.qemu.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     package = lib.mkOption {
       default = pkgs.qemu;
       description = "QEMU package to install.";
-      example = lib.literalExpression "pkgs.qemu_kvm";
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.qemu.package = pkgs.qemu_kvm;
+        }
+      '';
       type = lib.types.package;
     };
   };

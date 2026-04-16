@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.ripgrep.enable = lib.mkOption {
     default = true;
     description = "Install ripgrep (rg), a fast recursive grep replacement.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.ripgrep.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

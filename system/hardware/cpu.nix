@@ -10,21 +10,33 @@ in
     iommu.enable = lib.mkOption {
       default = false;
       description = "Enable IOMMU (intel_iommu=on or amd_iommu=on). Required for KVM DMA isolation and effective use of iommu=pt. Requires vendor to be set.";
-      example = true;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.cpu.iommu.enable = true;
+        }
+      '';
       type = lib.types.bool;
     };
 
     microcode.enable = lib.mkOption {
       default = true;
       description = "Enable CPU microcode updates.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.cpu.microcode.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     vendor = lib.mkOption {
       default = null;
       description = "CPU vendor. If null, enable microcode updates for both AMD and Intel.";
-      example = "intel";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.cpu.vendor = "intel";
+        }
+      '';
       type = lib.types.nullOr (
         lib.types.enum [
           "amd"

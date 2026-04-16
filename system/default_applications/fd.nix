@@ -7,7 +7,11 @@ in
   options.eiros.system.default_applications.fd.enable = lib.mkOption {
     default = true;
     description = "Install fd, a fast and user-friendly find replacement.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.default_applications.fd.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

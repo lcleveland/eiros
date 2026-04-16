@@ -8,14 +8,22 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Configure system locale and i18n settings.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.language.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     locale = lib.mkOption {
       default = "en_US.UTF-8";
       description = "Language locale for the system (e.g. en_US.UTF-8).";
-      example = "en_GB.UTF-8";
+      example = lib.literalExpression ''
+        {
+          eiros.system.language.locale = "en_GB.UTF-8";
+        }
+      '';
       type = lib.types.str;
     };
   };

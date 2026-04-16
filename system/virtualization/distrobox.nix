@@ -12,7 +12,11 @@ in
   options.eiros.system.virtualization.distrobox.enable = lib.mkOption {
     default = true;
     description = "Enable distrobox.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.virtualization.distrobox.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
   config = lib.mkIf (eiros_virtualization.enable && eiros_virtualization.distrobox.enable) {

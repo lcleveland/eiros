@@ -7,7 +7,11 @@ in
   options.eiros.system.desktop_environment.dconf.enable = lib.mkOption {
     default = true;
     description = "Enable the dconf settings daemon. Required by GTK applications and Seahorse to persist settings.";
-    example = false;
+    example = lib.literalExpression ''
+      {
+        eiros.system.desktop_environment.dconf.enable = false;
+      }
+    '';
     type = lib.types.bool;
   };
 

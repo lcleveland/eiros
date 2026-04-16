@@ -9,7 +9,11 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Install brightnessctl for screen brightness control via keybinds.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.display.brightnessctl.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
     };

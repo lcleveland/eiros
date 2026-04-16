@@ -10,28 +10,44 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable zsh system-wide.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.zsh.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     default_shell.enable = lib.mkOption {
       default = true;
       description = "Set zsh as the default shell for all users (users.defaultUserShell).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.zsh.default_shell.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     autosuggestions.enable = lib.mkOption {
       default = true;
       description = "Enable zsh-autosuggestions (suggests commands from history as you type).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.zsh.autosuggestions.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
     syntax_highlighting.enable = lib.mkOption {
       default = true;
       description = "Enable zsh-syntax-highlighting (highlights commands as you type).";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.zsh.syntax_highlighting.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
 
@@ -39,21 +55,33 @@ in
       enable = lib.mkOption {
         default = true;
         description = "Enable Oh My Zsh framework.";
-        example = false;
+        example = lib.literalExpression ''
+          {
+            eiros.system.default_applications.zsh.oh_my_zsh.enable = false;
+          }
+        '';
         type = lib.types.bool;
       };
 
       theme = lib.mkOption {
         default = "spaceship";
         description = "Oh My Zsh theme to use.";
-        example = "robbyrussell";
+        example = lib.literalExpression ''
+          {
+            eiros.system.default_applications.zsh.oh_my_zsh.theme = "robbyrussell";
+          }
+        '';
         type = lib.types.str;
       };
 
       custom_packages = lib.mkOption {
         default = [ pkgs.spaceship-prompt ];
         description = "Additional packages providing Oh My Zsh themes or plugins.";
-        example = lib.literalExpression "[ pkgs.spaceship-prompt ]";
+        example = lib.literalExpression ''
+          {
+            eiros.system.default_applications.zsh.oh_my_zsh.custom_packages = [ pkgs.spaceship-prompt ];
+          }
+        '';
         type = lib.types.listOf lib.types.package;
       };
 
@@ -68,11 +96,15 @@ in
           "sudo"
         ];
         description = "Oh My Zsh plugins to enable.";
-        example = [
-          "git"
-          "sudo"
-          "extract"
-        ];
+        example = lib.literalExpression ''
+          {
+            eiros.system.default_applications.zsh.oh_my_zsh.plugins = [
+              "git"
+              "sudo"
+              "extract"
+            ];
+          }
+        '';
         type = lib.types.listOf lib.types.str;
       };
     };
@@ -80,17 +112,25 @@ in
     hist_size = lib.mkOption {
       default = 50000;
       description = "Maximum number of history entries to keep.";
-      example = 100000;
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.zsh.hist_size = 100000;
+        }
+      '';
       type = lib.types.int;
     };
 
     set_options = lib.mkOption {
       default = [ "HIST_IGNORE_DUPS" "HIST_IGNORE_SPACE" "SHARE_HISTORY" ];
       description = "Zsh options to enable (setopt).";
-      example = [
-        "HIST_IGNORE_DUPS"
-        "SHARE_HISTORY"
-      ];
+      example = lib.literalExpression ''
+        {
+          eiros.system.default_applications.zsh.set_options = [
+            "HIST_IGNORE_DUPS"
+            "SHARE_HISTORY"
+          ];
+        }
+      '';
       type = lib.types.listOf lib.types.str;
     };
   };

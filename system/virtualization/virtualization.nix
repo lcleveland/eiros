@@ -8,7 +8,11 @@ in
     enable = lib.mkOption {
       default = true;
       description = "Enable virtualization support.";
-      example = false;
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.enable = false;
+        }
+      '';
       type = lib.types.bool;
     };
   };
