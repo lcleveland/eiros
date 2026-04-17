@@ -4,7 +4,6 @@
   outputs =
     {
       dank_material_shell,
-      dms_wallpaperengine,
       eiros_hardware,
       eiros_users,
       hjem,
@@ -22,7 +21,6 @@
       inputs = {
         inherit
           dank_material_shell
-          dms_wallpaperengine
           eiros_hardware
           eiros_users
           hjem
@@ -113,9 +111,5 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dms_wallpaperengine = {
-      url = "github:sgtaziz/dms-wallpaperengine";
-      flake = false;
-    };
   };
 }
