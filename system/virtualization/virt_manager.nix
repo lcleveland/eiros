@@ -70,6 +70,17 @@ in
       '';
       type = lib.types.bool;
     };
+
+    windows_11.enable = lib.mkOption {
+      default = false;
+      description = "Enable Windows 11 guest VM support (swtpm TPM 2.0 emulator and OVMFFull UEFI firmware with Secure Boot).";
+      example = lib.literalExpression ''
+        {
+          eiros.system.virtualization.virt_manager.windows_11.enable = true;
+        }
+      '';
+      type = lib.types.bool;
+    };
   };
 
   config = lib.mkIf (eiros_virtualization.enable && eiros_virt_manager.enable) {
@@ -94,11 +105,20 @@ in
       libvirtd = {
         enable = true;
 
-        qemu = {
-          vhostUserPackages = lib.mkIf eiros_virt_manager.shared_folder_support.enable [
-            pkgs.virtiofsd
-          ];
-        };
+        qemu = lib.mkMerge [
+          {
+            vhostUserPackages = lib.mkIf eiros_virt_manager.shared_folder_support.enable [
+              pkgs.virtiofsd
+            ];
+          }
+          (lib.mkIf eiros_virt_manager.windows_11.enable {
+            swtpm.enable = true;
+            ovmf = {
+              enable = true;
+              packages = [ pkgs.OVMFFull ];
+            };
+          })
+        ];
       };
     };
   };
