@@ -15,6 +15,8 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 - **Virtualization** — KVM/QEMU, Libvirt, Podman, Distrobox, Virt Manager
 - **Shell toolchain** — zoxide, atuin, delta, lazygit, pay-respects, and optional Zellij multiplexer alongside the existing fzf/yazi/eza/bat/ripgrep stack
 - **Declarative Neovim** — fully configured via nixvim with LSP, treesitter, completion, telescope, and plugin ecosystem
+- **Binary compatibility** — nix-ld provides a dynamic linker stub for unpatched executables; nix-alien wraps them in an auto-detected FHS environment when the stub isn't enough
+- **System-wide theming** — optional Stylix integration derives a color palette from your wallpaper and applies it to GTK, Qt, terminals, and syntax highlighting
 
 ## Directory Structure
 
@@ -28,7 +30,7 @@ eiros/
 │   ├── default_applications/# Neovim, Git, Zsh, Ghostty, Vivaldi
 │   ├── networking/         # NetworkManager, hostname, DNS
 │   ├── security/           # Firewall, SSH, GPG, PAM
-│   ├── nix/                # Flakes, GC, direnv, nix-ld
+│   ├── nix/                # Flakes, GC, direnv, nix-ld, nix-alien
 │   ├── virtualization/     # KVM, Podman, Distrobox
 │   ├── fonts/              # Font packages and fontconfig
 │   └── ...                 # Audio, locale, time, logging, accounts
@@ -128,8 +130,8 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.boot.*` | Bootloader, kernel params, sysctl tuning, Plymouth theme |
 | `eiros.system.networking.*` | Hostname, DNS, NetworkManager, IWD, Avahi mDNS |
 | `eiros.system.security.*` | Firewall, SSH, GPG, polkit, polkit authentication agent, PAM, sops-nix secrets |
-| `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, keybind commands |
-| `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld, nh helper |
+| `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, keybind commands, Stylix system-wide theming (off by default — requires a wallpaper path) |
+| `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld, nix-alien FHS wrapper, nh helper |
 | `eiros.system.default_applications.*` | Neovim/nixvim opts and plugins, Zsh history and options, Vivaldi flags, fzf defaults, zoxide smart cd, atuin history, delta git diffs, lazygit TUI, pay-respects command corrector, Zellij multiplexer, Flatpak, mpv, imv, zathura, btop, ncdu, archive tools (zip/p7zip), MangoHUD performance overlay, GStreamer multimedia codecs, Nix LSP and formatter |
 | `eiros.system.virtualization.*` | KVM, Podman (DNS, Docker compat), Distrobox |
 | `eiros.system.fonts.*` | Font packages and fontconfig defaults |
@@ -238,3 +240,4 @@ These keybinds are only active when `eiros.system.desktop_environment.dank_mater
 | `eiros_hardware` | lcleveland/eiros.hardware | Hardware configuration (override with your own) |
 | `eiros_users` | lcleveland/eiros.users | User configuration (override with your own) |
 | `sops-nix` | Mic92/sops-nix | Declarative secret management via SOPS + age/GPG |
+| `stylix` | nix-community/stylix | System-wide theming from a wallpaper image |
