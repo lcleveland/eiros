@@ -55,6 +55,8 @@ in
           "vm.dirty_background_ratio" = 5;
           "vm.dirty_writeback_centisecs" = 1500;
           "vm.oom_kill_allocating_task" = 1;
+          "vm.overcommit_memory" = 1;
+          "vm.page-cluster" = 0;
           "kernel.sched_migration_cost_ns" = 5000000;
           "kernel.nmi_watchdog" = 0;
         };

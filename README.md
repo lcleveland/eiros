@@ -10,7 +10,8 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 - **MangoWC integration** — declarative keybinds, settings, and wallpaper per user
 - **Dank Material Shell** — audio visualizer, clipboard history, dynamic theming, calendar, system monitoring, and search
 - **Home directory management** via [hjem](https://github.com/feel-co/hjem)
-- **Hardware support** — NVIDIA PRIME (offload/sync), Intel/AMD CPU microcode, Bluetooth, printing, fingerprint
+- **Hardware support** — NVIDIA PRIME (offload/sync), Intel/AMD CPU microcode, Bluetooth, printing, fingerprint, zram compressed swap
+- **Performance tuning** — TCP BBR congestion control, network buffer tuning, kernel sysctl defaults (vm, scheduler, memory overcommit), PipeWire low-latency quantum
 - **Security-first defaults** — UFW firewall enabled, SSH disabled, no password auth over SSH, optional sops-nix secret management
 - **Virtualization** — KVM/QEMU, Libvirt, Distrobox (Docker backend), Virt Manager, Windows 11 guest support (swtpm TPM 2.0 + Secure Boot)
 - **Shell toolchain** — zoxide, atuin, delta, lazygit, pay-respects, and optional Zellij multiplexer alongside the existing fzf/yazi/eza/bat/ripgrep stack
@@ -129,11 +130,11 @@ All options are under the `eiros.*` namespace:
 
 | Namespace | Description |
 |---|---|
-| `eiros.system.hardware.*` | CPU vendor, GPU, power, peripherals, printing, Bluetooth, earlyoom OOM killer |
+| `eiros.system.hardware.*` | CPU vendor, GPU, power, peripherals, printing, Bluetooth, earlyoom OOM killer, zram compressed swap (algorithm, memory %) |
 | `eiros.system.boot.*` | Bootloader, kernel package, kernel params, sysctl tuning, Plymouth theme |
-| `eiros.system.audio.*` | pactl/playerctl keybind tools, PipeWire (ALSA, JACK, PulseAudio compat, RTKit), EasyEffects audio EQ (off by default), Helvum patchbay GUI (off by default) |
+| `eiros.system.audio.*` | pactl/playerctl keybind tools, PipeWire (ALSA, JACK, PulseAudio compat, RTKit), low-latency quantum tuning (default 512 samples), EasyEffects audio EQ (off by default), Helvum patchbay GUI (off by default) |
 | `eiros.system.locale.*` | Timezone, timesync, i18n locale and LC_ categories |
-| `eiros.system.networking.*` | Hostname, DNS, NetworkManager, IWD, Avahi mDNS |
+| `eiros.system.networking.*` | Hostname, DNS, NetworkManager, IWD, Avahi mDNS, TCP BBR congestion control + network buffer tuning |
 | `eiros.system.security.*` | Firewall, SSH, GPG, polkit, polkit authentication agent, sops-nix secrets, mutable user accounts |
 | `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, keybind commands, Stylix system-wide theming (off by default — requires a wallpaper path), DMS linux-wallpaperengine plugin for animated Steam Workshop wallpapers |
 | `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld, nix-alien FHS wrapper, nh helper, man pages and NixOS documentation |

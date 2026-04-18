@@ -137,6 +137,17 @@ in
         type = lib.types.bool;
       };
     };
+
+    pipewire_quantum = lib.mkOption {
+      default = 512;
+      description = "PipeWire default clock quantum in samples (at 48 kHz: 512 = ~10.7 ms). Lower values reduce audio latency at the cost of higher CPU load. Increase if you experience xruns.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.audio.sound.pipewire_quantum = 1024;
+        }
+      '';
+      type = lib.types.int;
+    };
   };
 
   config = lib.mkMerge [
@@ -200,6 +211,16 @@ in
         serviceConfig = {
           ExecStart = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";
           Restart = "on-failure";
+        };
+      };
+    })
+
+    (lib.mkIf eiros_sound.pipewire.enable {
+      services.pipewire.extraConfig.pipewire."99-quantum" = {
+        "context.properties" = {
+          "default.clock.quantum" = eiros_sound.pipewire_quantum;
+          "default.clock.min-quantum" = 32;
+          "default.clock.max-quantum" = 8192;
         };
       };
     })
