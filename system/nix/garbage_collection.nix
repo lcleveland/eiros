@@ -104,6 +104,10 @@ in
         assertion = eiros_gc.disk_pressure.min_free < eiros_gc.disk_pressure.max_free;
         message = "eiros.system.nix.garbage_collection.disk_pressure.min_free must be less than max_free.";
       }
+      {
+        assertion = !config.eiros.system.nix.nh.clean.enable;
+        message = "eiros.system.nix.garbage_collection.enable and eiros.system.nix.nh.clean.enable are mutually exclusive; disable one.";
+      }
     ];
     nix = {
       gc = {

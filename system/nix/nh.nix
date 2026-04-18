@@ -31,8 +31,8 @@ in
 
     clean = {
       enable = lib.mkOption {
-        default = true;
-        description = "Enable automatic store cleaning via `nh clean all` on a timer.";
+        default = false;
+        description = "Enable automatic store cleaning via `nh clean all` on a timer. Mutually exclusive with eiros.system.nix.garbage_collection.enable.";
         example = lib.literalExpression ''
           {
             eiros.system.nix.nh.clean.enable = false;
@@ -66,6 +66,13 @@ in
   };
 
   config = lib.mkIf eiros_nh.enable {
+    assertions = [
+      {
+        assertion = !eiros_nh.clean.enable || !config.eiros.system.nix.garbage_collection.enable;
+        message = "eiros.system.nix.nh.clean.enable and eiros.system.nix.garbage_collection.enable are mutually exclusive; disable one.";
+      }
+    ];
+
     programs.nh = {
       enable = true;
       flake = eiros_nh.flake;
