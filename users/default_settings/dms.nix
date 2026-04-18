@@ -1506,13 +1506,13 @@ in
 
     # ── Application theming ────────────────────────────────────────────────
     gtk_theming_enabled = lib.mkOption {
-      default = false;
+      default = true;
       type = lib.types.bool;
       description = "Apply the active DMS color scheme to GTK 3/4 applications via matugen.";
     };
 
     qt_theming_enabled = lib.mkOption {
-      default = false;
+      default = true;
       type = lib.types.bool;
       description = "Apply the active DMS color scheme to Qt applications via qt5ct/qt6ct.";
     };
@@ -1524,7 +1524,7 @@ in
     };
 
     terminals_always_dark = lib.mkOption {
-      default = false;
+      default = true;
       type = lib.types.bool;
       description = "Always use the dark color variant for terminal applications even in light mode.";
     };
