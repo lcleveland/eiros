@@ -168,7 +168,7 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.virtualization.*` | Docker daemon, KVM, Distrobox (NVIDIA CDI), Virt Manager, Windows 11 guest support (swtpm TPM 2.0, OVMFFull Secure Boot) |
 | `eiros.system.fonts.*` | Font packages and fontconfig defaults |
 | `eiros.system.logging.*` | journald retention, rate limiting, vacuum |
-| `eiros.system.user_defaults.dms.<topic>.*` | System-wide defaults for all 200+ DMS user settings, namespaced by topic (`dms.bar.*`, `dms.dock.*`, `dms.appearance.*`, `dms.notifications.*`, `dms.lock_screen.*`, `dms.power.*`, `dms.launcher.*`, `dms.widgets.*`, etc.). Options use `.enable` style for feature toggles. Assembled into `dms._settings` and written to `~/.config/DankMaterialShell/settings.json` |
+| `eiros.system.user_defaults.dms.<topic>.*` | System-wide defaults for all 200+ DMS user settings, namespaced by topic (`dms.bar.*`, `dms.dock.*`, `dms.appearance.*`, `dms.notifications.*`, `dms.lock_screen.*`, `dms.power.*`, `dms.launcher.*`, `dms.widgets.*`, etc.). Options use `.enable` style for feature toggles and include `example` fields showing full configuration paths. Assembled into `dms._settings` and written to `~/.config/DankMaterialShell/settings.json` |
 | `eiros.users.*` | User accounts, MangoWC keybinds, wallpaper, per-user DMS settings override |
 
 ## Default MangoWC Keybinds
