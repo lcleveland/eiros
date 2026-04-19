@@ -4,6 +4,7 @@
   outputs =
     {
       dank_material_shell,
+      wallpaper_carousel,
       eiros_hardware,
       eiros_users,
       hjem,
@@ -20,6 +21,7 @@
       inputs = {
         inherit
           dank_material_shell
+          wallpaper_carousel
           eiros_hardware
           eiros_users
           hjem
@@ -59,6 +61,11 @@
     dank_material_shell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wallpaper_carousel = {
+      url = "github:motor-dev/wallpaperCarousel";
+      flake = false;
     };
 
     eiros_hardware = {

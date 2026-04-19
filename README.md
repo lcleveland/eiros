@@ -8,7 +8,7 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 
 - **Modular architecture** — `.nix` files in subdirectories are auto-loaded; no manual imports needed
 - **MangoWC integration** — declarative keybinds, settings, and wallpaper per user
-- **Dank Material Shell** — audio visualizer, clipboard history, dynamic theming, calendar, system monitoring, and search
+- **Dank Material Shell** — audio visualizer, clipboard history, dynamic theming, calendar, system monitoring, search, and wallpaper carousel
 - **Home directory management** via [hjem](https://github.com/feel-co/hjem)
 - **Hardware support** — NVIDIA PRIME (offload/sync), Intel/AMD CPU microcode, Bluetooth, printing, fingerprint, zram compressed swap
 - **Performance tuning** — TCP BBR congestion control, network buffer tuning, kernel sysctl defaults (vm, scheduler, memory overcommit), PipeWire low-latency quantum
@@ -28,7 +28,9 @@ eiros/
 │   ├── audio/              # PipeWire, pactl, playerctl, EasyEffects, Helvum
 │   ├── boot/               # Bootloader, kernel package, kernel params, Plymouth
 │   ├── default_applications/# Neovim, Git, Zsh, Ghostty, Vivaldi
-│   ├── desktop_environment/# MangoWC, DMS, XDG portals, Wayland
+│   ├── desktop_environment/# MangoWC, XDG portals, Wayland
+│   │   └── dankmaterialshell/ # DMS options and plugins
+│   │       └── plugins/    # One file per DMS plugin
 │   ├── fonts/              # Font packages and fontconfig
 │   ├── hardware/           # CPU, GPU, power, peripherals, earlyoom
 │   ├── locale/             # Timezone, timesync, i18n locale
@@ -240,7 +242,7 @@ eiros.system.desktop_environment.mangowc.default_keybinds.commands = {
 
 ### DMS Integration
 
-These keybinds are only active when `eiros.system.desktop_environment.dank_material_shell.enable = true`.
+These keybinds are only active when `eiros.system.desktop_environment.dankmaterialshell.enable = true`.
 
 | Keybind | Action |
 |---|---|
@@ -252,7 +254,7 @@ These keybinds are only active when `eiros.system.desktop_environment.dank_mater
 | `Ctrl + Shift + V` | Paste from clipboard history |
 | `Super + V` | Toggle clipboard history panel |
 | `Super + ,` | Open DMS settings |
-| `Super + Y` | Next wallpaper |
+| `Super + W` | Toggle wallpaper carousel |
 
 ## Flake Inputs
 
@@ -266,4 +268,4 @@ These keybinds are only active when `eiros.system.desktop_environment.dank_mater
 | `eiros_hardware` | lcleveland/eiros.hardware | Hardware configuration (override with your own) |
 | `eiros_users` | lcleveland/eiros.users | User configuration (override with your own) |
 | `sops-nix` | Mic92/sops-nix | Declarative secret management via SOPS + age/GPG |
-| `dms_wallpaperengine` | sgtaziz/dms-wallpaperengine | DMS plugin source for animated Steam Workshop wallpapers |
+| `wallpaper_carousel` | motor-dev/wallpaperCarousel | DMS plugin for interactive 3D wallpaper carousel selection |

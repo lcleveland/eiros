@@ -6,18 +6,18 @@
   ...
 }:
 let
-  eiros_dms = config.eiros.system.desktop_environment.dank_material_shell;
-  helpers = import ../../resources/nix/mangowc_helpers.nix lib;
+  eiros_dms = config.eiros.system.desktop_environment.dankmaterialshell;
+  helpers = import ../../../resources/nix/mangowc_helpers.nix lib;
   inherit (helpers) mangowc_generator keybind_submodule make_mangowc_config;
 in
 {
-  options.eiros.system.desktop_environment.dank_material_shell = {
+  options.eiros.system.desktop_environment.dankmaterialshell = {
     enable = lib.mkOption {
       default = true;
       description = "Enable the Eiros Dank Material Shell.";
       example = lib.literalExpression ''
         {
-          eiros.system.desktop_environment.dank_material_shell.enable = false;
+          eiros.system.desktop_environment.dankmaterialshell.enable = false;
         }
       '';
       type = lib.types.bool;
@@ -29,7 +29,7 @@ in
         description = "Enable DankMaterialShell systemd startup.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.systemd.enable = false;
+            eiros.system.desktop_environment.dankmaterialshell.systemd.enable = false;
           }
         '';
         type = lib.types.bool;
@@ -40,7 +40,7 @@ in
         description = "Auto-restart dms.service when dank-material-shell changes.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.systemd.restart_if_changed = false;
+            eiros.system.desktop_environment.dankmaterialshell.systemd.restart_if_changed = false;
           }
         '';
         type = lib.types.bool;
@@ -51,7 +51,7 @@ in
         description = "Systemd target to bind DankMaterialShell to.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.systemd.target = "default.target";
+            eiros.system.desktop_environment.dankmaterialshell.systemd.target = "default.target";
           }
         '';
         type = lib.types.str;
@@ -63,7 +63,7 @@ in
       description = "DMS plugins to install and enable.";
       example = lib.literalExpression ''
         {
-          eiros.system.desktop_environment.dank_material_shell.plugins = {
+          eiros.system.desktop_environment.dankmaterialshell.plugins = {
             my-plugin = {
               src = ./my-plugin;
               settings = { theme = "dark"; };
@@ -80,7 +80,7 @@ in
               description = "Whether to enable this plugin.";
               example = lib.literalExpression ''
                 {
-                  eiros.system.desktop_environment.dank_material_shell.plugins.my-plugin.enable = false;
+                  eiros.system.desktop_environment.dankmaterialshell.plugins.my-plugin.enable = false;
                 }
               '';
             };
@@ -89,7 +89,7 @@ in
               description = "Source of the plugin package or path.";
               example = lib.literalExpression ''
                 {
-                  eiros.system.desktop_environment.dank_material_shell.plugins.my-plugin.src = ./my-plugin;
+                  eiros.system.desktop_environment.dankmaterialshell.plugins.my-plugin.src = ./my-plugin;
                 }
               '';
             };
@@ -99,7 +99,7 @@ in
               description = "Plugin settings as an attribute set.";
               example = lib.literalExpression ''
                 {
-                  eiros.system.desktop_environment.dank_material_shell.plugins.my-plugin.settings = { theme = "dark"; };
+                  eiros.system.desktop_environment.dankmaterialshell.plugins.my-plugin.settings = { theme = "dark"; };
                 }
               '';
             };
@@ -114,7 +114,7 @@ in
         description = "Enable the Eiros Dank Material Shell Greeter.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.greeter.enable = false;
+            eiros.system.desktop_environment.dankmaterialshell.greeter.enable = false;
           }
         '';
         type = lib.types.bool;
@@ -126,7 +126,7 @@ in
           description = "Compositor to run the greeter in.";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.greeter.compositor.name = "sway";
+              eiros.system.desktop_environment.dankmaterialshell.greeter.compositor.name = "sway";
             }
           '';
           type = lib.types.enum [
@@ -147,7 +147,7 @@ in
           description = "Keyboard layout for the greeter's MangoWC.";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.greeter.mango.keyboard_layout = "de";
+              eiros.system.desktop_environment.dankmaterialshell.greeter.mango.keyboard_layout = "de";
             }
           '';
           type = lib.types.str;
@@ -158,7 +158,7 @@ in
           description = "Keyboard layout variant for the greeter's MangoWC.";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.greeter.mango.keyboard_variant = "nodeadkeys";
+              eiros.system.desktop_environment.dankmaterialshell.greeter.mango.keyboard_variant = "nodeadkeys";
             }
           '';
           type = lib.types.str;
@@ -169,7 +169,7 @@ in
           description = "Raw MangoWC key=value settings for the greeter compositor config.";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.greeter.mango.settings = {
+              eiros.system.desktop_environment.dankmaterialshell.greeter.mango.settings = {
                 border_width = 2;
                 gaps_in = 5;
               };
@@ -189,7 +189,7 @@ in
           description = "Structured MangoWC keybind declarations for the greeter.";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.greeter.mango.keybinds = {
+              eiros.system.desktop_environment.dankmaterialshell.greeter.mango.keybinds = {
                 close_window = {
                   modifier_keys = [ "SUPER" ];
                   key_symbol = "q";
@@ -207,7 +207,7 @@ in
         description = "Config files to copy into the greeter data directory.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.greeter.config_files = [ ./dms-config.json ];
+            eiros.system.desktop_environment.dankmaterialshell.greeter.config_files = [ ./dms-config.json ];
           }
         '';
         type = lib.types.listOf lib.types.path;
@@ -218,7 +218,7 @@ in
         description = "User home directory to copy DMS configurations for the greeter. If DMS config files are in non-standard locations, use config_files instead.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.greeter.config_home = "/home/alice";
+            eiros.system.desktop_environment.dankmaterialshell.greeter.config_home = "/home/alice";
           }
         '';
         type = lib.types.nullOr lib.types.str;
@@ -230,7 +230,7 @@ in
           description = "Enable logging of greeter messages to a file";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.greeter.logs.enable = false;
+              eiros.system.desktop_environment.dankmaterialshell.greeter.logs.enable = false;
             }
           '';
           type = lib.types.bool;
@@ -241,7 +241,7 @@ in
           description = "Path for the greeter log file.";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.greeter.logs.path = "/var/log/dms-greeter.log";
+              eiros.system.desktop_environment.dankmaterialshell.greeter.logs.path = "/var/log/dms-greeter.log";
             }
           '';
           type = lib.types.str;
@@ -255,7 +255,7 @@ in
         description = "Enable the cava audio visualizer in DMS.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.audio_wavelength.enable = true;
+            eiros.system.desktop_environment.dankmaterialshell.audio_wavelength.enable = true;
           }
         '';
         type = lib.types.bool;
@@ -268,7 +268,7 @@ in
         description = "Enable CalDAV calendar synchronization in DMS (requires khal/vdirsyncer setup).";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.calendar_events.enable = true;
+            eiros.system.desktop_environment.dankmaterialshell.calendar_events.enable = true;
           }
         '';
         type = lib.types.bool;
@@ -281,7 +281,7 @@ in
         description = "Enable clipboard history paste in DMS. Requires wtype.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.clipboard_paste.enable = false;
+            eiros.system.desktop_environment.dankmaterialshell.clipboard_paste.enable = false;
           }
         '';
         type = lib.types.bool;
@@ -294,7 +294,7 @@ in
         description = "Enable wallpaper-based automatic theming via matugen (GTK, Qt, terminals, Firefox, VSCode).";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.dynamic_theming.enable = false;
+            eiros.system.desktop_environment.dankmaterialshell.dynamic_theming.enable = false;
           }
         '';
         type = lib.types.bool;
@@ -307,7 +307,7 @@ in
         description = "Enable system monitoring widget in DMS (CPU, RAM, GPU, temps, processes).";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.system_monitoring.enable = false;
+            eiros.system.desktop_environment.dankmaterialshell.system_monitoring.enable = false;
           }
         '';
         type = lib.types.bool;
@@ -320,7 +320,7 @@ in
         description = "Enable VPN management widget in DMS.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.vpn.enable = true;
+            eiros.system.desktop_environment.dankmaterialshell.vpn.enable = true;
           }
         '';
         type = lib.types.bool;
@@ -333,7 +333,7 @@ in
         description = "Enable DankSearch.";
         example = lib.literalExpression ''
           {
-            eiros.system.desktop_environment.dank_material_shell.search.enable = false;
+            eiros.system.desktop_environment.dankmaterialshell.search.enable = false;
           }
         '';
         type = lib.types.bool;
@@ -345,7 +345,7 @@ in
           description = "Enable the dsearch systemd user service.";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.search.systemd.enable = false;
+              eiros.system.desktop_environment.dankmaterialshell.search.systemd.enable = false;
             }
           '';
           type = lib.types.bool;
@@ -356,7 +356,7 @@ in
           description = "Systemd target for the dsearch service.";
           example = lib.literalExpression ''
             {
-              eiros.system.desktop_environment.dank_material_shell.search.systemd.target = "graphical-session.target";
+              eiros.system.desktop_environment.dankmaterialshell.search.systemd.target = "graphical-session.target";
             }
           '';
           type = lib.types.str;
@@ -367,7 +367,7 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf eiros_dms.enable {
-      eiros.system.desktop_environment.dank_material_shell.greeter.mango.settings = {
+      eiros.system.desktop_environment.dankmaterialshell.greeter.mango.settings = {
         xkb_rules_layout = eiros_dms.greeter.mango.keyboard_layout;
       }
       // lib.optionalAttrs (eiros_dms.greeter.mango.keyboard_variant != "") {

@@ -4,7 +4,7 @@ let
   helpers = import ../../resources/nix/mangowc_helpers.nix lib;
   inherit (helpers) keybind_submodule;
 
-  dms_enabled = config.eiros.system.desktop_environment.dank_material_shell.enable;
+  dms_enabled = config.eiros.system.desktop_environment.dankmaterialshell.enable;
   eiros_commands = config.eiros.system.desktop_environment.mangowc.default_keybinds.commands;
 
   eiros_ghostty = config.eiros.system.default_applications.ghostty;
@@ -84,7 +84,8 @@ let
     screenshot       = { modifier_keys = [ "SUPER" "SHIFT" ]; flag_modifiers = [ "s" ]; key_symbol = "s";      mangowc_command = "spawn_shell"; command_arguments = "dms screenshot --no-file"; };
     paste_clipboard  = { modifier_keys = [ "CTRL" "SHIFT" ];  flag_modifiers = [ "s" ]; key_symbol = "v";      mangowc_command = "spawn_shell"; command_arguments = "dms cl paste | wtype -"; };
     clipboard_toggle = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "v";      mangowc_command = "spawn_shell"; command_arguments = "dms ipc call clipboard toggle"; };
-    open_settings    = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "comma";  mangowc_command = "spawn_shell"; command_arguments = "dms ipc call settings toggle"; };
+    open_settings             = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "comma";  mangowc_command = "spawn_shell"; command_arguments = "dms ipc call settings toggle"; };
+    wallpaper_carousel_toggle = { modifier_keys = [ "SUPER" ];         flag_modifiers = [ "s" ]; key_symbol = "w";      mangowc_command = "spawn_shell"; command_arguments = "dms ipc wallpaperCarousel toggle"; };
   };
 in
 {

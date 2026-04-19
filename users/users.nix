@@ -29,7 +29,7 @@ let
           "dbus-update-activation-environment --systemd ${vars_str}"
           "sh -c 'systemctl --user set-environment GNOME_KEYRING_CONTROL=/run/user/$(id -u)/keyring && dbus-update-activation-environment --systemd GNOME_KEYRING_CONTROL'"
         ])
-        ++ (lib.optionals config.eiros.system.desktop_environment.dank_material_shell.enable [
+        ++ (lib.optionals config.eiros.system.desktop_environment.dankmaterialshell.enable [
           "dms run"
           "udiskie &"
         ])
@@ -270,7 +270,7 @@ in
         mangowc_cfg = user_config.mangowc;
         mangowc_enabled = config.eiros.system.desktop_environment.mangowc.enable && mangowc_cfg != null;
         dms_cfg = user_config.dms;
-        dms_enabled = config.eiros.system.desktop_environment.dank_material_shell.enable && dms_cfg != null;
+        dms_enabled = config.eiros.system.desktop_environment.dankmaterialshell.enable && dms_cfg != null;
       in
       {
         directory = lib.mkDefault "/home/${username}";
