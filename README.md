@@ -39,7 +39,23 @@ eiros/
 │   └── virtualization/     # KVM, Distrobox (Docker backend)
 ├── users/
 │   ├── default_settings/
-│   │   └── dms.nix         # System-wide DMS user setting defaults
+│   │   └── dms/            # System-wide DMS user setting defaults (one file per topic)
+│   │       ├── theme.nix
+│   │       ├── appearance.nix
+│   │       ├── bar.nix
+│   │       ├── control_center.nix
+│   │       ├── media.nix
+│   │       ├── notifications.nix
+│   │       ├── lock_screen.nix
+│   │       ├── power.nix
+│   │       ├── app_theming.nix
+│   │       ├── dock.nix
+│   │       ├── launcher.nix
+│   │       ├── greeter.nix
+│   │       ├── display.nix
+│   │       ├── widgets.nix
+│   │       ├── misc.nix
+│   │       └── settings_assembly.nix
 │   └── users.nix           # User module schema
 └── resources/
     └── nix/
