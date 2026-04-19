@@ -374,7 +374,7 @@ in
         xkb_rules_variant = eiros_dms.greeter.mango.keyboard_variant;
       };
 
-      eiros.system.user_defaults.dms.external_plugin_settings = lib.mapAttrs
+      eiros.system.user_defaults.dms.misc.external_plugin_settings = lib.mapAttrs
         (_: _: { enabled = true; })
         (lib.filterAttrs (_: p: p.enable) eiros_dms.plugins);
 

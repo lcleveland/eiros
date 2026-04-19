@@ -8,7 +8,7 @@
     };
   };
 
-  eiros.system.user_defaults.dms.external_plugin_settings = {
+  eiros.system.user_defaults.dms.misc.external_plugin_settings = {
     sshConnections = {
       terminal = "ghostty";
     };
