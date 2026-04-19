@@ -99,7 +99,7 @@ in
               };
 
               dms = lib.mkOption {
-                default = null;
+                default = { };
                 description = "Per-user DMS settings written to ~/.config/DankMaterialShell/settings.json (or null to skip). Defaults to the system-wide eiros.system.user_defaults.dms settings.";
                 example = lib.literalExpression ''
                   {
@@ -253,12 +253,6 @@ in
           {
             assertion = false;
             message = "User '${username}' has mangowc config but eiros.system.desktop_environment.mangowc.enable is false.";
-          })
-        ++ (lib.optional
-          (user_config.dms != null && !config.eiros.system.desktop_environment.dank_material_shell.enable)
-          {
-            assertion = false;
-            message = "User '${username}' has dms config but eiros.system.desktop_environment.dank_material_shell.enable is false.";
           })
       ) config.eiros.users
     );
