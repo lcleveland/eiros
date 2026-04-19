@@ -91,6 +91,12 @@
       description = "Per-plugin settings for DMS built-in plugins.";
     };
 
+    external_plugin_settings = lib.mkOption {
+      default = { };
+      type = lib.types.attrsOf lib.types.anything;
+      description = "Per-external-plugin settings written to ~/.config/DankMaterialShell/plugin_settings.json. Controls enabled state and other plugin-specific configuration.";
+    };
+
     clipboard_enter_to_paste = lib.mkOption {
       default = false;
       type = lib.types.bool;

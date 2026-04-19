@@ -139,6 +139,12 @@ in
                         '';
                         type = lib.types.attrsOf lib.types.anything;
                       };
+
+                      plugin_settings = lib.mkOption {
+                        default = config.eiros.system.user_defaults.dms.external_plugin_settings;
+                        description = "External plugin settings written to plugin_settings.json. Defaults to the system-wide external_plugin_settings.";
+                        type = lib.types.attrsOf lib.types.anything;
+                      };
                     };
                   }
                 );
@@ -288,6 +294,10 @@ in
             ".config/DankMaterialShell/settings.json" = {
               clobber = lib.mkDefault dms_cfg.clobber;
               text = builtins.toJSON dms_cfg.settings;
+            };
+            ".config/DankMaterialShell/plugin_settings.json" = {
+              clobber = lib.mkDefault dms_cfg.clobber;
+              text = builtins.toJSON dms_cfg.plugin_settings;
             };
           });
       }
