@@ -8,7 +8,7 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 
 - **Modular architecture** — `.nix` files in subdirectories are auto-loaded; no manual imports needed
 - **MangoWC integration** — declarative keybinds, settings, and wallpaper per user
-- **Dank Material Shell** — audio visualizer, clipboard history, dynamic theming, calendar, system monitoring, search, wallpaper carousel, Docker container management widget, and SSH connections launcher
+- **Dank Material Shell** — clipboard history, dynamic theming (matugen wallpaper-based auto-theming), system monitoring, DankSearch, wallpaper carousel, Docker container management widget, SSH connections launcher, optional VPN management widget, optional audio visualizer, and optional CalDAV calendar sync
 - **Home directory management** via [hjem](https://github.com/feel-co/hjem)
 - **Hardware support** — NVIDIA PRIME (offload/sync), Intel/AMD CPU microcode, Bluetooth, printing, fingerprint, zram compressed swap
 - **Performance tuning** — TCP BBR congestion control, network buffer tuning, kernel sysctl defaults (vm, scheduler, memory overcommit), PipeWire low-latency quantum
@@ -17,7 +17,7 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 - **Shell toolchain** — zoxide, atuin, delta, lazygit, pay-respects, and optional Zellij multiplexer alongside the existing fzf/yazi/eza/bat/ripgrep stack
 - **Declarative Neovim** — fully configured via nixvim with LSP, treesitter, completion, telescope, and plugin ecosystem
 - **Binary compatibility** — nix-ld provides a dynamic linker stub for unpatched executables; nix-alien wraps them in an auto-detected FHS environment when the stub isn't enough
-- **Animated wallpapers** — DMS linux-wallpaperengine plugin renders Steam Workshop Wallpaper Engine scenes via `linux-wallpaperengine`
+- **Run-any-package** — comma + nix-index-database lets you run any nixpkgs program without installing it (`nix-index-database` provides a pre-built file-to-package index)
 
 ## Directory Structure
 
@@ -164,9 +164,9 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.locale.*` | Timezone, timesync, i18n locale and LC_ categories |
 | `eiros.system.networking.*` | Hostname, DNS, NetworkManager, IWD, Avahi mDNS, TCP BBR congestion control + network buffer tuning |
 | `eiros.system.security.*` | Firewall, SSH, GPG, polkit, polkit authentication agent, sops-nix secrets, mutable user accounts |
-| `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, DMS linux-wallpaperengine plugin for animated Steam Workshop wallpapers, DMS wallpaperCarousel plugin, DMS dockerManager plugin (auto-enabled with Docker), DMS sshConnections launcher plugin |
-| `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld, nix-alien FHS wrapper, nh helper, man pages and NixOS documentation |
-| `eiros.system.default_applications.*` | Neovim/nixvim opts and plugins, Zsh history and options, Vivaldi flags, fzf defaults, zoxide smart cd, atuin history, delta git diffs, lazygit TUI, pay-respects command corrector, Zellij multiplexer, Flatpak, mpv, imv, zathura, btop, ncdu, archive tools (zip/p7zip), MangoHUD performance overlay, GStreamer multimedia codecs, Nix LSP and formatter, jq, linux-wallpaperengine |
+| `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, dconf, DMS wallpaperCarousel plugin, DMS dockerManager plugin (auto-enabled with Docker), DMS sshConnections launcher plugin; optional audio visualizer (`audio_wavelength`), CalDAV calendar sync (`calendar_events`), and VPN management widget (`vpn`) — all three disabled by default |
+| `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld, nix-alien FHS wrapper, nh helper, comma + nix-index-database (run any nixpkgs program without installing), man pages and NixOS documentation |
+| `eiros.system.default_applications.*` | Neovim/nixvim opts and plugins, Zsh history and options, Vivaldi flags, fzf defaults, zoxide smart cd, atuin history, delta git diffs, lazygit TUI, pay-respects command corrector, Zellij multiplexer, Flatpak, mpv, imv, zathura, btop, ncdu, archive tools (zip/p7zip), MangoHUD performance overlay, GStreamer multimedia codecs, Nix LSP (nil) and formatter (nixfmt), jq |
 | `eiros.system.virtualization.*` | Docker daemon, KVM, Distrobox (NVIDIA CDI), Virt Manager, Windows 11 guest support (swtpm TPM 2.0, OVMFFull Secure Boot) |
 | `eiros.system.fonts.*` | Font packages and fontconfig defaults |
 | `eiros.system.logging.*` | journald retention, rate limiting, vacuum |
@@ -274,3 +274,5 @@ These keybinds are only active when `eiros.system.desktop_environment.dankmateri
 | `wallpaper_carousel` | motor-dev/wallpaperCarousel | DMS plugin for interactive 3D wallpaper carousel selection |
 | `dms_docker_manager` | LuckShiba/DmsDockerManager | DMS bar widget for Docker/Podman container management (auto-enabled with Docker) |
 | `dms_ssh_connections` | merdely/dms-plugins | DMS Launcher plugin for SSH connections (trigger: `;`) |
+| `nix-alien` | thiagokokada/nix-alien | Overlay providing nix-alien, which wraps unpatched binaries in an auto-detected FHS environment |
+| `nix-index-database` | nix-community/nix-index-database | Pre-built nix-index file database; used by comma to resolve package names without a local index build |
