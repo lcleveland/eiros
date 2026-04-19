@@ -141,7 +141,7 @@ in
                       };
 
                       plugin_settings = lib.mkOption {
-                        default = config.eiros.system.user_defaults.dms.external_plugin_settings;
+                        default = config.eiros.system.user_defaults.dms.misc.external_plugin_settings;
                         description = "External plugin settings written to plugin_settings.json. Defaults to the system-wide external_plugin_settings.";
                         type = lib.types.attrsOf lib.types.anything;
                       };

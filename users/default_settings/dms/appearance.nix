@@ -1,20 +1,31 @@
 # DMS visual appearance: transparency, color modes, corner radius, compositor layout
 # overrides, animations, elevation shadows, and blur.
 { lib, ... }:
+let
+  mkAnimSpeedOption = default: desc: lib.mkOption {
+    inherit default;
+    type = lib.types.int;
+    description = desc + " 0=None, 1=Short, 2=Medium, 3=Long, 4=Custom.";
+  };
+  mkAnimDurationOption = default: desc: lib.mkOption {
+    inherit default;
+    type = lib.types.int;
+    description = desc + " Used when the paired speed option = 4.";
+  };
+  mkLayoutOverride = desc: lib.mkOption {
+    default = -1;
+    type = lib.types.int;
+    description = desc + " -1 = use compositor default.";
+  };
+in
 {
-  options.eiros.system.user_defaults.dms = {
+  options.eiros.system.user_defaults.dms.appearance = {
 
-    # ── Appearance ─────────────────────────────────────────────────────────
+    # ── General ────────────────────────────────────────────────────────────
     popup_transparency = lib.mkOption {
       default = 1.0;
       type = lib.types.float;
       description = "Popup and panel background transparency (0.0 = fully transparent, 1.0 = opaque).";
-    };
-
-    dock_transparency = lib.mkOption {
-      default = 1.0;
-      type = lib.types.float;
-      description = "Dock background transparency (0.0–1.0).";
     };
 
     widget_background_color = lib.mkOption {
@@ -27,12 +38,6 @@
       default = "default";
       type = lib.types.str;
       description = "Widget color mode. Options: default, colorful.";
-    };
-
-    control_center_tile_color_mode = lib.mkOption {
-      default = "primary";
-      type = lib.types.str;
-      description = "Active tile color mode in the control center.";
     };
 
     button_color_mode = lib.mkOption {
@@ -48,72 +53,21 @@
     };
 
     # ── Compositor layout overrides ────────────────────────────────────────
-    niri_layout_gaps_override = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override Niri window gaps (px). -1 = use compositor default.";
-    };
+    niri_layout_gaps_override = mkLayoutOverride "Override Niri window gaps (px).";
+    niri_layout_radius_override = mkLayoutOverride "Override Niri window corner radius.";
+    niri_layout_border_size = mkLayoutOverride "Override Niri window border size (px).";
 
-    niri_layout_radius_override = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override Niri window corner radius. -1 = use compositor default.";
-    };
+    hyprland_layout_gaps_override = mkLayoutOverride "Override Hyprland window gaps.";
+    hyprland_layout_radius_override = mkLayoutOverride "Override Hyprland window corner radius.";
+    hyprland_layout_border_size = mkLayoutOverride "Override Hyprland window border size.";
 
-    niri_layout_border_size = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override Niri window border size (px). -1 = use compositor default.";
-    };
-
-    hyprland_layout_gaps_override = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override Hyprland window gaps. -1 = use compositor default.";
-    };
-
-    hyprland_layout_radius_override = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override Hyprland window corner radius. -1 = use compositor default.";
-    };
-
-    hyprland_layout_border_size = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override Hyprland window border size. -1 = use compositor default.";
-    };
-
-    mango_layout_gaps_override = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override MangoWC window gaps (px). -1 = use compositor default.";
-    };
-
-    mango_layout_radius_override = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override MangoWC window corner radius. -1 = use compositor default.";
-    };
-
-    mango_layout_border_size = lib.mkOption {
-      default = -1;
-      type = lib.types.int;
-      description = "Override MangoWC window border size (px). -1 = use compositor default.";
-    };
+    mango_layout_gaps_override = mkLayoutOverride "Override MangoWC window gaps (px).";
+    mango_layout_radius_override = mkLayoutOverride "Override MangoWC window corner radius.";
+    mango_layout_border_size = mkLayoutOverride "Override MangoWC window border size (px).";
 
     # ── Animations ─────────────────────────────────────────────────────────
-    animation_speed = lib.mkOption {
-      default = 1;
-      type = lib.types.int;
-      description = "Global animation speed preset. 0=None, 1=Short, 2=Medium, 3=Long, 4=Custom.";
-    };
-
-    custom_animation_duration = lib.mkOption {
-      default = 500;
-      type = lib.types.int;
-      description = "Custom global animation duration in milliseconds (used when animationSpeed = 4).";
-    };
+    animation_speed = mkAnimSpeedOption 1 "Global animation speed preset.";
+    custom_animation_duration = mkAnimDurationOption 500 "Custom global animation duration in milliseconds.";
 
     sync_component_animation_speeds = lib.mkOption {
       default = true;
@@ -121,114 +75,100 @@
       description = "Sync popout and modal animation speeds with the global animationSpeed.";
     };
 
-    popout_animation_speed = lib.mkOption {
-      default = 1;
-      type = lib.types.int;
-      description = "Popout widget animation speed. 0=None, 1=Short, 2=Medium, 3=Long, 4=Custom.";
-    };
+    popout_animation_speed = mkAnimSpeedOption 1 "Popout widget animation speed.";
+    popout_custom_animation_duration = mkAnimDurationOption 150 "Custom popout animation duration in milliseconds.";
 
-    popout_custom_animation_duration = lib.mkOption {
-      default = 150;
-      type = lib.types.int;
-      description = "Custom popout animation duration in milliseconds.";
-    };
+    modal_animation_speed = mkAnimSpeedOption 1 "Modal dialog animation speed.";
+    modal_custom_animation_duration = mkAnimDurationOption 150 "Custom modal animation duration in milliseconds.";
 
-    modal_animation_speed = lib.mkOption {
-      default = 1;
-      type = lib.types.int;
-      description = "Modal dialog animation speed. 0=None, 1=Short, 2=Medium, 3=Long, 4=Custom.";
-    };
-
-    modal_custom_animation_duration = lib.mkOption {
-      default = 150;
-      type = lib.types.int;
-      description = "Custom modal animation duration in milliseconds.";
-    };
-
-    enable_ripple_effects = lib.mkOption {
+    ripple_effects.enable = lib.mkOption {
       default = true;
       type = lib.types.bool;
       description = "Enable Material 3 ripple click effects on interactive elements.";
     };
 
     # ── Elevation (shadows) ────────────────────────────────────────────────
-    m3_elevation_enabled = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Enable Material 3 elevation shadows on widgets.";
+    m3_elevation = {
+      enable = lib.mkOption {
+        default = true;
+        type = lib.types.bool;
+        description = "Enable Material 3 elevation shadows on widgets.";
+      };
+
+      intensity = lib.mkOption {
+        default = 12;
+        type = lib.types.int;
+        description = "Elevation shadow spread intensity (0–100).";
+      };
+
+      opacity = lib.mkOption {
+        default = 30;
+        type = lib.types.int;
+        description = "Elevation shadow opacity (0–100).";
+      };
+
+      color_mode = lib.mkOption {
+        default = "default";
+        type = lib.types.str;
+        description = "Elevation shadow color mode. Options: default, custom.";
+      };
+
+      light_direction = lib.mkOption {
+        default = "top";
+        type = lib.types.str;
+        description = "Simulated light direction for elevation shadows. Options: top, bottom, left, right.";
+      };
+
+      custom_color = lib.mkOption {
+        default = "#000000";
+        type = lib.types.str;
+        description = "Custom elevation shadow color (hex). Used when color_mode = \"custom\".";
+      };
     };
 
-    m3_elevation_intensity = lib.mkOption {
-      default = 12;
-      type = lib.types.int;
-      description = "Elevation shadow spread intensity (0–100).";
-    };
-
-    m3_elevation_opacity = lib.mkOption {
-      default = 30;
-      type = lib.types.int;
-      description = "Elevation shadow opacity (0–100).";
-    };
-
-    m3_elevation_color_mode = lib.mkOption {
-      default = "default";
-      type = lib.types.str;
-      description = "Elevation shadow color mode. Options: default, custom.";
-    };
-
-    m3_elevation_light_direction = lib.mkOption {
-      default = "top";
-      type = lib.types.str;
-      description = "Simulated light direction for elevation shadows. Options: top, bottom, left, right.";
-    };
-
-    m3_elevation_custom_color = lib.mkOption {
-      default = "#000000";
-      type = lib.types.str;
-      description = "Custom elevation shadow color (hex). Used when m3ElevationColorMode = \"custom\".";
-    };
-
-    modal_elevation_enabled = lib.mkOption {
+    modal_elevation.enable = lib.mkOption {
       default = true;
       type = lib.types.bool;
       description = "Apply elevation shadows to modal dialogs.";
     };
 
-    popout_elevation_enabled = lib.mkOption {
+    popout_elevation.enable = lib.mkOption {
       default = true;
       type = lib.types.bool;
       description = "Apply elevation shadows to popout widgets.";
     };
 
-    bar_elevation_enabled = lib.mkOption {
+    bar_elevation.enable = lib.mkOption {
       default = true;
       type = lib.types.bool;
       description = "Apply elevation shadow to the bar.";
     };
 
     # ── Blur ───────────────────────────────────────────────────────────────
-    blur_enabled = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Enable background blur on widgets and panels (requires compositor blur support).";
-    };
+    blur = {
+      enable = lib.mkOption {
+        default = false;
+        type = lib.types.bool;
+        description = "Enable background blur on widgets and panels (requires compositor blur support).";
+      };
 
-    blur_border_color = lib.mkOption {
-      default = "outline";
-      type = lib.types.str;
-      description = "Color token for the blur border.";
-    };
+      border_color = lib.mkOption {
+        default = "outline";
+        type = lib.types.str;
+        description = "Color token for the blur border.";
+      };
 
-    blur_border_custom_color = lib.mkOption {
-      default = "#ffffff";
-      type = lib.types.str;
-      description = "Custom blur border color (hex).";
-    };
+      border_custom_color = lib.mkOption {
+        default = "#ffffff";
+        type = lib.types.str;
+        description = "Custom blur border color (hex).";
+      };
 
-    blur_border_opacity = lib.mkOption {
-      default = 1.0;
-      type = lib.types.float;
-      description = "Blur border opacity (0.0–1.0).";
+      border_opacity = lib.mkOption {
+        default = 1.0;
+        type = lib.types.float;
+        description = "Blur border opacity (0.0–1.0).";
+      };
     };
 
     wallpaper_fill_mode = lib.mkOption {

@@ -1,189 +1,72 @@
 # DMS control center header icons, privacy indicators, tile widgets,
 # and workspace switcher options.
 { lib, ... }:
+let
+  mkBoolOption = default: desc: lib.mkOption {
+    inherit default;
+    type = lib.types.bool;
+    description = desc;
+  };
+in
 {
-  options.eiros.system.user_defaults.dms = {
+  options.eiros.system.user_defaults.dms.control_center = {
 
-    # ── Control center ─────────────────────────────────────────────────────
-    control_center_show_network_icon = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Show the network icon in the control center header.";
+    # ── Control center header icons ────────────────────────────────────────
+    show_network_icon = mkBoolOption true "Show the network icon in the control center header.";
+    show_bluetooth_icon = mkBoolOption true "Show the Bluetooth icon in the control center header.";
+    show_audio_icon = mkBoolOption true "Show the audio icon in the control center header.";
+    show_audio_percent = mkBoolOption false "Show audio volume percentage next to the audio icon.";
+    show_vpn_icon = mkBoolOption true "Show the VPN icon in the control center header.";
+    show_brightness_icon = mkBoolOption false "Show the brightness icon in the control center header.";
+    show_brightness_percent = mkBoolOption false "Show brightness percentage next to the brightness icon.";
+    show_mic_icon = mkBoolOption false "Show the microphone icon in the control center header.";
+    show_mic_percent = mkBoolOption false "Show microphone volume percentage next to the mic icon.";
+    show_battery_icon = mkBoolOption false "Show the battery icon in the control center header.";
+    show_printer_icon = mkBoolOption false "Show the printer icon in the control center header.";
+    show_screen_sharing_icon = mkBoolOption true "Show the screen sharing icon in the control center header.";
+
+    tile_color_mode = lib.mkOption {
+      default = "primary";
+      type = lib.types.str;
+      description = "Active tile color mode in the control center.";
     };
 
-    control_center_show_bluetooth_icon = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Show the Bluetooth icon in the control center header.";
-    };
-
-    control_center_show_audio_icon = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Show the audio icon in the control center header.";
-    };
-
-    control_center_show_audio_percent = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show audio volume percentage next to the audio icon.";
-    };
-
-    control_center_show_vpn_icon = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Show the VPN icon in the control center header.";
-    };
-
-    control_center_show_brightness_icon = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show the brightness icon in the control center header.";
-    };
-
-    control_center_show_brightness_percent = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show brightness percentage next to the brightness icon.";
-    };
-
-    control_center_show_mic_icon = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show the microphone icon in the control center header.";
-    };
-
-    control_center_show_mic_percent = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show microphone volume percentage next to the mic icon.";
-    };
-
-    control_center_show_battery_icon = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show the battery icon in the control center header.";
-    };
-
-    control_center_show_printer_icon = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show the printer icon in the control center header.";
-    };
-
-    control_center_show_screen_sharing_icon = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Show the screen sharing icon in the control center header.";
-    };
-
-    show_privacy_button = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Show the privacy indicator button in the bar.";
-    };
-
-    privacy_show_mic_icon = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show microphone-in-use indicator in the privacy button.";
-    };
-
-    privacy_show_camera_icon = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show camera-in-use indicator in the privacy button.";
-    };
-
-    privacy_show_screen_share_icon = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show screen-sharing indicator in the privacy button.";
-    };
-
-    control_center_widgets = lib.mkOption {
+    widgets = lib.mkOption {
       default = [
-        {
-          id = "volumeSlider";
-          enabled = true;
-          width = 50;
-        }
-        {
-          id = "brightnessSlider";
-          enabled = true;
-          width = 50;
-        }
-        {
-          id = "wifi";
-          enabled = true;
-          width = 50;
-        }
-        {
-          id = "bluetooth";
-          enabled = true;
-          width = 50;
-        }
-        {
-          id = "audioOutput";
-          enabled = true;
-          width = 50;
-        }
-        {
-          id = "audioInput";
-          enabled = true;
-          width = 50;
-        }
-        {
-          id = "nightMode";
-          enabled = true;
-          width = 50;
-        }
-        {
-          id = "darkMode";
-          enabled = true;
-          width = 50;
-        }
+        { id = "volumeSlider"; enabled = true; width = 50; }
+        { id = "brightnessSlider"; enabled = true; width = 50; }
+        { id = "wifi"; enabled = true; width = 50; }
+        { id = "bluetooth"; enabled = true; width = 50; }
+        { id = "audioOutput"; enabled = true; width = 50; }
+        { id = "audioInput"; enabled = true; width = 50; }
+        { id = "nightMode"; enabled = true; width = 50; }
+        { id = "darkMode"; enabled = true; width = 50; }
       ];
       type = lib.types.listOf lib.types.anything;
       description = "Ordered list of control center tile widgets with enabled/width configuration.";
     };
 
-    # ── Workspaces ─────────────────────────────────────────────────────────
-    show_workspace_index = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show workspace index number on workspace indicators.";
-    };
+    # ── Privacy button ─────────────────────────────────────────────────────
+    show_privacy_button = mkBoolOption true "Show the privacy indicator button in the bar.";
+    privacy_show_mic_icon = mkBoolOption false "Show microphone-in-use indicator in the privacy button.";
+    privacy_show_camera_icon = mkBoolOption false "Show camera-in-use indicator in the privacy button.";
+    privacy_show_screen_share_icon = mkBoolOption false "Show screen-sharing indicator in the privacy button.";
 
-    show_workspace_name = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show workspace name on workspace indicators.";
-    };
+    # ── Workspace switcher ─────────────────────────────────────────────────
+    show_workspace_index = mkBoolOption false "Show workspace index number on workspace indicators.";
+    show_workspace_name = mkBoolOption false "Show workspace name on workspace indicators.";
+    show_workspace_padding = mkBoolOption false "Add extra padding around workspace indicators.";
+    show_workspace_apps = mkBoolOption false "Show app icons inside workspace indicators.";
+    show_occupied_workspaces_only = mkBoolOption false "Only show occupied workspaces in the workspace switcher.";
 
-    show_workspace_padding = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Add extra padding around workspace indicators.";
-    };
+    workspace_scrolling = mkBoolOption false "Scroll through workspaces by scrolling on the workspace switcher.";
+    workspace_drag_reorder = mkBoolOption true "Allow dragging workspace indicators to reorder workspaces.";
+    workspace_follow_focus = mkBoolOption false "Auto-scroll the workspace switcher to follow the focused workspace.";
+    workspace_active_app_highlight_enabled = mkBoolOption false "Highlight the active app icon in workspace indicators.";
 
-    workspace_scrolling = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Scroll through workspaces by scrolling on the workspace switcher.";
-    };
-
-    show_workspace_apps = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show app icons inside workspace indicators.";
-    };
-
-    workspace_drag_reorder = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Allow dragging workspace indicators to reorder workspaces.";
-    };
+    group_workspace_apps = mkBoolOption true "Group duplicate app icons in workspace indicators.";
+    reverse_scrolling = mkBoolOption false "Reverse scroll direction on the workspace switcher.";
+    dwl_show_all_tags = mkBoolOption false "Show all DWL tags, not just active ones.";
 
     max_workspace_icons = lib.mkOption {
       default = 3;
@@ -195,42 +78,6 @@
       default = 0;
       type = lib.types.int;
       description = "Size offset for app icons inside workspace indicators (pixels).";
-    };
-
-    group_workspace_apps = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Group duplicate app icons in workspace indicators.";
-    };
-
-    workspace_follow_focus = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Auto-scroll the workspace switcher to follow the focused workspace.";
-    };
-
-    show_occupied_workspaces_only = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Only show occupied workspaces in the workspace switcher.";
-    };
-
-    reverse_scrolling = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Reverse scroll direction on the workspace switcher.";
-    };
-
-    dwl_show_all_tags = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show all DWL tags, not just active ones.";
-    };
-
-    workspace_active_app_highlight_enabled = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Highlight the active app icon in workspace indicators.";
     };
 
     workspace_color_mode = lib.mkOption {
@@ -257,11 +104,7 @@
       description = "Color mode for urgent workspace indicators.";
     };
 
-    workspace_focused_border_enabled = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Show a border around the focused workspace indicator.";
-    };
+    workspace_focused_border_enabled = mkBoolOption false "Show a border around the focused workspace indicator.";
 
     workspace_focused_border_color = lib.mkOption {
       default = "primary";

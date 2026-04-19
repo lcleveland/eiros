@@ -3,7 +3,7 @@
 # and pinned devices.
 { lib, ... }:
 {
-  options.eiros.system.user_defaults.dms = {
+  options.eiros.system.user_defaults.dms.misc = {
 
     # ── Cursor ─────────────────────────────────────────────────────────────
     cursor_settings = lib.mkOption {
@@ -28,28 +28,30 @@
     };
 
     # ── Terminal multiplexer ───────────────────────────────────────────────
-    mux_type = lib.mkOption {
-      default = "tmux";
-      type = lib.types.str;
-      description = "Terminal multiplexer integration. Options: tmux, zellij.";
-    };
+    mux = {
+      type = lib.mkOption {
+        default = "tmux";
+        type = lib.types.str;
+        description = "Terminal multiplexer integration. Options: tmux, zellij.";
+      };
 
-    mux_use_custom_command = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Use a custom command to open the multiplexer instead of the built-in integration.";
-    };
+      use_custom_command = lib.mkOption {
+        default = false;
+        type = lib.types.bool;
+        description = "Use a custom command to open the multiplexer instead of the built-in integration.";
+      };
 
-    mux_custom_command = lib.mkOption {
-      default = "";
-      type = lib.types.str;
-      description = "Custom shell command to open the terminal multiplexer.";
-    };
+      custom_command = lib.mkOption {
+        default = "";
+        type = lib.types.str;
+        description = "Custom shell command to open the terminal multiplexer.";
+      };
 
-    mux_session_filter = lib.mkOption {
-      default = "";
-      type = lib.types.str;
-      description = "Filter string applied to the multiplexer session list.";
+      session_filter = lib.mkOption {
+        default = "";
+        type = lib.types.str;
+        description = "Filter string applied to the multiplexer session list.";
+      };
     };
 
     # ── Launch prefix ──────────────────────────────────────────────────────
@@ -60,28 +62,30 @@
     };
 
     # ── System updater widget ──────────────────────────────────────────────
-    updater_hide_widget = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Hide the system updater widget from the control center.";
-    };
+    updater = {
+      hide_widget = lib.mkOption {
+        default = false;
+        type = lib.types.bool;
+        description = "Hide the system updater widget from the control center.";
+      };
 
-    updater_use_custom_command = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Use a custom command for running system updates.";
-    };
+      use_custom_command = lib.mkOption {
+        default = false;
+        type = lib.types.bool;
+        description = "Use a custom command for running system updates.";
+      };
 
-    updater_custom_command = lib.mkOption {
-      default = "";
-      type = lib.types.str;
-      description = "Custom shell command for system updates.";
-    };
+      custom_command = lib.mkOption {
+        default = "";
+        type = lib.types.str;
+        description = "Custom shell command for system updates.";
+      };
 
-    updater_terminal_additional_params = lib.mkOption {
-      default = "";
-      type = lib.types.str;
-      description = "Extra parameters passed to the terminal when running updates.";
+      terminal_additional_params = lib.mkOption {
+        default = "";
+        type = lib.types.str;
+        description = "Extra parameters passed to the terminal when running updates.";
+      };
     };
 
     # ── Misc / clipboard / plugins ─────────────────────────────────────────

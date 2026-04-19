@@ -1,9 +1,8 @@
 # DMS theme and matugen color generation options.
 { lib, ... }:
 {
-  options.eiros.system.user_defaults.dms = {
+  options.eiros.system.user_defaults.dms.theme = {
 
-    # ── Theme ──────────────────────────────────────────────────────────────
     current_theme_name = lib.mkOption {
       default = "purple";
       type = lib.types.str;
