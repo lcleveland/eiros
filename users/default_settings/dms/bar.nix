@@ -310,6 +310,7 @@
             "clipboard"
             "cpuUsage"
             "memUsage"
+            "dockerManager"
             "notificationButton"
             "battery"
             "controlCenterButton"
