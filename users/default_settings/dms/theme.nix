@@ -15,9 +15,9 @@
     };
 
     current_theme_category = lib.mkOption {
-      default = "auto";
-      type = lib.types.str;
-      description = "Theme category used for theme registry grouping.";
+      default = "dynamic";
+      type = lib.types.enum [ "generic" "dynamic" "custom" "registry" ];
+      description = "Theme category tab shown in the DMS Theme Color picker.";
       example = lib.literalExpression ''
         {
           eiros.system.user_defaults.dms.theme.current_theme_category = "custom";
