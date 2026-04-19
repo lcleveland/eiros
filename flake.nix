@@ -4,6 +4,7 @@
   outputs =
     {
       dank_material_shell,
+      dms_docker_manager,
       wallpaper_carousel,
       eiros_hardware,
       eiros_users,
@@ -21,6 +22,7 @@
       inputs = {
         inherit
           dank_material_shell
+          dms_docker_manager
           wallpaper_carousel
           eiros_hardware
           eiros_users
@@ -61,6 +63,11 @@
     dank_material_shell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dms_docker_manager = {
+      url = "github:LuckShiba/DmsDockerManager";
+      flake = false;
     };
 
     wallpaper_carousel = {

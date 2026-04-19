@@ -8,12 +8,12 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 
 - **Modular architecture** — `.nix` files in subdirectories are auto-loaded; no manual imports needed
 - **MangoWC integration** — declarative keybinds, settings, and wallpaper per user
-- **Dank Material Shell** — audio visualizer, clipboard history, dynamic theming, calendar, system monitoring, search, and wallpaper carousel
+- **Dank Material Shell** — audio visualizer, clipboard history, dynamic theming, calendar, system monitoring, search, wallpaper carousel, and Docker container management widget
 - **Home directory management** via [hjem](https://github.com/feel-co/hjem)
 - **Hardware support** — NVIDIA PRIME (offload/sync), Intel/AMD CPU microcode, Bluetooth, printing, fingerprint, zram compressed swap
 - **Performance tuning** — TCP BBR congestion control, network buffer tuning, kernel sysctl defaults (vm, scheduler, memory overcommit), PipeWire low-latency quantum
 - **Security-first defaults** — UFW firewall enabled, SSH disabled, no password auth over SSH, optional sops-nix secret management
-- **Virtualization** — KVM/QEMU, Libvirt, Distrobox (Docker backend), Virt Manager, Windows 11 guest support (swtpm TPM 2.0 + Secure Boot)
+- **Virtualization** — KVM/QEMU, Libvirt, Docker (own module, NVIDIA CDI), Distrobox, Virt Manager, Windows 11 guest support (swtpm TPM 2.0 + Secure Boot)
 - **Shell toolchain** — zoxide, atuin, delta, lazygit, pay-respects, and optional Zellij multiplexer alongside the existing fzf/yazi/eza/bat/ripgrep stack
 - **Declarative Neovim** — fully configured via nixvim with LSP, treesitter, completion, telescope, and plugin ecosystem
 - **Binary compatibility** — nix-ld provides a dynamic linker stub for unpatched executables; nix-alien wraps them in an auto-detected FHS environment when the stub isn't enough
@@ -38,7 +38,7 @@ eiros/
 │   ├── networking/         # NetworkManager, hostname, DNS
 │   ├── nix/                # Flakes, GC, cache, direnv, nix-ld, nix-alien, man pages
 │   ├── security/           # Firewall, SSH, GPG, polkit, sops, mutable accounts
-│   └── virtualization/     # KVM, Distrobox (Docker backend)
+│   └── virtualization/     # KVM, Docker, Distrobox, Virt Manager
 ├── users/
 │   ├── default_settings/
 │   │   └── dms/            # System-wide DMS user setting defaults (one file per topic)
@@ -162,10 +162,10 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.locale.*` | Timezone, timesync, i18n locale and LC_ categories |
 | `eiros.system.networking.*` | Hostname, DNS, NetworkManager, IWD, Avahi mDNS, TCP BBR congestion control + network buffer tuning |
 | `eiros.system.security.*` | Firewall, SSH, GPG, polkit, polkit authentication agent, sops-nix secrets, mutable user accounts |
-| `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, keybind commands, DMS linux-wallpaperengine plugin for animated Steam Workshop wallpapers |
+| `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, keybind commands, DMS linux-wallpaperengine plugin for animated Steam Workshop wallpapers, DMS wallpaperCarousel plugin, DMS dockerManager plugin (auto-enabled with Docker) |
 | `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld, nix-alien FHS wrapper, nh helper, man pages and NixOS documentation |
 | `eiros.system.default_applications.*` | Neovim/nixvim opts and plugins, Zsh history and options, Vivaldi flags, fzf defaults, zoxide smart cd, atuin history, delta git diffs, lazygit TUI, pay-respects command corrector, Zellij multiplexer, Flatpak, mpv, imv, zathura, btop, ncdu, archive tools (zip/p7zip), MangoHUD performance overlay, GStreamer multimedia codecs, Nix LSP and formatter, jq, linux-wallpaperengine |
-| `eiros.system.virtualization.*` | KVM, Distrobox (Docker backend, NVIDIA CDI), Virt Manager, Windows 11 guest support (swtpm TPM 2.0, OVMFFull Secure Boot) |
+| `eiros.system.virtualization.*` | Docker daemon, KVM, Distrobox (NVIDIA CDI), Virt Manager, Windows 11 guest support (swtpm TPM 2.0, OVMFFull Secure Boot) |
 | `eiros.system.fonts.*` | Font packages and fontconfig defaults |
 | `eiros.system.logging.*` | journald retention, rate limiting, vacuum |
 | `eiros.system.user_defaults.dms.*` | System-wide defaults for all 200+ DMS user settings (theme, appearance, bar, dock, notifications, lock screen, power, etc.) written to `~/.config/DankMaterialShell/settings.json` |
@@ -269,3 +269,4 @@ These keybinds are only active when `eiros.system.desktop_environment.dankmateri
 | `eiros_users` | lcleveland/eiros.users | User configuration (override with your own) |
 | `sops-nix` | Mic92/sops-nix | Declarative secret management via SOPS + age/GPG |
 | `wallpaper_carousel` | motor-dev/wallpaperCarousel | DMS plugin for interactive 3D wallpaper carousel selection |
+| `dms_docker_manager` | LuckShiba/DmsDockerManager | DMS bar widget for Docker/Podman container management (auto-enabled with Docker) |

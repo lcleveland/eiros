@@ -1,5 +1,5 @@
 # Installs distrobox for running containerized Linux distributions on the host.
-# Uses Docker as the container backend (system daemon).
+# Requires Docker (managed by docker.nix) as the container backend.
 # NVIDIA GPU access is provided by hardware.nvidia-container-toolkit (CDI) configured in graphics.nix.
 {
   config,
@@ -24,7 +24,6 @@ in
   };
 
   config = lib.mkIf (eiros_virtualization.enable && eiros_distrobox.enable) {
-    virtualisation.docker.enable = true;
     environment.systemPackages = [ pkgs.distrobox ];
   };
 }
