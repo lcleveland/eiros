@@ -4,20 +4,24 @@ let
   eiros_steam_clipboard = config.eiros.system.default_applications.gaming.steam_clipboard;
 
   # Polls the Wayland clipboard every 100ms and writes any new content into X11
-  # CLIPBOARD so XWayland apps (games/Proton) can paste it. Using wl-paste --watch
-  # directly causes xclip to daemonize and block subsequent watch events, so we
-  # poll instead.
-  wayland-to-x11-clipboard = pkgs.writeShellScript "wayland-to-x11-clipboard" ''
-    prev=""
-    while true; do
-      current=$(${pkgs.wl-clipboard}/bin/wl-paste -n 2>/dev/null) || true
-      if [ -n "$current" ] && [ "$current" != "$prev" ]; then
-        printf '%s' "$current" | ${pkgs.xclip}/bin/xclip -selection clipboard &
-        prev="$current"
-      fi
-      sleep 0.1
-    done
-  '';
+  # CLIPBOARD so XWayland apps (games/Proton) can paste it. writeShellApplication
+  # is used (not writeShellScript) so that runtimeInputs are on PATH — without
+  # this, `sleep` is not found and the service exits immediately after starting.
+  wayland-to-x11-clipboard = pkgs.writeShellApplication {
+    name = "wayland-to-x11-clipboard";
+    runtimeInputs = with pkgs; [ wl-clipboard xclip coreutils ];
+    text = ''
+      prev=""
+      while true; do
+        current=$(wl-paste -n 2>/dev/null) || true
+        if [ -n "$current" ] && [ "$current" != "$prev" ]; then
+          printf '%s' "$current" | xclip -selection clipboard &
+          prev="$current"
+        fi
+        sleep 0.1
+      done
+    '';
+  };
 in
 {
   options.eiros.system.default_applications.gaming.steam_clipboard.enable = lib.mkOption {
@@ -63,7 +67,7 @@ in
         wantedBy = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];
         serviceConfig = {
-          ExecStart = "${wayland-to-x11-clipboard}";
+          ExecStart = "${wayland-to-x11-clipboard}/bin/wayland-to-x11-clipboard";
           Restart = "on-failure";
           RestartSec = 1;
         };
