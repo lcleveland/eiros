@@ -6,7 +6,7 @@ in
 {
   options.eiros.system.default_applications.gaming.steam_clipboard.enable = lib.mkOption {
     default = true;
-    description = "Run autocutsel daemons to sync X11 PRIMARY and CLIPBOARD selections, enabling live copy/paste between Proton games (XWayland) and Wayland-native apps. When Steam is enabled, also injects wl-clipboard-x11 and xdotool into its FHS container.";
+    description = "Bridge clipboard between Wayland and X11 (XWayland) for live copy/paste to and from Proton games. Runs autocutsel to sync X11 PRIMARY↔CLIPBOARD and a wl-paste watcher to push Wayland clipboard changes into X11. When Steam is enabled, also injects wl-clipboard-x11 and xdotool into its FHS container.";
     example = lib.literalExpression ''
       {
         eiros.system.default_applications.gaming.steam_clipboard.enable = false;
@@ -34,6 +34,20 @@ in
         partOf = [ "graphical-session.target" ];
         serviceConfig = {
           ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY";
+          Restart = "on-failure";
+          RestartSec = 1;
+        };
+      };
+
+      # The compositor does not automatically push Wayland clipboard changes into
+      # XWayland's X11 clipboard. This service watches for Wayland clipboard changes
+      # and writes them into X11 CLIPBOARD so XWayland apps (games) can paste.
+      systemd.user.services.wayland-to-x11-clipboard = {
+        description = "Push Wayland clipboard changes into X11 CLIPBOARD for XWayland apps";
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.xclip}/bin/xclip -selection clipboard -i";
           Restart = "on-failure";
           RestartSec = 1;
         };
