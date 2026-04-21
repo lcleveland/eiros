@@ -19,7 +19,7 @@ let
       "--disable-zero-copy"
       "--num-raster-threads=1"
 
-      "--use-angle=opengl"
+      "--use-angle=vulkan"
       "--ignore-gpu-blocklist"
     ]
     ++ lib.optionals eiros_vivaldi.gpu_sandbox.disable [ "--disable-gpu-sandbox" ]
