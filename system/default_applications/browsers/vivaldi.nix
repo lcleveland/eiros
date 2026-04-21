@@ -13,7 +13,7 @@ let
     [
       "--ozone-platform=wayland"
 
-      "--enable-features=UseOzonePlatform,ExternalProtocolDialog"
+      "--enable-features=UseOzonePlatform,ExternalProtocolDialog,VaapiVideoDecodeLinuxGL"
       "--disable-features=IntentPicker,DelegatedCompositing,WaylandLinuxDrmSyncobj"
 
       "--disable-zero-copy"
