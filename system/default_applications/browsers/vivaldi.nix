@@ -9,14 +9,13 @@
 let
   eiros_vivaldi = config.eiros.system.default_applications.browsers.vivaldi;
 
-  vivaldiFlags =
-    [
-      "--ozone-platform=wayland"
-      "--enable-wayland-ime"
-      "--enable-accelerated-video-decode"
-      "--enable-features=VaapiVideoDecoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL"
-    ]
-    ++ eiros_vivaldi.extra_flags;
+  vivaldiFlags = [
+    "--ozone-platform=wayland"
+    "--enable-wayland-ime"
+    "--enable-accelerated-video-decode"
+    "--enable-features=VaapiVideoDecoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiOnNvidiaGPUs"
+  ]
+  ++ eiros_vivaldi.extra_flags;
 
   vivaldi-wayland = pkgs.vivaldi.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
