@@ -21,10 +21,6 @@ let
       # page load (ANGLE GL only exposes ES 3.0), producing eglCreateContext errors and stale
       # SharedImage mailbox accesses that manifest as frame glitches.
       "--disable-blink-features=WebGPU"
-      # Disable Vulkan explicitly. Dawn enumerates Vulkan adapters for WebGPU even when
-      # --disable-features=Vulkan is set, triggering wayland_surface_factory.cc warnings about
-      # Wayland/Vulkan incompatibility on this hybrid AMD+NVIDIA display system.
-      "--use-vulkan=disabled"
 
       "--disable-zero-copy"
       "--disable-partial-raster"
