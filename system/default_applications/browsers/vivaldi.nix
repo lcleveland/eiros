@@ -14,7 +14,7 @@ let
       "--ozone-platform=wayland"
 
       "--enable-features=UseOzonePlatform,ExternalProtocolDialog"
-      "--disable-features=IntentPicker,DelegatedCompositing,Vulkan,VaapiVideoDecoder"
+      "--disable-features=IntentPicker,DelegatedCompositing,Vulkan,VaapiVideoDecoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL"
 
       "--disable-zero-copy"
       "--num-raster-threads=2"
