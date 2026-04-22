@@ -71,7 +71,7 @@ in
       };
 
       timeout = lib.mkOption {
-        default = 5;
+        default = 10;
         description = "Seconds to wait for network before starting DMS anyway.";
         example = lib.literalExpression ''
           {
@@ -398,9 +398,9 @@ in
         xkb_rules_variant = eiros_dms.greeter.mango.keyboard_variant;
       };
 
-      eiros.system.user_defaults.dms.misc.external_plugin_settings = lib.mapAttrs
-        (_: _: { enabled = true; })
-        (lib.filterAttrs (_: p: p.enable) eiros_dms.plugins);
+      eiros.system.user_defaults.dms.misc.external_plugin_settings = lib.mapAttrs (_: _: {
+        enabled = true;
+      }) (lib.filterAttrs (_: p: p.enable) eiros_dms.plugins);
 
       environment.systemPackages = lib.optionals eiros_dms.clipboard_paste.enable [ pkgs.wtype ];
 
@@ -438,8 +438,9 @@ in
 
           compositor = {
             name = eiros_dms.greeter.compositor.name;
-            customConfig = lib.optionalString (eiros_dms.greeter.compositor.name == "mango")
-              (mangowc_generator (make_mangowc_config eiros_dms.greeter.mango));
+            customConfig = lib.optionalString (eiros_dms.greeter.compositor.name == "mango") (
+              mangowc_generator (make_mangowc_config eiros_dms.greeter.mango)
+            );
           };
         };
 
