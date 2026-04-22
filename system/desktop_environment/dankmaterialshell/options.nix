@@ -71,7 +71,7 @@ in
       };
 
       timeout = lib.mkOption {
-        default = 10;
+        default = 20;
         description = "Seconds to wait for network before starting DMS anyway.";
         example = lib.literalExpression ''
           {
