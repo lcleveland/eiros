@@ -35,10 +35,6 @@ let
     ++ lib.optionals eiros_vivaldi.nvidia.enable [
       "--use-angle=gl"
       "--ignore-gpu-blocklist"
-      # The passthrough command decoder forwards GL commands to NVIDIA with minimal sequencing.
-      # During tab switch, the compositor can present a frame before cross-driver (NVIDIA→AMD)
-      # DMA-BUF uploads are visible. The validating decoder adds explicit synchronization barriers.
-      "--use-cmd-decoder=validating"
     ]
     ++ lib.optionals (eiros_vivaldi.nvidia.enable && eiros_vivaldi.gpu_sandbox.disable) [
       "--disable-gpu-sandbox"
