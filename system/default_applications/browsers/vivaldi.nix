@@ -13,8 +13,8 @@ let
     [
       "--ozone-platform=wayland"
 
-      "--enable-features=UseOzonePlatform,ExternalProtocolDialog,CanvasOopRasterization"
-      "--disable-features=IntentPicker,DelegatedCompositing,Vulkan"
+      "--enable-features=UseOzonePlatform,ExternalProtocolDialog"
+      "--disable-features=IntentPicker,DelegatedCompositing,Vulkan,VaapiVideoDecoder"
 
       "--disable-zero-copy"
       "--num-raster-threads=2"
