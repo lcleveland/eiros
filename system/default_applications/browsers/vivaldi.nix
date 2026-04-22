@@ -17,6 +17,7 @@ let
       "--disable-features=IntentPicker,DelegatedCompositing"
 
       "--disable-zero-copy"
+      "--num-raster-threads=2"
     ]
     # Use EGL/OpenGL ANGLE backend on NVIDIA. The Vulkan ANGLE path fails to import
     # Wayland compositor DMA-BUFs on hybrid AMD+NVIDIA systems: the compositor (running
