@@ -23,7 +23,6 @@ let
       # SharedImage mailbox accesses that manifest as frame glitches.
       "--disable-blink-features=WebGPU"
 
-      "--enable-zero-copy"
       "--use-cmd-decoder=passthrough"
     ]
     # Use EGL/OpenGL ANGLE backend on NVIDIA (--use-angle=vulkan causes black screens on
