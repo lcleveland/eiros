@@ -58,6 +58,30 @@ in
       };
     };
 
+    wait_for_network = {
+      enable = lib.mkOption {
+        default = true;
+        description = "Wait for NetworkManager to report an active connection before starting DMS.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.desktop_environment.dankmaterialshell.wait_for_network.enable = false;
+          }
+        '';
+        type = lib.types.bool;
+      };
+
+      timeout = lib.mkOption {
+        default = 5;
+        description = "Seconds to wait for network before starting DMS anyway.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.desktop_environment.dankmaterialshell.wait_for_network.timeout = 10;
+          }
+        '';
+        type = lib.types.int;
+      };
+    };
+
     plugins = lib.mkOption {
       default = { };
       description = "DMS plugins to install and enable.";
