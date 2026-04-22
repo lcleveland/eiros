@@ -11,6 +11,8 @@ let
 
   vivaldiFlags =
     [
+      "--ozone-platform=wayland"
+      "--enable-wayland-ime"
       "--enable-accelerated-video-decode"
       "--enable-features=VaapiVideoDecoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL"
     ]
