@@ -186,7 +186,7 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.default_applications.network.*` | curl, wget, xh (HTTP client) |
 | `eiros.system.default_applications.utilities.*` | qalculate GTK calculator, tealdeer (tldr), hyperfine benchmarking, wl-clipboard, Flatpak |
 | `eiros.system.default_applications.gaming.*` | GameMode CPU performance profiles, MangoHUD in-game overlay, steam_clipboard Wayland↔X11 clipboard bridge (autocutsel PRIMARY↔CLIPBOARD sync + Wayland polling daemon; auto-injects wl-clipboard-x11/xdotool into Steam FHS when Steam is enabled; on by default) |
-| `eiros.system.default_applications.browsers.*` | Vivaldi (Wayland/Ozone flags, dark mode, GPU sandbox options) |
+| `eiros.system.default_applications.browsers.*` | Vivaldi (Wayland/Ozone flags, WebGPU/DelegatedCompositing/WaylandDrmSyncobj disabled, zero-copy passthrough decoder, optional NVIDIA ANGLE/VA-API flags, GPU sandbox toggle, configurable MIME desktop file, `extra_flags` passthrough) |
 | `eiros.system.virtualization.*` | Docker daemon, KVM, Distrobox (NVIDIA CDI), Virt Manager, Windows 11 guest support (swtpm TPM 2.0, OVMFFull Secure Boot) |
 | `eiros.system.fonts.*` | Font packages and fontconfig defaults |
 | `eiros.system.logging.*` | journald retention, rate limiting, vacuum |
