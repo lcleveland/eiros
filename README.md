@@ -39,7 +39,8 @@ eiros/
 │   │   ├── utilities/      # qalculate, tealdeer, hyperfine, wl_clipboard, flatpak
 │   │   ├── gaming/         # gamemode, mangohud, steam_clipboard
 │   │   └── browsers/       # vivaldi
-│   ├── desktop_environment/# MangoWC, XDG portals, Wayland
+│   ├── desktop_environment/# MangoWC, XDG portals, Wayland, XWayland
+│   │   ├── xwayland.nix    # XWayland X11 compatibility layer (on by default)
 │   │   └── dankmaterialshell/ # DMS options and plugins
 │   │       └── plugins/    # One file per DMS plugin
 │   ├── fonts/              # Font packages and fontconfig
@@ -176,6 +177,7 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.networking.*` | Hostname, DNS, NetworkManager, IWD, Avahi mDNS, TCP BBR congestion control + network buffer tuning, ICMP redirect blocking |
 | `eiros.system.security.*` | Firewall, SSH, GPG, polkit, polkit authentication agent, sops-nix secrets, mutable user accounts, kernel/filesystem hardening sysctl (fs_hardening / kernel_info_restrict / bpf_hardening sub-options), dbus-broker, sudo wheel restriction, kernel module blacklisting (firewire / legacy_protocols sub-options), optional PC/SC daemon for YubiKey and hardware security keys (off by default) |
 | `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, dconf, DMS wallpaperCarousel plugin, DMS dockerManager plugin (auto-enabled with Docker), DMS sshConnections launcher plugin; optional audio visualizer (`audio_wavelength`), CalDAV calendar sync (`calendar_events`), and VPN management widget (`vpn`) — all three disabled by default |
+| `eiros.system.desktop_environment.xwayland.*` | XWayland X11 compatibility layer (`enable`, default true) — allows X11 applications to run under the Wayland session |
 | `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld, nix-alien FHS wrapper, nh helper, comma + nix-index-database (run any nixpkgs program without installing), man pages and NixOS documentation |
 | `eiros.system.default_applications.shells.*` | Zsh (history, options, Oh My Zsh, autosuggestions, syntax highlighting), Ghostty terminal, Zellij multiplexer, atuin history search, zoxide smart cd, fzf fuzzy finder, pay-respects command corrector |
 | `eiros.system.default_applications.editors.*` | Neovim (default editor, vi/vim aliases), nixvim declarative config (LSP, treesitter, telescope, completion, plugins), Nix LSP (nil) and formatter (nixfmt) |
@@ -186,7 +188,7 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.default_applications.network.*` | curl, wget, xh (HTTP client) |
 | `eiros.system.default_applications.utilities.*` | qalculate GTK calculator, tealdeer (tldr), hyperfine benchmarking, wl-clipboard, Flatpak |
 | `eiros.system.default_applications.gaming.*` | GameMode CPU performance profiles, MangoHUD in-game overlay, steam_clipboard Wayland↔X11 clipboard bridge (autocutsel PRIMARY↔CLIPBOARD sync + Wayland polling daemon; auto-injects wl-clipboard-x11/xdotool into Steam FHS when Steam is enabled; on by default) |
-| `eiros.system.default_applications.browsers.*` | Vivaldi (Wayland/Ozone flags, WebGPU/DelegatedCompositing/WaylandDrmSyncobj disabled, zero-copy passthrough decoder, optional NVIDIA ANGLE/VA-API flags, GPU sandbox toggle, configurable MIME desktop file, `extra_flags` passthrough) |
+| `eiros.system.default_applications.browsers.*` | Vivaldi (runs under XWayland via `--ozone-platform=x11`; hardware VA-API video decode with `VaapiVideoDecoder`, `AcceleratedVideoDecodeLinuxGL`, `AcceleratedVideoDecodeLinuxZeroCopyGL`, and `VaapiOnNvidiaGPUs` enabled; configurable MIME desktop file, `extra_flags` passthrough) |
 | `eiros.system.virtualization.*` | Docker daemon, KVM, Distrobox (NVIDIA CDI), Virt Manager, Windows 11 guest support (swtpm TPM 2.0, OVMFFull Secure Boot) |
 | `eiros.system.fonts.*` | Font packages and fontconfig defaults |
 | `eiros.system.logging.*` | journald retention, rate limiting, vacuum |
