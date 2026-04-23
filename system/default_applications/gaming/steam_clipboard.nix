@@ -52,10 +52,18 @@ let
 
       prev=""
       while true; do
-        current=$(wl-paste -n 2>/dev/null) || true
-        if [ -n "$current" ] && [ "$current" != "$prev" ]; then
-          printf '%s' "$current" | xclip -selection clipboard &
-          prev="$current"
+        # Only read clipboard if a text MIME type is offered. Without this
+        # check, wl-paste requests text/plain from sources that only offer
+        # image/png; the source blindly sends binary data, bash strips null
+        # bytes, and xclip re-advertises the corrupted bytes as text — causing
+        # the Wayland compositor to bridge them back as text/plain;charset=utf-8
+        # and DMS to store the binary image as a "Long Text" clipboard entry.
+        if wl-paste --list-types 2>/dev/null | grep -qE '^(text/plain(;charset=utf-8)?|UTF8_STRING|STRING|TEXT)$'; then
+          current=$(wl-paste -n 2>/dev/null) || true
+          if [ -n "$current" ] && [ "$current" != "$prev" ]; then
+            printf '%s' "$current" | xclip -selection clipboard &
+            prev="$current"
+          fi
         fi
         sleep 0.1
       done
