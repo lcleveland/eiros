@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -415,6 +416,10 @@ in
 
       programs.dank-material-shell = {
         enable = true;
+
+        package = inputs.dank_material_shell.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ../../../patches/dms-clipboard-mime-priority.patch ];
+        });
 
         enableAudioWavelength = eiros_dms.audio_wavelength.enable;
         enableCalendarEvents = eiros_dms.calendar_events.enable;
