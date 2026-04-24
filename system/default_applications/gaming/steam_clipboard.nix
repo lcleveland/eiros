@@ -61,7 +61,10 @@ let
         if wl-paste --list-types 2>/dev/null | grep -qE '^(text/plain(;charset=utf-8)?|UTF8_STRING|STRING|TEXT)$'; then
           current=$(wl-paste -n 2>/dev/null) || true
           if [ -n "$current" ] && [ "$current" != "$prev" ]; then
-            printf '%s' "$current" | xclip -selection clipboard &
+            x11_current=$(xclip -selection clipboard -o 2>/dev/null) || true
+            if [ "$current" != "$x11_current" ]; then
+              printf '%s' "$current" | xclip -selection clipboard &
+            fi
             prev="$current"
           fi
         fi
