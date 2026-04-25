@@ -14,7 +14,7 @@
       nix-alien,
       nix-index-database,
       nixpkgs,
-      nixvim,
+      nvf,
       sops-nix,
       self,
       ...
@@ -33,7 +33,7 @@
           nix-alien
           nix-index-database
           nixpkgs
-          nixvim
+          nvf
           sops-nix
           ;
       };
@@ -50,7 +50,7 @@
           hjem.nixosModules.default
           mango.nixosModules.mango
           nix-index-database.nixosModules.default
-          nixvim.nixosModules.nixvim
+          nvf.nixosModules.default
           sops-nix.nixosModules.sops
           { nixpkgs.overlays = [ nix-alien.overlays.default ]; }
         ]
@@ -114,8 +114,8 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
+    nvf = {
+      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
