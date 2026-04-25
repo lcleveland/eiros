@@ -406,7 +406,7 @@ in
 
           binds.whichKey.enable = eiros_nvf.plugins.which_key.enable;
 
-          visuals.indentBlankline.enable = eiros_nvf.plugins.indent_blankline.enable;
+          visuals.indent-blankline.enable = eiros_nvf.plugins.indent_blankline.enable;
 
           telescope.enable = eiros_nvf.plugins.telescope.enable;
 
@@ -431,9 +431,9 @@ in
 
           extraPlugins = eiros_nvf.extra_plugins;
 
-          luaConfigPre = eiros_nvf.extra_config_lua_pre;
-          luaConfigRC = eiros_nvf.extra_config_lua;
-          luaConfigPost = eiros_nvf.extra_config_lua_post;
+          luaConfigPre = lib.mkIf (eiros_nvf.extra_config_lua_pre != "") eiros_nvf.extra_config_lua_pre;
+          luaConfigRC = lib.mkIf (eiros_nvf.extra_config_lua != "") eiros_nvf.extra_config_lua;
+          luaConfigPost = lib.mkIf (eiros_nvf.extra_config_lua_post != "") eiros_nvf.extra_config_lua_post;
         };
       };
     };
