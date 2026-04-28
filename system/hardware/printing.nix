@@ -50,6 +50,17 @@ in
         '';
         type = lib.types.bool;
       };
+
+      openFirewall = lib.mkOption {
+        default = true;
+        description = "Open the firewall for Avahi mDNS (UDP port 5353) to allow network printer discovery.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.hardware.printing.discovery.openFirewall = false;
+          }
+        '';
+        type = lib.types.bool;
+      };
     };
   };
 
@@ -98,6 +109,7 @@ in
       services.avahi = lib.mkIf eiros_printing.discovery.enable {
         enable = true;
         nssmdns4 = eiros_printing.discovery.nssmdns4;
+        openFirewall = eiros_printing.discovery.openFirewall;
       };
     })
 
