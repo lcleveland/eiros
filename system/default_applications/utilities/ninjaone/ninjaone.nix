@@ -13,7 +13,9 @@
 #          deb_path = /home/user/private/ninjarmm-ncplayer_amd64.deb;
 #          update_alias.enable = true;  # optional: adds update-ninja shell alias
 #        };
-#   4. Rebuild. Binary extraction, FHS wrapping, and URL scheme registration are automatic.
+#   4. Rebuild with --impure (required because deb_path is an absolute path outside the Nix store):
+#        sudo nixos-rebuild switch --impure --flake ...
+#      Binary extraction, FHS wrapping, and URL scheme registration are automatic.
 #
 # To update: download the new .deb, move it to the same path, rebuild.
 #            With update_alias.enable = true, run `update-ninja` then rebuild.
@@ -89,7 +91,9 @@ in
       default = null;
       description = ''
         Path to the NinjaOne ncplayer .deb installer downloaded from your NinjaOne portal.
-        The file is copied into the Nix store at evaluation time.
+        The file is copied into the Nix store at evaluation time. Because this is an absolute
+        path outside the Nix store, rebuilds must use --impure:
+          sudo nixos-rebuild switch --impure --flake ...
 
         The installer is tenant-specific (tied to your NinjaOne account) and should NOT be
         committed to a public repository. Use an absolute path outside your config repo:
