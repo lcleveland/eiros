@@ -48,7 +48,7 @@ eiros/
 │   ├── locale/             # Timezone, timesync, i18n locale
 │   ├── logging/            # journald retention and rate limiting
 │   ├── networking/         # NetworkManager, hostname, DNS
-│   ├── nix/                # Flakes, GC, cache, direnv, nix-ld, nix-alien, man pages
+│   ├── nix/                # Flakes, GC, cache, direnv, nix-ld, nix-alien, man pages, source URLs
 │   ├── security/           # Firewall, SSH, GPG, polkit, sops, mutable accounts, hardening, dbus-broker, sudo, kernel_modules, pcscd
 │   └── virtualization/     # KVM, Docker, Distrobox, Virt Manager
 ├── users/
@@ -179,6 +179,7 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.desktop_environment.*` | MangoWC, DMS, XDG portals, keyring, dconf, DMS wallpaperCarousel plugin, DMS dockerManager plugin (auto-enabled with Docker), DMS sshConnections launcher plugin; optional audio visualizer (`audio_wavelength`), CalDAV calendar sync (`calendar_events`), and VPN management widget (`vpn`) — all three disabled by default |
 | `eiros.system.desktop_environment.xwayland.*` | XWayland X11 compatibility layer (`enable`, default true) — allows X11 applications to run under the Wayland session |
 | `eiros.system.nix.*` | Build settings, GC, cache substituters, direnv, nix-ld, nix-alien FHS wrapper, nh helper, comma + nix-index-database (run any nixpkgs program without installing), man pages and NixOS documentation |
+| `eiros.system.nix.sources.*` | Configurable source URLs for the `eiros_users` and `eiros_hardware` flake inputs; exposed at runtime as `EIROS_USERS_URL` and `EIROS_HARDWARE_URL` environment variables so modules and tooling can read or override the origin repos |
 | `eiros.system.default_applications.shells.*` | Zsh (history, options, Oh My Zsh, autosuggestions, syntax highlighting), Ghostty terminal, Zellij multiplexer, atuin history search, zoxide smart cd, fzf fuzzy finder, pay-respects command corrector |
 | `eiros.system.default_applications.editors.*` | Neovim (default editor, vi/vim aliases), nixvim declarative config (LSP, treesitter, telescope, completion, plugins), Nix LSP (nil) and formatter (nixfmt) |
 | `eiros.system.default_applications.version_control.*` | Git, delta syntax-highlighted diffs, lazygit TUI |
