@@ -45,6 +45,9 @@ in
                 --override-input eiros_users "$EIROS_USERS_URL" \
                 --override-input eiros_hardware "$EIROS_HARDWARE_URL"
               ;;
+            clean)
+              nh clean all
+              ;;
             rebuild)
               if [[ -z "''${EIROS_USERS_URL:-}" ]]; then
                 echo "error: EIROS_USERS_URL is not set" >&2
@@ -64,6 +67,7 @@ in
               echo "Commands:"
               echo "  update     Update flake inputs (nix flake update)"
               echo "  rebuild    Rebuild and boot the system (nh os boot)"
+              echo "  clean      Clean the Nix store (nh clean all)"
               exit 1
               ;;
           esac
@@ -81,6 +85,7 @@ in
             commands=(
               'update:Update all flake inputs (nix flake update)'
               'rebuild:Rebuild and boot the system (nh os boot)'
+              'clean:Clean the Nix store (nh clean all)'
             )
             _describe 'command' commands
           }
