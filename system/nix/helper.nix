@@ -7,6 +7,7 @@
 }:
 let
   eiros_helper = config.eiros.system.nix.helper;
+  zsh_enabled = config.eiros.system.default_applications.shells.zsh.enable;
 in
 {
   options.eiros.system.nix.helper = {
@@ -56,6 +57,25 @@ in
               exit 1
               ;;
           esac
+        '';
+      })
+    ] ++ lib.optionals zsh_enabled [
+      (pkgs.writeTextFile {
+        name = "eiros-zsh-completion";
+        destination = "/share/zsh/site-functions/_eiros";
+        text = ''
+          #compdef eiros
+
+          _eiros() {
+            local -a commands
+            commands=(
+              'update:Update all flake inputs (nix flake update)'
+              'rebuild:Rebuild and boot the system (nh os boot)'
+            )
+            _describe 'command' commands
+          }
+
+          _eiros "$@"
         '';
       })
     ];
