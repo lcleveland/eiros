@@ -115,9 +115,10 @@ Once built, the `eiros` command is available system-wide and covers the most com
 eiros update
 ```
 
-Updates the flake lock file, pinning `eiros_users` and `eiros_hardware` to the URLs in the environment:
+Pulls the latest commits from the remote, then updates the flake lock file, pinning `eiros_users` and `eiros_hardware` to the URLs in the environment:
 
 ```bash
+git -C "${NH_FLAKE:-.}" pull
 nix flake update \
   --override-input eiros_users "$EIROS_USERS_URL" \
   --override-input eiros_hardware "$EIROS_HARDWARE_URL"

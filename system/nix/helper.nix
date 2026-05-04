@@ -27,12 +27,13 @@ in
     environment.systemPackages = [
       (pkgs.writeShellApplication {
         name = "eiros";
-        runtimeInputs = [ pkgs.nh pkgs.nix ];
+        runtimeInputs = [ pkgs.git pkgs.nh pkgs.nix ];
         text = ''
           cmd="''${1:-}"
 
           case "$cmd" in
             update)
+              git -C "''${NH_FLAKE:-.}" pull
               if [[ -z "''${EIROS_USERS_URL:-}" ]]; then
                 echo "error: EIROS_USERS_URL is not set" >&2
                 exit 1
