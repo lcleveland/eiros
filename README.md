@@ -14,7 +14,8 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 - **Performance tuning** — TCP BBR congestion control, network buffer tuning, kernel sysctl defaults (vm, scheduler, memory overcommit), PipeWire low-latency quantum
 - **Security-first defaults** — UFW firewall enabled, SSH disabled, no password auth over SSH, kernel/filesystem hardening sysctl (fs.protected_*, kptr_restrict, bpf_jit_harden), ICMP redirect blocking, sudo restricted to wheel group, dbus-broker, kernel module blacklisting (FireWire DMA, legacy protocols), optional sops-nix secret management, optional PC/SC daemon for YubiKey and hardware security keys (SSH/GPG/FIDO2)
 - **Virtualization** — KVM/QEMU, Libvirt, Docker (own module, NVIDIA CDI), Distrobox, Virt Manager, Windows 11 guest support (swtpm TPM 2.0 + Secure Boot)
-- **Gaming** — GameMode CPU performance profiles, MangoHUD in-game overlay, Wayland↔X11 clipboard sync for Steam/Proton games (autocutsel PRIMARY↔CLIPBOARD bridge + polling daemon; skips redundant X11 writes when content already matches to prevent duplicate clipboard history entries; auto-injects wl-clipboard-x11 and xdotool into Steam's FHS container when Steam is enabled)
+- **Clipboard bridge** — Wayland↔X11 clipboard sync via autocutsel PRIMARY↔CLIPBOARD daemons and a polling service; filters by MIME type before reading so binary image data (e.g. screenshots) never flows into X11 as text; explicitly requests the matched text MIME type so wl-paste cannot fall back to image/png when both text and image types are offered; skips redundant X11 writes when content already matches to prevent duplicate clipboard history entries (enabled by default for all machines via `clipboard_bridge`)
+- **Gaming** — GameMode CPU performance profiles, MangoHUD in-game overlay; auto-injects wl-clipboard-x11 and xdotool into Steam's FHS container when Steam is enabled (`steam_clipboard`)
 - **Shell toolchain** — zoxide, atuin, delta, lazygit, pay-respects, and optional Zellij multiplexer alongside the existing fzf/yazi/eza/bat/ripgrep stack; modern replacements for sed (sd), df (duf), ps (procs), and ping (gping); xh HTTP client, tealdeer command examples, and hyperfine benchmarking
 - **Declarative Neovim** — fully configured via nixvim with LSP, treesitter, completion, telescope, and plugin ecosystem
 - **Binary compatibility** — nix-ld provides a dynamic linker stub for unpatched executables; nix-alien wraps them in an auto-detected FHS environment when the stub isn't enough
@@ -36,8 +37,8 @@ eiros/
 │   │   ├── system_monitoring/ # btop, procs, ncdu, duf, gping, pciutils, usbutils
 │   │   ├── media/          # mpv, imv, zathura, multimedia
 │   │   ├── network/        # curl, wget, xh
-│   │   ├── utilities/      # qalculate, tealdeer, hyperfine, wl_clipboard, flatpak
-│   │   ├── gaming/         # gamemode, mangohud, steam_clipboard
+│   │   ├── utilities/      # qalculate, tealdeer, hyperfine, wl_clipboard, flatpak, clipboard_bridge
+│   │   ├── gaming/         # gamemode, mangohud, steam_clipboard (Steam FHS injection only)
 │   │   └── browsers/       # vivaldi
 │   ├── desktop_environment/# MangoWC, XDG portals, Wayland, XWayland
 │   │   ├── xwayland.nix    # XWayland X11 compatibility layer (on by default)
@@ -250,8 +251,8 @@ All options are under the `eiros.*` namespace:
 | `eiros.system.default_applications.system_monitoring.*` | btop, procs (ps replacement), ncdu disk usage, duf (df replacement), gping visual ping, pciutils (lspci), usbutils (lsusb) |
 | `eiros.system.default_applications.media.*` | mpv default media player, imv image viewer, zathura PDF viewer, GStreamer multimedia codecs |
 | `eiros.system.default_applications.network.*` | curl, wget, xh (HTTP client) |
-| `eiros.system.default_applications.utilities.*` | qalculate GTK calculator, tealdeer (tldr), hyperfine benchmarking, wl-clipboard, Flatpak |
-| `eiros.system.default_applications.gaming.*` | GameMode CPU performance profiles, MangoHUD in-game overlay, steam_clipboard Wayland↔X11 clipboard bridge (autocutsel PRIMARY↔CLIPBOARD sync + Wayland polling daemon; skips redundant X11 writes when content already matches to prevent duplicate clipboard history entries; auto-injects wl-clipboard-x11/xdotool into Steam FHS when Steam is enabled; on by default) |
+| `eiros.system.default_applications.utilities.*` | qalculate GTK calculator, tealdeer (tldr), hyperfine benchmarking, wl-clipboard, Flatpak, `clipboard_bridge` Wayland↔X11 clipboard sync (autocutsel PRIMARY↔CLIPBOARD daemons + Wayland polling service; MIME-type filtered to prevent binary image data from entering X11 as text; `select_to_copy` toggle for PRIMARY→CLIPBOARD sync; on by default for all machines) |
+| `eiros.system.default_applications.gaming.*` | GameMode CPU performance profiles, MangoHUD in-game overlay, `steam_clipboard` (injects wl-clipboard-x11 and xdotool into Steam's FHS container when Steam is enabled; on by default) |
 | `eiros.system.default_applications.browsers.*` | Vivaldi (runs under XWayland via `--ozone-platform=x11`; hardware VA-API video decode with `VaapiVideoDecoder`, `AcceleratedVideoDecodeLinuxGL`, `AcceleratedVideoDecodeLinuxZeroCopyGL`, and `VaapiOnNvidiaGPUs` enabled; configurable MIME desktop file, `extra_flags` passthrough) |
 | `eiros.system.virtualization.*` | Docker daemon, KVM, Distrobox (NVIDIA CDI), Virt Manager, Windows 11 guest support (swtpm TPM 2.0, OVMFFull Secure Boot) |
 | `eiros.system.fonts.*` | Font packages and fontconfig defaults |
