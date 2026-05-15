@@ -116,6 +116,8 @@ in
           })
         ];
       };
+
+      spiceUSBRedirection.enable = eiros_virt_manager.usbredir.enable;
     };
   };
 }
