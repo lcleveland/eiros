@@ -30,6 +30,8 @@ in
 
       roles = lib.mkOption {
         default = [
+          "Controller"
+          "Bredr"
           "Source"
           "Sink"
           "Media"
