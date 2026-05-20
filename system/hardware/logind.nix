@@ -38,6 +38,17 @@ in
       type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
     };
 
+    lid_switch_docked = lib.mkOption {
+      default = "ignore";
+      description = "Action when the lid is closed while docked or while two or more displays are connected. Takes precedence over lid_switch and lid_switch_external_power when systemd-logind detects a docking station (ACPI _DCK) or more than one display.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.logind.lid_switch_docked = "lock";
+        }
+      '';
+      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+    };
+
     power_key = lib.mkOption {
       default = "suspend";
       description = "Action when the power button is pressed (suspend, lock, ignore, hibernate, poweroff).";
@@ -83,6 +94,7 @@ in
     services.logind.settings.Login = {
       HandleLidSwitch = eiros_logind.lid_switch;
       HandleLidSwitchExternalPower = eiros_logind.lid_switch_external_power;
+      HandleLidSwitchDocked = eiros_logind.lid_switch_docked;
       HandlePowerKey = eiros_logind.power_key;
       IdleAction = eiros_logind.idle_action;
       IdleActionSec = eiros_logind.idle_timeout_sec;
