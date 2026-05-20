@@ -49,6 +49,17 @@ in
       type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
     };
 
+    lock_screen_on_lid_close_when_undocked = lib.mkOption {
+      default = true;
+      description = "Lock the screen before the system suspends from a lid close, so resuming an undocked laptop never briefly exposes the desktop. Implemented by enabling DMS's lockBeforeSuspend; as a side effect this also locks before idle-timeout suspends and manual `systemctl suspend` (both desirable). Has no effect when docked because lid_switch_docked defaults to \"ignore\" — no suspend, nothing to lock before.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.hardware.logind.lock_screen_on_lid_close_when_undocked = false;
+        }
+      '';
+      type = lib.types.bool;
+    };
+
     power_key = lib.mkOption {
       default = "suspend";
       description = "Action when the power button is pressed (suspend, lock, ignore, hibernate, poweroff).";
@@ -99,5 +110,8 @@ in
       IdleAction = eiros_logind.idle_action;
       IdleActionSec = eiros_logind.idle_timeout_sec;
     };
+
+    eiros.system.user_defaults.dms.lock_screen.lock_before_suspend =
+      lib.mkDefault eiros_logind.lock_screen_on_lid_close_when_undocked;
   };
 }
