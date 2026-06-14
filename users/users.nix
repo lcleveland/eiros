@@ -32,14 +32,7 @@ let
           "sh -c 'systemctl --user set-environment GNOME_KEYRING_CONTROL=/run/user/$(id -u)/keyring && dbus-update-activation-environment --systemd GNOME_KEYRING_CONTROL'"
         ])
         ++ (lib.optionals config.eiros.system.desktop_environment.dankmaterialshell.enable [
-          (
-            let
-              dms_wait = config.eiros.system.desktop_environment.dankmaterialshell.wait_for_network;
-            in
-            if dms_wait.enable
-            then "sh -c 'nm-online -q -t ${toString dms_wait.timeout}; dms run'"
-            else "dms run"
-          )
+          "dms run"
           "udiskie &"
         ])
         ++ (lib.optional (
