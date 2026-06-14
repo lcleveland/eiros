@@ -227,6 +227,15 @@ Create a flake that exports `nixosModules.default` and sets `eiros.users.*` opti
 
 > **Warning:** The default `initial_password` is the username. Change it before deploying — a build warning will remind you if you forget.
 
+> **Note:** `mangowc.settings` (and any `monitorrule` lines) are passed through to mango's
+> `config.conf` verbatim. Use the current upstream option names when authoring them — recent
+> releases renamed several:
+>
+> - `accel_profile` / `accel_speed` → `mouse_accel_profile` / `mouse_accel_speed` (mouse) or `trackpad_accel_profile` / `trackpad_accel_speed` (trackpad)
+> - `adaptive_sync` removed → set `vrr:0|1` inside the `monitorrule` line
+> - `tgmix` layout removed → use another `layout_name` in `tagrule`
+> - windowrule `force_maximize` → `force_fakemaximize`
+
 ## Available Options
 
 All options are under the `eiros.*` namespace:
@@ -390,7 +399,7 @@ These keybinds are only active when `eiros.system.desktop_environment.dankmateri
 | `nixpkgs` | NixOS/nixpkgs | Package set (tracks nixos-unstable) |
 | `dank_material_shell` | AvengeMedia | DMS desktop shell and greeter modules |
 | `hjem` | feel-co | Home directory management |
-| `mango` | DreamMaoMao | MangoWC compositor module |
+| `mango` | mangowm | MangoWC compositor module |
 | `nixvim` | nix-community/nixvim | Declarative Neovim configuration |
 | `eiros_hardware` | lcleveland/eiros.hardware | Hardware configuration (override with your own) |
 | `eiros_users` | lcleveland/eiros.users | User configuration (override with your own) |

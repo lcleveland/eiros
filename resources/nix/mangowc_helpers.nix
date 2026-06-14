@@ -62,9 +62,9 @@ in
 
         flag_modifiers = lib.mkOption {
           default = [ ];
-          description = "MangoWC bind flags: l (lock), r (release), s (keysym).";
+          description = "MangoWC bind flags: l (lock), r (release), s (keysym), p (pass).";
           example = [ "l" "s" ];
-          type = lib.types.listOf (lib.types.enum [ "l" "r" "s" ]);
+          type = lib.types.listOf (lib.types.enum [ "l" "r" "s" "p" ]);
         };
 
         key_symbol = lib.mkOption {

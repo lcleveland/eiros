@@ -9,6 +9,9 @@ let
 
   # Merges system default keybinds with per-user overrides, then injects systemd env-import
   # and DMS exec-once entries so MangoWC starts with the correct session environment.
+  # MangoWC (v0.12.4+) auto-syncs the D-Bus activation environment on startup, so we only
+  # retain the systemd-user-manager import (for eiros-specific vars) plus the keyring var,
+  # whose value is computed at runtime and therefore cannot be covered by startup auto-sync.
   make_user_mangowc_config =
     mangowc_cfg:
     let
@@ -26,7 +29,6 @@ let
       extra_exec_once =
         (lib.optionals (config.eiros.system.desktop_environment.mangowc.enable && mangowc_systemd.enable) [
           "systemctl --user import-environment ${vars_str}"
-          "dbus-update-activation-environment --systemd ${vars_str}"
           "sh -c 'systemctl --user set-environment GNOME_KEYRING_CONTROL=/run/user/$(id -u)/keyring && dbus-update-activation-environment --systemd GNOME_KEYRING_CONTROL'"
         ])
         ++ (lib.optionals config.eiros.system.desktop_environment.dankmaterialshell.enable [
