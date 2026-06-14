@@ -49,14 +49,16 @@ in
 
       settings = lib.mkOption {
         default = {
-          "vm.swappiness" = 0;                    # strongly prefer RAM over swap; only swap under extreme pressure
+          # zram-aware: swapping to compressed RAM is far cheaper than disk, so prefer it
+          # (180) when zram is enabled; otherwise stay conservative (10) for slow disk swap.
+          "vm.swappiness" = if config.eiros.system.hardware.zram.enable then 180 else 10;
           "vm.vfs_cache_pressure" = 50;           # cache dentries/inodes more aggressively than the default (100)
           "vm.dirty_ratio" = 10;                  # force synchronous writeback when dirty pages exceed 10% of RAM
           "vm.dirty_background_ratio" = 5;        # start background writeback at 5% of RAM
           "vm.dirty_writeback_centisecs" = 1500;  # flush dirty pages every 15s (default 5s); batches I/O for SSDs
           "vm.oom_kill_allocating_task" = 1;      # OOM-kill the allocating task instead of a random high-score victim
           "vm.overcommit_memory" = 1;             # always allow memory allocation; avoids false OOM in JVM/game processes
-          "vm.page-cluster" = 0;                  # disable swap readahead; wasteful when swappiness is near 0
+          "vm.page-cluster" = 0;                  # disable swap readahead; pointless for in-RAM zram (no seek cost to amortize)
           "kernel.sched_migration_cost_ns" = 5000000; # raise task migration cost to reduce cache-thrashing on desktop workloads
           "kernel.nmi_watchdog" = 0;              # disable NMI watchdog; frees an interrupt and reduces latency on desktop
         };

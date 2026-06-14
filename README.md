@@ -10,7 +10,7 @@ The core repo defines the module schemas and defaults. Personal hardware and use
 - **MangoWC integration** — declarative keybinds, settings, and wallpaper per user
 - **Dank Material Shell** — clipboard history, dynamic theming (matugen wallpaper-based auto-theming), system monitoring, DankSearch, wallpaper carousel, Docker container management widget, SSH connections launcher, optional VPN management widget, optional audio visualizer, and optional CalDAV calendar sync
 - **Home directory management** via [hjem](https://github.com/feel-co/hjem)
-- **Hardware support** — NVIDIA PRIME (offload/sync), Intel/AMD CPU microcode, Bluetooth, printing, fingerprint, zram compressed swap
+- **Hardware support** — NVIDIA PRIME (offload/sync), Intel/AMD CPU microcode, Bluetooth, printing, fingerprint, zram compressed swap, thermald (Intel thermal management, auto-enabled on Intel CPUs)
 - **Performance tuning** — TCP BBR congestion control, network buffer tuning, kernel sysctl defaults (vm, scheduler, memory overcommit), PipeWire low-latency quantum
 - **Security-first defaults** — UFW firewall enabled, SSH disabled, no password auth over SSH, kernel/filesystem hardening sysctl (fs.protected_*, kptr_restrict, bpf_jit_harden), ICMP redirect blocking, sudo restricted to wheel group, dbus-broker, kernel module blacklisting (FireWire DMA, legacy protocols), optional sops-nix secret management, optional PC/SC daemon for YubiKey and hardware security keys (SSH/GPG/FIDO2)
 - **Virtualization** — KVM/QEMU, Libvirt, Docker (own module, NVIDIA CDI), Distrobox, Virt Manager, Windows 11 guest support (swtpm TPM 2.0 + Secure Boot)
@@ -242,8 +242,8 @@ All options are under the `eiros.*` namespace:
 
 | Namespace | Description |
 |---|---|
-| `eiros.system.hardware.*` | CPU vendor, GPU, power, peripherals, printing, Bluetooth, earlyoom OOM killer, zram compressed swap (algorithm, memory %) |
-| `eiros.system.boot.*` | Bootloader, kernel package, kernel params, sysctl tuning, Plymouth theme |
+| `eiros.system.hardware.*` | CPU vendor, GPU, power, peripherals, printing, Bluetooth, earlyoom OOM killer, zram compressed swap (algorithm, memory %), thermald Intel thermal management (auto-enabled when `cpu.vendor = "intel"`) |
+| `eiros.system.boot.*` | Bootloader, kernel package, kernel params, sysctl tuning, Plymouth theme, systemd-based initrd (`initrd.systemd.enable`, default true) |
 | `eiros.system.audio.*` | pactl/playerctl keybind tools, PipeWire (ALSA, JACK, PulseAudio compat, RTKit), low-latency quantum tuning (default 512 samples), EasyEffects audio EQ (off by default), Helvum patchbay GUI (off by default) |
 | `eiros.system.locale.*` | Timezone, timesync, i18n locale and LC_ categories |
 | `eiros.system.networking.*` | Hostname, DNS, NetworkManager, IWD, Avahi mDNS, TCP BBR congestion control + network buffer tuning, ICMP redirect blocking |
