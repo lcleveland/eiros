@@ -119,6 +119,50 @@
       '';
     };
 
+    remember_last_mode = lib.mkOption {
+      default = true;
+      type = lib.types.bool;
+      description = "Remember the last selected launcher search mode between opens.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.launcher.remember_last_mode = false;
+        }
+      '';
+    };
+
+    style = lib.mkOption {
+      default = "full";
+      type = lib.types.str;
+      description = "Launcher visual style. Options: full, compact.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.launcher.style = "compact";
+        }
+      '';
+    };
+
+    use_overlay_layer = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Render the launcher on the overlay layer (above fullscreen windows).";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.launcher.use_overlay_layer = true;
+        }
+      '';
+    };
+
+    spotlight_bar_show_mode_chips = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Show search-mode chips in the spotlight bar.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.launcher.spotlight_bar_show_mode_chips = true;
+        }
+      '';
+    };
+
     spotlight_section_view_modes = lib.mkOption {
       default = { };
       type = lib.types.attrsOf lib.types.anything;

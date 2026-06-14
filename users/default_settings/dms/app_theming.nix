@@ -205,6 +205,17 @@
         '';
       };
 
+      vencord = lib.mkOption {
+        default = true;
+        type = lib.types.bool;
+        description = "Generate Vencord (Discord) theme colors via matugen.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.app_theming.matugen.vencord = false;
+          }
+        '';
+      };
+
       ghostty = lib.mkOption {
         default = true;
         type = lib.types.bool;

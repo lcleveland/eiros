@@ -137,6 +137,28 @@
       '';
     };
 
+    show_do_not_disturb_icon = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Show the do-not-disturb icon in the control center header.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.control_center.show_do_not_disturb_icon = true;
+        }
+      '';
+    };
+
+    show_idle_inhibitor_icon = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Show the idle inhibitor icon in the control center header.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.control_center.show_idle_inhibitor_icon = true;
+        }
+      '';
+    };
+
     tile_color_mode = lib.mkOption {
       default = "primary";
       type = lib.types.str;
@@ -322,6 +344,17 @@
       example = lib.literalExpression ''
         {
           eiros.system.user_defaults.dms.control_center.group_workspace_apps = false;
+        }
+      '';
+    };
+
+    group_active_workspace_apps = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Group app icons on the active workspace as well as inactive ones.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.control_center.group_active_workspace_apps = true;
         }
       '';
     };

@@ -516,6 +516,75 @@ in
       '';
     };
 
+    focused_window_size = lib.mkOption {
+      default = 1;
+      type = lib.types.int;
+      description = "Size preset for the focused window widget. 0=Small, 1=Medium, 2=Large.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.bar.focused_window_size = 2;
+        }
+      '';
+    };
+
+    keyboard_layout_name_show_icon = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Show a keyboard icon alongside the layout name in the bar.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.bar.keyboard_layout_name_show_icon = true;
+        }
+      '';
+    };
+
+    audio_device_scroll_volume.enable = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Allow scrolling over an audio output device entry to change its volume.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.bar.audio_device_scroll_volume.enable = true;
+        }
+      '';
+    };
+
+    # ── System tray icon tinting ───────────────────────────────────────────
+    system_tray_icon_tint = {
+      mode = lib.mkOption {
+        default = "none";
+        type = lib.types.str;
+        description = "System tray icon tinting mode. Options: none, monochrome, accent.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.bar.system_tray_icon_tint.mode = "monochrome";
+          }
+        '';
+      };
+
+      saturation = lib.mkOption {
+        default = 50;
+        type = lib.types.int;
+        description = "Saturation applied to tinted tray icons (0–100).";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.bar.system_tray_icon_tint.saturation = 80;
+          }
+        '';
+      };
+
+      strength = lib.mkOption {
+        default = 135;
+        type = lib.types.int;
+        description = "Tint strength applied to tray icons.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.bar.system_tray_icon_tint.strength = 100;
+          }
+        '';
+      };
+    };
+
     # ── App ID substitutions ───────────────────────────────────────────────
     app_id_substitutions = lib.mkOption {
       default = [

@@ -142,6 +142,50 @@
           }
         '';
       };
+
+      allow_aur = lib.mkOption {
+        default = true;
+        type = lib.types.bool;
+        description = "Allow the updater to check/apply AUR packages (Arch-based distros).";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.misc.updater.allow_aur = false;
+          }
+        '';
+      };
+
+      check_on_start = lib.mkOption {
+        default = false;
+        type = lib.types.bool;
+        description = "Check for system updates when the shell starts.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.misc.updater.check_on_start = true;
+          }
+        '';
+      };
+
+      include_flatpak = lib.mkOption {
+        default = true;
+        type = lib.types.bool;
+        description = "Include Flatpak updates in the updater widget.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.misc.updater.include_flatpak = false;
+          }
+        '';
+      };
+
+      interval_seconds = lib.mkOption {
+        default = 1800;
+        type = lib.types.int;
+        description = "Interval between automatic update checks (seconds).";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.misc.updater.interval_seconds = 3600;
+          }
+        '';
+      };
     };
 
     # ── Misc / clipboard / plugins ─────────────────────────────────────────
@@ -178,6 +222,17 @@
       example = lib.literalExpression ''
         {
           eiros.system.user_defaults.dms.misc.clipboard_enter_to_paste = true;
+        }
+      '';
+    };
+
+    clipboard_visible_entry_actions = lib.mkOption {
+      default = [ "pin" "edit" "delete" ];
+      type = lib.types.listOf lib.types.str;
+      description = "Which per-entry action buttons are shown on clipboard history items. Options: pin, edit, delete.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.misc.clipboard_visible_entry_actions = [ "pin" "delete" ];
         }
       '';
     };

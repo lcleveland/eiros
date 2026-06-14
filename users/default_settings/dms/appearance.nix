@@ -127,6 +127,17 @@
       '';
     };
 
+    hyprland_resize_on_border = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Enable Hyprland resize-on-border (grab window borders to resize).";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.appearance.hyprland_resize_on_border = true;
+        }
+      '';
+    };
+
     mango_layout_gaps_override = lib.mkOption {
       default = -1;
       type = lib.types.int;
@@ -156,6 +167,17 @@
       example = lib.literalExpression ''
         {
           eiros.system.user_defaults.dms.appearance.mango_layout_border_size = 2;
+        }
+      '';
+    };
+
+    mango_trackpad_natural_scrolling = lib.mkOption {
+      default = true;
+      type = lib.types.bool;
+      description = "Enable natural (reversed) trackpad scrolling in MangoWC.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.appearance.mango_trackpad_natural_scrolling = false;
         }
       '';
     };
@@ -245,6 +267,50 @@
       example = lib.literalExpression ''
         {
           eiros.system.user_defaults.dms.appearance.ripple_effects.enable = false;
+        }
+      '';
+    };
+
+    animation_variant = lib.mkOption {
+      default = 0;
+      type = lib.types.int;
+      description = "Animation easing/variant preset. 0 = default.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.appearance.animation_variant = 1;
+        }
+      '';
+    };
+
+    motion_effect = lib.mkOption {
+      default = 0;
+      type = lib.types.int;
+      description = "Motion effect preset applied to transitions. 0 = none.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.appearance.motion_effect = 1;
+        }
+      '';
+    };
+
+    text_render_quality = lib.mkOption {
+      default = 0;
+      type = lib.types.int;
+      description = "Text rendering quality preset. 0 = default.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.appearance.text_render_quality = 1;
+        }
+      '';
+    };
+
+    text_render_type = lib.mkOption {
+      default = 0;
+      type = lib.types.int;
+      description = "Text rendering type/hinting preset. 0 = default.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.appearance.text_render_type = 1;
         }
       '';
     };
@@ -393,6 +459,28 @@
         example = lib.literalExpression ''
           {
             eiros.system.user_defaults.dms.appearance.blur.border_opacity = 0.7;
+          }
+        '';
+      };
+
+      foreground_layers = lib.mkOption {
+        default = true;
+        type = lib.types.bool;
+        description = "Apply blur to foreground layers (popouts/modals), not just the background.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.appearance.blur.foreground_layers = false;
+          }
+        '';
+      };
+
+      layer_outline_opacity = lib.mkOption {
+        default = 0.12;
+        type = lib.types.float;
+        description = "Opacity of the subtle outline drawn around blurred layers (0.0–1.0).";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.appearance.blur.layer_outline_opacity = 0.2;
           }
         '';
       };

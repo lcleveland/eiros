@@ -108,6 +108,50 @@
       '';
     };
 
+    summary_font_size = lib.mkOption {
+      default = 0;
+      type = lib.types.int;
+      description = "Font size override for the notification summary/title (px). 0 = theme default.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.notifications.summary_font_size = 14;
+        }
+      '';
+    };
+
+    body_font_size = lib.mkOption {
+      default = 0;
+      type = lib.types.int;
+      description = "Font size override for the notification body text (px). 0 = theme default.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.notifications.body_font_size = 12;
+        }
+      '';
+    };
+
+    show_timeout_bar = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Show a countdown progress bar on notification popups indicating the dismiss timeout.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.notifications.show_timeout_bar = true;
+        }
+      '';
+    };
+
+    dedupe.enable = lib.mkOption {
+      default = true;
+      type = lib.types.bool;
+      description = "Deduplicate repeated identical notifications instead of stacking them.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.notifications.dedupe.enable = false;
+        }
+      '';
+    };
+
     # ── Notification history ───────────────────────────────────────────────
     history = {
       enable = lib.mkOption {

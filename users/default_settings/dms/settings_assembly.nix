@@ -1,12 +1,12 @@
 # Declares the read-only _settings option and assembles all individual DMS option
 # values into the camelCase JSON-ready attribute set written to
 # ~/.config/DankMaterialShell/settings.json by users/users.nix.
-# Defaults match upstream SettingsSpec.js (DankMaterialShell rev 4c2c193).
+# Defaults match upstream SettingsSpec.js (DankMaterialShell v1.5-beta, configVersion 11).
 { config, lib, ... }:
 let
   inherit (config.eiros.system.user_defaults.dms)
     bar control_center appearance notifications dock launcher
-    widgets misc media power display app_theming theme greeter lock_screen;
+    widgets misc media power display app_theming theme greeter lock_screen frame;
 in
 {
   options.eiros.system.user_defaults.dms._settings = lib.mkOption {
@@ -16,7 +16,7 @@ in
   };
 
   config.eiros.system.user_defaults.dms._settings = {
-    configVersion = 5;
+    configVersion = 11;
 
     # ── Theme ────────────────────────────────────────────────────────────
     currentThemeName = theme.current_theme_name;
@@ -46,6 +46,8 @@ in
     mangoLayoutGapsOverride = appearance.mango_layout_gaps_override;
     mangoLayoutRadiusOverride = appearance.mango_layout_radius_override;
     mangoLayoutBorderSize = appearance.mango_layout_border_size;
+    hyprlandResizeOnBorder = appearance.hyprland_resize_on_border;
+    mangoTrackpadNaturalScrolling = appearance.mango_trackpad_natural_scrolling;
 
     animationSpeed = appearance.animation_speed;
     customAnimationDuration = appearance.custom_animation_duration;
@@ -55,6 +57,10 @@ in
     modalAnimationSpeed = appearance.modal_animation_speed;
     modalCustomAnimationDuration = appearance.modal_custom_animation_duration;
     enableRippleEffects = appearance.ripple_effects.enable;
+    animationVariant = appearance.animation_variant;
+    motionEffect = appearance.motion_effect;
+    textRenderQuality = appearance.text_render_quality;
+    textRenderType = appearance.text_render_type;
 
     m3ElevationEnabled = appearance.m3_elevation.enable;
     m3ElevationIntensity = appearance.m3_elevation.intensity;
@@ -70,6 +76,8 @@ in
     blurBorderColor = appearance.blur.border_color;
     blurBorderCustomColor = appearance.blur.border_custom_color;
     blurBorderOpacity = appearance.blur.border_opacity;
+    blurForegroundLayers = appearance.blur.foreground_layers;
+    blurLayerOutlineOpacity = appearance.blur.layer_outline_opacity;
     wallpaperFillMode = appearance.wallpaper_fill_mode;
     blurredWallpaperLayer = appearance.blurred_wallpaper_layer;
     blurWallpaperOnOverview = appearance.blur_wallpaper_on_overview;
@@ -118,6 +126,12 @@ in
     runningAppsCurrentMonitor = bar.running_apps_current_monitor;
     appIdSubstitutions = bar.app_id_substitutions;
     centeringMode = bar.centering_mode;
+    focusedWindowSize = bar.focused_window_size;
+    keyboardLayoutNameShowIcon = bar.keyboard_layout_name_show_icon;
+    audioDeviceScrollVolumeEnabled = bar.audio_device_scroll_volume.enable;
+    systemTrayIconTintMode = bar.system_tray_icon_tint.mode;
+    systemTrayIconTintSaturation = bar.system_tray_icon_tint.saturation;
+    systemTrayIconTintStrength = bar.system_tray_icon_tint.strength;
     barConfigs = bar.configs;
 
     # ── Control center ────────────────────────────────────────────────────
@@ -137,6 +151,8 @@ in
     privacyShowMicIcon = control_center.privacy_show_mic_icon;
     privacyShowCameraIcon = control_center.privacy_show_camera_icon;
     privacyShowScreenShareIcon = control_center.privacy_show_screen_share_icon;
+    controlCenterShowDoNotDisturbIcon = control_center.show_do_not_disturb_icon;
+    controlCenterShowIdleInhibitorIcon = control_center.show_idle_inhibitor_icon;
     controlCenterWidgets = control_center.widgets;
 
     showWorkspaceIndex = control_center.show_workspace_index;
@@ -148,6 +164,7 @@ in
     maxWorkspaceIcons = control_center.max_workspace_icons;
     workspaceAppIconSizeOffset = control_center.workspace_app_icon_size_offset;
     groupWorkspaceApps = control_center.group_workspace_apps;
+    groupActiveWorkspaceApps = control_center.group_active_workspace_apps;
     workspaceFollowFocus = control_center.workspace_follow_focus;
     showOccupiedWorkspacesOnly = control_center.show_occupied_workspaces_only;
     reverseScrolling = control_center.reverse_scrolling;
@@ -199,6 +216,10 @@ in
     notificationPopupPosition = notifications.popup.position;
     notificationAnimationSpeed = notifications.animation_speed;
     notificationCustomAnimationDuration = notifications.custom_animation_duration;
+    notificationSummaryFontSize = notifications.summary_font_size;
+    notificationBodyFontSize = notifications.body_font_size;
+    notificationShowTimeoutBar = notifications.show_timeout_bar;
+    notificationDedupeEnabled = notifications.dedupe.enable;
     notificationHistoryEnabled = notifications.history.enable;
     notificationHistoryMaxCount = notifications.history.max_count;
     notificationHistoryMaxAgeDays = notifications.history.max_age_days;
@@ -298,6 +319,7 @@ in
     matugenTemplateZenBrowser = app_theming.matugen.zen_browser;
     matugenTemplateVesktop = app_theming.matugen.vesktop;
     matugenTemplateEquibop = app_theming.matugen.equibop;
+    matugenTemplateVencord = app_theming.matugen.vencord;
     matugenTemplateGhostty = app_theming.matugen.ghostty;
     matugenTemplateKitty = app_theming.matugen.kitty;
     matugenTemplateFoot = app_theming.matugen.foot;
@@ -330,6 +352,10 @@ in
     dockBorderOpacity = dock.border.opacity;
     dockBorderThickness = dock.border.thickness;
     dockIsolateDisplays = dock.isolate_displays;
+    dockUseOverlayLayer = dock.use_overlay_layer;
+    dockShowTrash = dock.trash.show;
+    dockTrashCustomCommand = dock.trash.custom_command;
+    dockTrashFileManager = dock.trash.file_manager;
     dockLauncherEnabled = dock.launcher.enable;
     dockLauncherLogoMode = dock.launcher.logo.mode;
     dockLauncherLogoCustomPath = dock.launcher.logo.custom_path;
@@ -352,6 +378,10 @@ in
     appLauncherGridColumns = launcher.grid_columns;
     spotlightCloseNiriOverview = launcher.spotlight_close_niri_overview;
     rememberLastQuery = launcher.remember_last_query;
+    rememberLastMode = launcher.remember_last_mode;
+    launcherStyle = launcher.style;
+    launcherUseOverlayLayer = launcher.use_overlay_layer;
+    spotlightBarShowModeChips = launcher.spotlight_bar_show_mode_chips;
     spotlightSectionViewModes = launcher.spotlight_section_view_modes;
     appDrawerSectionViewModes = launcher.drawer_section_view_modes;
     niriOverviewOverlayEnabled = launcher.niri_overview_overlay.enable;
@@ -374,6 +404,7 @@ in
     # ── Greeter ───────────────────────────────────────────────────────────
     greeterRememberLastSession = greeter.remember_last_session;
     greeterRememberLastUser = greeter.remember_last_user;
+    greeterAutoLogin = greeter.auto_login;
     greeterEnableFprint = greeter.fprint.enable;
     greeterEnableU2f = greeter.u2f.enable;
     greeterWallpaperPath = greeter.wallpaper_path;
@@ -452,9 +483,14 @@ in
     updaterUseCustomCommand = misc.updater.use_custom_command;
     updaterCustomCommand = misc.updater.custom_command;
     updaterTerminalAdditionalParams = misc.updater.terminal_additional_params;
+    updaterAllowAUR = misc.updater.allow_aur;
+    updaterCheckOnStart = misc.updater.check_on_start;
+    updaterIncludeFlatpak = misc.updater.include_flatpak;
+    updaterIntervalSeconds = misc.updater.interval_seconds;
 
     builtInPluginSettings = misc.built_in_plugin_settings;
     clipboardEnterToPaste = misc.clipboard_enter_to_paste;
+    clipboardVisibleEntryActions = misc.clipboard_visible_entry_actions;
     launcherPluginVisibility = misc.launcher_plugin_visibility;
     launcherPluginOrder = misc.launcher_plugin_order;
 
@@ -475,5 +511,21 @@ in
     displayProfileAutoSelect = display.profile_auto_select;
     displayShowDisconnected = display.show_disconnected;
     displaySnapToEdge = display.snap_to_edge;
+
+    # ── Frame (connected chrome) ─────────────────────────────────────────────
+    frameEnabled = frame.enable;
+    frameMode = frame.mode;
+    frameColor = frame.color;
+    frameOpacity = frame.opacity;
+    frameRounding = frame.rounding;
+    frameThickness = frame.thickness;
+    frameBarSize = frame.bar_size;
+    frameBlurEnabled = frame.blur_enabled;
+    frameCloseGaps = frame.close_gaps;
+    frameShowOnOverview = frame.show_on_overview;
+    frameScreenPreferences = frame.screen_preferences;
+    frameLauncherArcExtender = frame.launcher_arc_extender;
+    frameLauncherEmergeSide = frame.launcher_emerge_side;
+    connectedFrameBarStyleBackups = frame.connected_bar_style_backups;
   };
 }

@@ -26,6 +26,17 @@
       '';
     };
 
+    auto_login = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Automatically log in the remembered user without prompting in the greeter.";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.greeter.auto_login = true;
+        }
+      '';
+    };
+
     fprint.enable = lib.mkOption {
       default = false;
       type = lib.types.bool;

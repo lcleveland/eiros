@@ -157,6 +157,53 @@
       '';
     };
 
+    use_overlay_layer = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Render the dock on the overlay layer (above fullscreen windows).";
+      example = lib.literalExpression ''
+        {
+          eiros.system.user_defaults.dms.dock.use_overlay_layer = true;
+        }
+      '';
+    };
+
+    # ── Dock trash ─────────────────────────────────────────────────────────
+    trash = {
+      show = lib.mkOption {
+        default = false;
+        type = lib.types.bool;
+        description = "Show a trash/recycle bin icon in the dock.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.dock.trash.show = true;
+          }
+        '';
+      };
+
+      custom_command = lib.mkOption {
+        default = "";
+        type = lib.types.str;
+        description = "Custom command to run when the dock trash icon is clicked. Empty = use the file manager.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.dock.trash.custom_command = "nautilus trash:///";
+          }
+        '';
+      };
+
+      file_manager = lib.mkOption {
+        default = "default";
+        type = lib.types.str;
+        description = "File manager used to open the trash. \"default\" uses the system default.";
+        example = lib.literalExpression ''
+          {
+            eiros.system.user_defaults.dms.dock.trash.file_manager = "nautilus";
+          }
+        '';
+      };
+    };
+
     # ── Dock border ────────────────────────────────────────────────────────
     border = {
       enable = lib.mkOption {
