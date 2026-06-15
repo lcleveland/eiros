@@ -42,12 +42,7 @@
       import_modules = import ./resources/nix/import_modules.nix;
 
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      treefmt = treefmt-nix.lib.evalModule pkgs {
-        projectRootFile = "flake.nix";
-        programs.nixfmt.enable = true; # nixfmt-rfc-style
-        programs.statix.enable = true;
-        programs.deadnix.enable = true;
-      };
+      treefmt = import ./resources/nix/treefmt.nix { inherit treefmt-nix pkgs; };
     in
     {
       formatter.x86_64-linux = treefmt.config.build.wrapper;
