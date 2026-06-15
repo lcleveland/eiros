@@ -1,5 +1,10 @@
 # Installs sd, an intuitive find-and-replace CLI (sed alternative) written in Rust.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_sd = config.eiros.system.default_applications.file_management.sd;
 in

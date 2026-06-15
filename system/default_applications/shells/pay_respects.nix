@@ -1,5 +1,10 @@
 # Installs pay-respects, a shell command corrector that fixes mistyped commands.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_pay_respects = config.eiros.system.default_applications.shells.pay_respects;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;

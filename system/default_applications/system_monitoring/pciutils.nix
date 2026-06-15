@@ -1,5 +1,10 @@
 # Installs pciutils (lspci) for PCI device inspection.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_pciutils = config.eiros.system.default_applications.system_monitoring.pciutils;
 in

@@ -24,7 +24,11 @@ in
           eiros.system.networking.resolved.dnssec = "true";
         }
       '';
-      type = lib.types.enum [ "true" "allow-downgrade" "false" ];
+      type = lib.types.enum [
+        "true"
+        "allow-downgrade"
+        "false"
+      ];
     };
   };
 

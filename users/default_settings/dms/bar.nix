@@ -588,11 +588,31 @@ in
     # ── App ID substitutions ───────────────────────────────────────────────
     app_id_substitutions = lib.mkOption {
       default = [
-        { pattern = "Spotify"; replacement = "spotify"; type = "exact"; }
-        { pattern = "beepertexts"; replacement = "beeper"; type = "exact"; }
-        { pattern = "home assistant desktop"; replacement = "homeassistant-desktop"; type = "exact"; }
-        { pattern = "com.transmissionbt.transmission"; replacement = "transmission-gtk"; type = "contains"; }
-        { pattern = "^steam_app_(\\d+)$"; replacement = "steam_icon_$1"; type = "regex"; }
+        {
+          pattern = "Spotify";
+          replacement = "spotify";
+          type = "exact";
+        }
+        {
+          pattern = "beepertexts";
+          replacement = "beeper";
+          type = "exact";
+        }
+        {
+          pattern = "home assistant desktop";
+          replacement = "homeassistant-desktop";
+          type = "exact";
+        }
+        {
+          pattern = "com.transmissionbt.transmission";
+          replacement = "transmission-gtk";
+          type = "contains";
+        }
+        {
+          pattern = "^steam_app_(\\d+)$";
+          replacement = "steam_icon_$1";
+          type = "regex";
+        }
       ];
       type = lib.types.listOf lib.types.anything;
       description = "Rules for resolving app IDs to icon names. type: exact | contains | regex.";

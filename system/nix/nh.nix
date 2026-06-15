@@ -75,7 +75,7 @@ in
 
     programs.nh = {
       enable = true;
-      flake = eiros_nh.flake;
+      inherit (eiros_nh) flake;
       clean = {
         enable = eiros_nh.clean.enable;
         dates = eiros_nh.clean.dates;

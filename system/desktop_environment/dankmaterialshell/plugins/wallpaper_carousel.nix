@@ -12,6 +12,5 @@
   # WallpaperCarousel.qml imports Qt5Compat.GraphicalEffects, which is not in the
   # default quickshell/dms QML import path. Expose it via the env var that the
   # nixpkgs-patched qtdeclarative reads at startup.
-  environment.variables.NIXPKGS_QT6_QML_IMPORT_PATH =
-    "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}";
+  environment.variables.NIXPKGS_QT6_QML_IMPORT_PATH = "${pkgs.kdePackages.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}";
 }

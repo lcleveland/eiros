@@ -35,7 +35,11 @@ in
           eiros.system.security.ssh.permit_root_login = "prohibit-password";
         }
       '';
-      type = lib.types.enum [ "no" "yes" "prohibit-password" ];
+      type = lib.types.enum [
+        "no"
+        "yes"
+        "prohibit-password"
+      ];
     };
 
     kbd_interactive_authentication = lib.mkOption {

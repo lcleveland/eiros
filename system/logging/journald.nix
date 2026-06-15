@@ -1,5 +1,10 @@
 # Configures systemd-journald retention limits, rate limiting, and periodic vacuum scheduling.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_journald = config.eiros.system.logging.journald;
 in

@@ -1,5 +1,10 @@
 # Enables MangoHUD, an in-game performance overlay for Vulkan and OpenGL applications.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_mangohud = config.eiros.system.default_applications.gaming.mangohud;
   eiros_gamemode = config.eiros.system.default_applications.gaming.gamemode;

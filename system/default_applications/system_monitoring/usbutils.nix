@@ -1,5 +1,10 @@
 # Installs usbutils (lsusb) for USB device inspection.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_usbutils = config.eiros.system.default_applications.system_monitoring.usbutils;
 in

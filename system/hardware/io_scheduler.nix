@@ -2,7 +2,12 @@
 { config, lib, ... }:
 let
   eiros_io = config.eiros.system.hardware.io_scheduler;
-  scheduler_type = lib.types.enum [ "none" "mq-deadline" "bfq" "kyber" ];
+  scheduler_type = lib.types.enum [
+    "none"
+    "mq-deadline"
+    "bfq"
+    "kyber"
+  ];
 in
 {
   options.eiros.system.hardware.io_scheduler = {

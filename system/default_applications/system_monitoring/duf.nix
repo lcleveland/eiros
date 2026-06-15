@@ -1,5 +1,10 @@
 # Installs duf, a modern disk usage viewer (df replacement) with colored output.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_duf = config.eiros.system.default_applications.system_monitoring.duf;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;

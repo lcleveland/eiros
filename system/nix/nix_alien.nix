@@ -1,5 +1,10 @@
 # Installs nix-alien for running unpatched binaries in auto-detected FHS environments.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_nix_alien = config.eiros.system.nix.nix_alien;
 in

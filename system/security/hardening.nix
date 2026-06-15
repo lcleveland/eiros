@@ -67,15 +67,15 @@ in
   config = lib.mkIf eiros_hardening.enable {
     boot.kernel.sysctl = lib.mkMerge [
       (lib.mkIf eiros_hardening.fs_hardening {
-        "fs.protected_fifos"     = 2; # block O_CREAT on FIFOs in sticky world-writable dirs; stops TOCTOU via /tmp
-        "fs.protected_regular"   = 2; # same protection for regular files in sticky dirs
-        "fs.protected_symlinks"  = 1; # prevent following symlinks in sticky dirs unless follower owns them
+        "fs.protected_fifos" = 2; # block O_CREAT on FIFOs in sticky world-writable dirs; stops TOCTOU via /tmp
+        "fs.protected_regular" = 2; # same protection for regular files in sticky dirs
+        "fs.protected_symlinks" = 1; # prevent following symlinks in sticky dirs unless follower owns them
         "fs.protected_hardlinks" = 1; # prevent hardlinks to files you don't own; blocks hardlink privilege escalation
-        "fs.suid_dumpable"       = 0; # disable core dumps from setuid/setgid processes; prevents memory disclosure
+        "fs.suid_dumpable" = 0; # disable core dumps from setuid/setgid processes; prevents memory disclosure
       })
 
       (lib.mkIf eiros_hardening.kernel_info_restrict {
-        "kernel.kptr_restrict"  = 1; # hide kernel symbol addresses from non-root; defeats ASLR-bypass via /proc/kallsyms
+        "kernel.kptr_restrict" = 1; # hide kernel symbol addresses from non-root; defeats ASLR-bypass via /proc/kallsyms
         "kernel.dmesg_restrict" = 1; # restrict dmesg to root; kernel log contains addresses useful for exploit dev
       })
 

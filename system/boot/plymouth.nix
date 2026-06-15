@@ -134,7 +134,7 @@ in
 
       plymouth = {
         enable = true;
-        theme = eiros_plymouth.theme;
+        inherit (eiros_plymouth) theme;
         themePackages = eiros_plymouth.theme_packages;
       };
     };

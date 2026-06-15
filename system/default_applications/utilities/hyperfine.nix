@@ -1,5 +1,10 @@
 # Installs hyperfine, a command-line benchmarking tool with statistical analysis.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_hyperfine = config.eiros.system.default_applications.utilities.hyperfine;
 in

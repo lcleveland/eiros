@@ -50,7 +50,7 @@ in
             allowUnfreePredicate =
               pkg:
               let
-                name = (pkg.pname or pkg.name or "");
+                name = pkg.pname or pkg.name or "";
               in
               eiros_nix.allow_unfree_software.predicates == [ ]
               || lib.any (p: lib.hasInfix p name) eiros_nix.allow_unfree_software.predicates;

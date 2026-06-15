@@ -1,5 +1,10 @@
 # Installs GStreamer multimedia framework and codec plugins for media playback and portal screen sharing.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_multimedia = config.eiros.system.default_applications.media.multimedia;
 in

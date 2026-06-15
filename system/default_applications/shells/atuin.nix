@@ -1,5 +1,10 @@
 # Installs atuin for enhanced shell history with fuzzy search and optional encrypted sync.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_atuin = config.eiros.system.default_applications.shells.atuin;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;
@@ -36,7 +41,12 @@ in
           eiros.system.default_applications.shells.atuin.filter_mode = "directory";
         }
       '';
-      type = lib.types.enum [ "global" "session" "directory" "host" ];
+      type = lib.types.enum [
+        "global"
+        "session"
+        "directory"
+        "host"
+      ];
     };
 
     sync.enable = lib.mkOption {
@@ -59,8 +69,10 @@ in
       sync_frequency = "${if eiros_atuin.sync.enable then "10m" else "0"}"
     '';
 
-    programs.zsh.interactiveShellInit = lib.mkIf (eiros_atuin.shell_integration.enable && eiros_zsh.enable) ''
-      eval "$(atuin init zsh)"
-    '';
+    programs.zsh.interactiveShellInit =
+      lib.mkIf (eiros_atuin.shell_integration.enable && eiros_zsh.enable)
+        ''
+          eval "$(atuin init zsh)"
+        '';
   };
 }

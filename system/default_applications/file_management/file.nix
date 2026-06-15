@@ -1,5 +1,10 @@
 # Installs the file utility for determining file types from magic bytes.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_file = config.eiros.system.default_applications.file_management.file;
 in

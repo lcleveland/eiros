@@ -64,7 +64,7 @@ in
   config = lib.mkIf eiros_build.enable {
     nix.settings = {
       max-jobs = eiros_build.max_jobs;
-      cores = eiros_build.cores;
+      inherit (eiros_build) cores;
       keep-outputs = eiros_build.keep_outputs;
       keep-derivations = eiros_build.keep_derivations;
     };

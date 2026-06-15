@@ -1,5 +1,10 @@
 # Installs unzip for extracting ZIP archives.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_unzip = config.eiros.system.default_applications.file_management.unzip;
 in

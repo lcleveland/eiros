@@ -1,5 +1,10 @@
 # Installs ripgrep (rg), a fast recursive regex search tool.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_ripgrep = config.eiros.system.default_applications.file_management.ripgrep;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;

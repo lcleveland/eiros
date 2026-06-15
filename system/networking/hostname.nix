@@ -38,7 +38,7 @@ in
 
     networking = {
       hostName = eiros_networking.hostname;
-      domain = eiros_networking.domain;
+      inherit (eiros_networking) domain;
     };
   };
 }

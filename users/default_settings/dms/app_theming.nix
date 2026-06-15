@@ -339,8 +339,14 @@
 
       neovim_settings = lib.mkOption {
         default = {
-          dark = { baseTheme = "github_dark"; harmony = 0.5; };
-          light = { baseTheme = "github_light"; harmony = 0.5; };
+          dark = {
+            baseTheme = "github_dark";
+            harmony = 0.5;
+          };
+          light = {
+            baseTheme = "github_light";
+            harmony = 0.5;
+          };
         };
         type = lib.types.anything;
         description = "Neovim matugen template settings for dark and light mode variants.";

@@ -120,7 +120,7 @@ in
 
     programs.yazi = {
       enable = true;
-      package = eiros_yazi.package;
+      inherit (eiros_yazi) package;
     };
 
     programs.zsh.interactiveShellInit = lib.mkIf eiros_yazi.shell_integration.enable ''

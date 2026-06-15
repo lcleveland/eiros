@@ -1,5 +1,10 @@
 # Installs zoxide, a smart cd replacement that learns your most-used directories.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_zoxide = config.eiros.system.default_applications.shells.zoxide;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;
@@ -43,8 +48,10 @@ in
   config = lib.mkIf eiros_zoxide.enable {
     environment.systemPackages = [ pkgs.zoxide ];
 
-    programs.zsh.interactiveShellInit = lib.mkIf (eiros_zoxide.shell_integration.enable && eiros_zsh.enable) ''
-      eval "$(zoxide init zsh${lib.optionalString eiros_zoxide.replace_cd.enable " --cmd cd"})"
-    '';
+    programs.zsh.interactiveShellInit =
+      lib.mkIf (eiros_zoxide.shell_integration.enable && eiros_zsh.enable)
+        ''
+          eval "$(zoxide init zsh${lib.optionalString eiros_zoxide.replace_cd.enable " --cmd cd"})"
+        '';
   };
 }

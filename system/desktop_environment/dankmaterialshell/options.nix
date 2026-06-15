@@ -399,7 +399,7 @@ in
         enableSystemMonitoring = eiros_dms.system_monitoring.enable;
         enableVPN = eiros_dms.vpn.enable;
 
-        plugins = eiros_dms.plugins;
+        inherit (eiros_dms) plugins;
 
         greeter = lib.mkIf eiros_dms.greeter.enable {
           enable = true;

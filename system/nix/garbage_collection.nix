@@ -1,5 +1,10 @@
 # Configures automatic Nix GC, store optimisation, disk pressure limits, and generation pruning.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_gc = config.eiros.system.nix.garbage_collection;
 in
@@ -112,7 +117,7 @@ in
     nix = {
       gc = {
         automatic = true;
-        dates = eiros_gc.dates;
+        inherit (eiros_gc) dates;
         options = "--delete-older-than ${eiros_gc.delete_older_than}";
       };
 

@@ -37,11 +37,11 @@ in
 
   config = lib.mkIf eiros_net_sec.enable {
     boot.kernel.sysctl = lib.mkIf eiros_net_sec.block_icmp_redirects {
-      "net.ipv4.conf.all.accept_redirects"     = 0; # refuse IPv4 ICMP redirects on all interfaces
+      "net.ipv4.conf.all.accept_redirects" = 0; # refuse IPv4 ICMP redirects on all interfaces
       "net.ipv4.conf.default.accept_redirects" = 0; # refuse IPv4 ICMP redirects on new interfaces
-      "net.ipv6.conf.all.accept_redirects"     = 0; # refuse IPv6 ICMPv6 redirects on all interfaces
+      "net.ipv6.conf.all.accept_redirects" = 0; # refuse IPv6 ICMPv6 redirects on all interfaces
       "net.ipv6.conf.default.accept_redirects" = 0; # refuse IPv6 ICMPv6 redirects on new interfaces
-      "net.ipv4.conf.all.send_redirects"       = 0; # do not send ICMP redirects; desktop is never a router
+      "net.ipv4.conf.all.send_redirects" = 0; # do not send ICMP redirects; desktop is never a router
     };
   };
 }

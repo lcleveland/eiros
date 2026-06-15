@@ -41,8 +41,8 @@ in
 
   config = lib.mkIf eiros_keyboard.enable {
     services.xserver.xkb = {
-      layout = eiros_keyboard.layout;
-      variant = eiros_keyboard.variant;
+      inherit (eiros_keyboard) layout;
+      inherit (eiros_keyboard) variant;
     };
   };
 }

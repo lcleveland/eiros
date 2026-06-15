@@ -1,5 +1,10 @@
 # Configures XDG Desktop Portal backends for Wayland file chooser and settings integration.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_xdg_portal = config.eiros.system.desktop_environment.xdg_portal;
 in

@@ -1,5 +1,10 @@
 # Installs delta as a syntax-highlighted, side-by-side diff pager for git.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_delta = config.eiros.system.default_applications.version_control.delta;
   eiros_git = config.eiros.system.default_applications.version_control.git;
@@ -54,15 +59,17 @@ in
   config = lib.mkIf (eiros_delta.enable && eiros_git.enable) {
     environment.systemPackages = [ pkgs.delta ];
 
-    programs.git.config = [{
-      core.pager = "delta";
-      interactive.diffFilter = "delta --color-only";
-      delta = {
-        navigate = eiros_delta.navigate.enable;
-        side-by-side = eiros_delta.side_by_side.enable;
-        line-numbers = eiros_delta.line_numbers.enable;
-      };
-      merge.conflictstyle = "zdiff3";
-    }];
+    programs.git.config = [
+      {
+        core.pager = "delta";
+        interactive.diffFilter = "delta --color-only";
+        delta = {
+          navigate = eiros_delta.navigate.enable;
+          side-by-side = eiros_delta.side_by_side.enable;
+          line-numbers = eiros_delta.line_numbers.enable;
+        };
+        merge.conflictstyle = "zdiff3";
+      }
+    ];
   };
 }

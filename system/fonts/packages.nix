@@ -66,9 +66,6 @@ in
   };
 
   config = lib.mkIf eiros_fonts.enable {
-    fonts.packages =
-      eiros_fonts.packages.base
-      ++ eiros_fonts.packages.cjk
-      ++ eiros_fonts.packages.nerd;
+    fonts.packages = eiros_fonts.packages.base ++ eiros_fonts.packages.cjk ++ eiros_fonts.packages.nerd;
   };
 }

@@ -51,7 +51,7 @@
       };
 
       transparency_override = lib.mkOption {
-        default = (-1.0);
+        default = -1.0;
         type = lib.types.float;
         description = "Notepad transparency override (0.0–1.0). -1 = use popupTransparency.";
         example = lib.literalExpression ''
@@ -164,7 +164,7 @@
       };
 
       x = lib.mkOption {
-        default = (-1.0);
+        default = -1.0;
         type = lib.types.float;
         description = "Desktop clock X position (pixels). -1 = centered.";
         example = lib.literalExpression ''
@@ -175,7 +175,7 @@
       };
 
       y = lib.mkOption {
-        default = (-1.0);
+        default = -1.0;
         type = lib.types.float;
         description = "Desktop clock Y position (pixels). -1 = centered.";
         example = lib.literalExpression ''
@@ -442,7 +442,7 @@
       };
 
       x = lib.mkOption {
-        default = (-1.0);
+        default = -1.0;
         type = lib.types.float;
         description = "System monitor X position (pixels). -1 = centered.";
         example = lib.literalExpression ''
@@ -453,7 +453,7 @@
       };
 
       y = lib.mkOption {
-        default = (-1.0);
+        default = -1.0;
         type = lib.types.float;
         description = "System monitor Y position (pixels). -1 = centered.";
         example = lib.literalExpression ''

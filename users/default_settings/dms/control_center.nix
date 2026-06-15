@@ -172,14 +172,46 @@
 
     widgets = lib.mkOption {
       default = [
-        { id = "volumeSlider"; enabled = true; width = 50; }
-        { id = "brightnessSlider"; enabled = true; width = 50; }
-        { id = "wifi"; enabled = true; width = 50; }
-        { id = "bluetooth"; enabled = true; width = 50; }
-        { id = "audioOutput"; enabled = true; width = 50; }
-        { id = "audioInput"; enabled = true; width = 50; }
-        { id = "nightMode"; enabled = true; width = 50; }
-        { id = "darkMode"; enabled = true; width = 50; }
+        {
+          id = "volumeSlider";
+          enabled = true;
+          width = 50;
+        }
+        {
+          id = "brightnessSlider";
+          enabled = true;
+          width = 50;
+        }
+        {
+          id = "wifi";
+          enabled = true;
+          width = 50;
+        }
+        {
+          id = "bluetooth";
+          enabled = true;
+          width = 50;
+        }
+        {
+          id = "audioOutput";
+          enabled = true;
+          width = 50;
+        }
+        {
+          id = "audioInput";
+          enabled = true;
+          width = 50;
+        }
+        {
+          id = "nightMode";
+          enabled = true;
+          width = 50;
+        }
+        {
+          id = "darkMode";
+          enabled = true;
+          width = 50;
+        }
       ];
       type = lib.types.listOf lib.types.anything;
       description = "Ordered list of control center tile widgets with enabled/width configuration.";

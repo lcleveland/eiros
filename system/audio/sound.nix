@@ -1,5 +1,10 @@
 # Configures PipeWire audio stack and installs sound-related tools and applications.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_sound = config.eiros.system.audio.sound;
 in
@@ -207,7 +212,10 @@ in
       systemd.user.services.easyeffects = lib.mkIf eiros_sound.easyeffects.autostart.enable {
         description = "EasyEffects PipeWire audio effects service";
         wantedBy = [ "default.target" ];
-        after = [ "pipewire.service" "pipewire-pulse.service" ];
+        after = [
+          "pipewire.service"
+          "pipewire-pulse.service"
+        ];
         serviceConfig = {
           ExecStart = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";
           Restart = "on-failure";

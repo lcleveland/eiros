@@ -24,7 +24,13 @@ in
           eiros.system.hardware.logind.lid_switch = "lock";
         }
       '';
-      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+      type = lib.types.enum [
+        "suspend"
+        "lock"
+        "ignore"
+        "hibernate"
+        "poweroff"
+      ];
     };
 
     lid_switch_external_power = lib.mkOption {
@@ -35,7 +41,13 @@ in
           eiros.system.hardware.logind.lid_switch_external_power = "ignore";
         }
       '';
-      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+      type = lib.types.enum [
+        "suspend"
+        "lock"
+        "ignore"
+        "hibernate"
+        "poweroff"
+      ];
     };
 
     lid_switch_docked = lib.mkOption {
@@ -46,7 +58,13 @@ in
           eiros.system.hardware.logind.lid_switch_docked = "lock";
         }
       '';
-      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+      type = lib.types.enum [
+        "suspend"
+        "lock"
+        "ignore"
+        "hibernate"
+        "poweroff"
+      ];
     };
 
     lock_screen_on_lid_close_when_undocked = lib.mkOption {
@@ -68,7 +86,13 @@ in
           eiros.system.hardware.logind.power_key = "poweroff";
         }
       '';
-      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+      type = lib.types.enum [
+        "suspend"
+        "lock"
+        "ignore"
+        "hibernate"
+        "poweroff"
+      ];
     };
 
     idle_action = lib.mkOption {
@@ -79,7 +103,13 @@ in
           eiros.system.hardware.logind.idle_action = "lock";
         }
       '';
-      type = lib.types.enum [ "suspend" "lock" "ignore" "hibernate" "poweroff" ];
+      type = lib.types.enum [
+        "suspend"
+        "lock"
+        "ignore"
+        "hibernate"
+        "poweroff"
+      ];
     };
 
     idle_timeout_sec = lib.mkOption {

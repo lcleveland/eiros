@@ -1,5 +1,10 @@
 # Installs bat, a syntax-highlighting cat replacement with git integration.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_bat = config.eiros.system.default_applications.file_management.bat;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;

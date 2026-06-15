@@ -1,5 +1,10 @@
 # Installs eza, a modern ls replacement with colour, icons, and git status.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_eza = config.eiros.system.default_applications.file_management.eza;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;
@@ -33,9 +38,9 @@ in
     environment.systemPackages = [ pkgs.eza ];
 
     programs.zsh.shellAliases = lib.mkIf (eiros_zsh.enable && eiros_eza.override.enable) {
-      ls   = "eza --icons";
-      ll   = "eza -lh --icons --git";
-      la   = "eza -lah --icons --git";
+      ls = "eza --icons";
+      ll = "eza -lh --icons --git";
+      la = "eza -lah --icons --git";
       tree = "eza --tree --icons";
     };
   };

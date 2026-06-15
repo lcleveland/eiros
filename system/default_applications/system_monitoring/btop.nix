@@ -1,5 +1,10 @@
 # Installs btop, a TUI system resource monitor for CPU, memory, disk, network, and processes.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_btop = config.eiros.system.default_applications.system_monitoring.btop;
 in

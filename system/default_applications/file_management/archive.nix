@@ -1,5 +1,10 @@
 # Installs archive creation tools (zip, p7zip) to complement the existing unzip module.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_archive = config.eiros.system.default_applications.file_management.archive;
 in

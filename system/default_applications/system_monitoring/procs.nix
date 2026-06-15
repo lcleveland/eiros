@@ -1,5 +1,10 @@
 # Installs procs, a modern ps replacement written in Rust with colored output and tree view.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_procs = config.eiros.system.default_applications.system_monitoring.procs;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;

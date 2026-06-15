@@ -1,5 +1,10 @@
 # Installs wget for non-interactive command-line file downloading.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_wget = config.eiros.system.default_applications.network.wget;
 in

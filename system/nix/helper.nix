@@ -27,7 +27,11 @@ in
     environment.systemPackages = [
       (pkgs.writeShellApplication {
         name = "eiros";
-        runtimeInputs = [ pkgs.git pkgs.nh pkgs.nix ];
+        runtimeInputs = [
+          pkgs.git
+          pkgs.nh
+          pkgs.nix
+        ];
         text = ''
           cmd="''${1:-}"
 
@@ -74,7 +78,8 @@ in
           esac
         '';
       })
-    ] ++ lib.optionals zsh_enabled [
+    ]
+    ++ lib.optionals zsh_enabled [
       (pkgs.writeTextFile {
         name = "eiros-zsh-completion";
         destination = "/share/zsh/site-functions/_eiros";

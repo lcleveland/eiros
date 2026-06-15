@@ -1,5 +1,10 @@
 # Installs curl for command-line HTTP/HTTPS transfers.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_curl = config.eiros.system.default_applications.network.curl;
 in

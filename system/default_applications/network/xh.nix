@@ -1,5 +1,10 @@
 # Installs xh, a fast Rust HTTP client with HTTPie-compatible syntax.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_xh = config.eiros.system.default_applications.network.xh;
 in

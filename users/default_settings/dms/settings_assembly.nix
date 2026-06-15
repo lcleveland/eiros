@@ -5,8 +5,23 @@
 { config, lib, ... }:
 let
   inherit (config.eiros.system.user_defaults.dms)
-    bar control_center appearance notifications dock launcher
-    widgets misc media power display app_theming theme greeter lock_screen frame;
+    bar
+    control_center
+    appearance
+    notifications
+    dock
+    launcher
+    widgets
+    misc
+    media
+    power
+    display
+    app_theming
+    theme
+    greeter
+    lock_screen
+    frame
+    ;
 in
 {
   options.eiros.system.user_defaults.dms._settings = lib.mkOption {

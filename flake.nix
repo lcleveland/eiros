@@ -16,6 +16,7 @@
       nixpkgs,
       nvf,
       sops-nix,
+      treefmt-nix,
       self,
       ...
     }:
@@ -39,8 +40,19 @@
       };
 
       import_modules = import ./resources/nix/import_modules.nix;
+
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      treefmt = treefmt-nix.lib.evalModule pkgs {
+        projectRootFile = "flake.nix";
+        programs.nixfmt.enable = true; # nixfmt-rfc-style
+        programs.statix.enable = true;
+        programs.deadnix.enable = true;
+      };
     in
     {
+      formatter.x86_64-linux = treefmt.config.build.wrapper;
+      checks.x86_64-linux.formatting = treefmt.config.build.check self;
+
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         modules = [
           dank_material_shell.nixosModules.dank-material-shell
@@ -121,6 +133,11 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

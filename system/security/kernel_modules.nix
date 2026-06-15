@@ -43,17 +43,17 @@ in
   config = lib.mkIf eiros_km.enable {
     boot.blacklistedKernelModules =
       (lib.optionals eiros_km.firewire [
-        "firewire_core"  # FireWire core — DMA attack surface
-        "firewire_ohci"  # FireWire OHCI host controller
-        "firewire_sbp2"  # FireWire SBP-2 (storage protocol over FireWire)
-        "ohci1394"       # Legacy IEEE 1394 OHCI driver
-        "sbp2"           # Legacy SBP-2 over IEEE 1394
+        "firewire_core" # FireWire core — DMA attack surface
+        "firewire_ohci" # FireWire OHCI host controller
+        "firewire_sbp2" # FireWire SBP-2 (storage protocol over FireWire)
+        "ohci1394" # Legacy IEEE 1394 OHCI driver
+        "sbp2" # Legacy SBP-2 over IEEE 1394
       ])
       ++ (lib.optionals eiros_km.legacy_protocols [
-        "dccp"   # Datagram Congestion Control Protocol — multiple historical CVEs
-        "sctp"   # Stream Control Transmission Protocol — rarely used on desktops
-        "rds"    # Reliable Datagram Sockets — rarely used, has had kernel CVEs
-        "tipc"   # Transparent Inter-Process Communication — cluster protocol, not needed on desktops
+        "dccp" # Datagram Congestion Control Protocol — multiple historical CVEs
+        "sctp" # Stream Control Transmission Protocol — rarely used on desktops
+        "rds" # Reliable Datagram Sockets — rarely used, has had kernel CVEs
+        "tipc" # Transparent Inter-Process Communication — cluster protocol, not needed on desktops
       ]);
   };
 }

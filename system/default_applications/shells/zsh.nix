@@ -1,5 +1,10 @@
 # Configures Zsh as the default shell with Oh My Zsh, autosuggestions, syntax highlighting, and aliases.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;
 in
@@ -119,7 +124,11 @@ in
     };
 
     set_options = lib.mkOption {
-      default = [ "HIST_IGNORE_DUPS" "HIST_IGNORE_SPACE" "SHARE_HISTORY" ];
+      default = [
+        "HIST_IGNORE_DUPS"
+        "HIST_IGNORE_SPACE"
+        "SHARE_HISTORY"
+      ];
       description = "Zsh options to enable (setopt).";
       example = lib.literalExpression ''
         {

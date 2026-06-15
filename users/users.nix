@@ -261,7 +261,8 @@ in
           {
             assertion = false;
             message = "User '${username}' has mangowc config but eiros.system.desktop_environment.mangowc.enable is false.";
-          })
+          }
+        )
       ) config.eiros.users
     );
 

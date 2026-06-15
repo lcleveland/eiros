@@ -31,7 +31,7 @@ in
   config = lib.mkIf eiros_fstrim.enable {
     services.fstrim = {
       enable = true;
-      interval = eiros_fstrim.interval;
+      inherit (eiros_fstrim) interval;
     };
   };
 }

@@ -33,18 +33,23 @@ in
       defaultLocale = eiros_language.locale;
 
       extraLocaleSettings = builtins.listToAttrs (
-        map (key: { name = key; value = eiros_language.locale; }) [
-          "LC_ADDRESS"
-          "LC_COLLATE"
-          "LC_IDENTIFICATION"
-          "LC_MEASUREMENT"
-          "LC_MONETARY"
-          "LC_NAME"
-          "LC_NUMERIC"
-          "LC_PAPER"
-          "LC_TELEPHONE"
-          "LC_TIME"
-        ]
+        map
+          (key: {
+            name = key;
+            value = eiros_language.locale;
+          })
+          [
+            "LC_ADDRESS"
+            "LC_COLLATE"
+            "LC_IDENTIFICATION"
+            "LC_MEASUREMENT"
+            "LC_MONETARY"
+            "LC_NAME"
+            "LC_NUMERIC"
+            "LC_PAPER"
+            "LC_TELEPHONE"
+            "LC_TIME"
+          ]
       );
     };
   };

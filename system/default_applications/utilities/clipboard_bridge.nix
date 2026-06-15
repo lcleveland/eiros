@@ -1,7 +1,12 @@
 # Bridges the Wayland clipboard into X11 CLIPBOARD and PRIMARY selections so
 # XWayland apps (games, legacy X11 tools) can paste content copied in Wayland,
 # and vice versa.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.eiros.system.default_applications.utilities.clipboard_bridge;
 
@@ -14,27 +19,38 @@ let
   # Wraps autocutsel to wait for an XWayland socket before starting.
   # 'selection' should be "CLIPBOARD" or "PRIMARY" (uppercase, passed directly
   # to autocutsel's -selection flag).
-  autocutsel-wait = selection: pkgs.writeShellApplication {
-    name = "autocutsel-${lib.toLower selection}";
-    runtimeInputs = with pkgs; [ autocutsel findutils coreutils ];
-    text = ''
-      # Wait for any XWayland socket to appear
-      until find /tmp/.X11-unix -maxdepth 1 -name 'X*' 2>/dev/null | grep -q .; do
-        sleep 1
-      done
-      # Use the first available X11 display
-      sock=$(find /tmp/.X11-unix -maxdepth 1 -name 'X*' 2>/dev/null | sort | head -1)
-      export DISPLAY=":''${sock##*/X}"
-      exec autocutsel -selection ${selection}
-    '';
-  };
+  autocutsel-wait =
+    selection:
+    pkgs.writeShellApplication {
+      name = "autocutsel-${lib.toLower selection}";
+      runtimeInputs = with pkgs; [
+        autocutsel
+        findutils
+        coreutils
+      ];
+      text = ''
+        # Wait for any XWayland socket to appear
+        until find /tmp/.X11-unix -maxdepth 1 -name 'X*' 2>/dev/null | grep -q .; do
+          sleep 1
+        done
+        # Use the first available X11 display
+        sock=$(find /tmp/.X11-unix -maxdepth 1 -name 'X*' 2>/dev/null | sort | head -1)
+        export DISPLAY=":''${sock##*/X}"
+        exec autocutsel -selection ${selection}
+      '';
+    };
 
   # Polls the Wayland clipboard every 100ms and writes any new text content
   # into X11 CLIPBOARD so XWayland apps can paste it. Waits for both the
   # Wayland compositor socket and an XWayland socket before starting the loop.
   wayland-to-x11-clipboard = pkgs.writeShellApplication {
     name = "wayland-to-x11-clipboard";
-    runtimeInputs = with pkgs; [ wl-clipboard xclip findutils coreutils ];
+    runtimeInputs = with pkgs; [
+      wl-clipboard
+      xclip
+      findutils
+      coreutils
+    ];
     text = ''
       runtime_dir="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 

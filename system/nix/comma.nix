@@ -1,5 +1,10 @@
 # Installs comma and nix-index for running any nixpkgs program without installing it.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_comma = config.eiros.system.nix.comma;
 in

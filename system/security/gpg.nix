@@ -1,5 +1,10 @@
 # Configures the GnuPG agent with pinentry flavor and optional SSH key support.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_gpg = config.eiros.system.security.gpg;
 in
@@ -37,7 +42,15 @@ in
           eiros.system.security.gpg.pinentry_flavor = "curses";
         }
       '';
-      type = lib.types.enum [ "curses" "emacs" "gnome3" "gtk2" "qt" "rofi" "tty" ];
+      type = lib.types.enum [
+        "curses"
+        "emacs"
+        "gnome3"
+        "gtk2"
+        "qt"
+        "rofi"
+        "tty"
+      ];
     };
   };
 

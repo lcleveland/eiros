@@ -92,7 +92,7 @@ in
   };
 
   config.fonts.fontconfig = {
-    enable = eiros_font_config.enable;
+    inherit (eiros_font_config) enable;
 
     defaultFonts = {
       monospace = eiros_font_config.default_fonts.monospace;

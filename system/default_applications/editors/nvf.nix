@@ -1,5 +1,10 @@
 # Configures declarative Neovim via nvf with LSP, treesitter, telescope, and completion.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_neovim = config.eiros.system.default_applications.editors.neovim;
   eiros_nvf = config.eiros.system.default_applications.editors.nvf;
@@ -31,24 +36,26 @@ in
           };
         }
       '';
-      type = lib.types.attrsOf (lib.types.submodule {
-        options = {
-          package = lib.mkOption {
-            type = lib.types.package;
-            description = "The vim plugin package.";
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            package = lib.mkOption {
+              type = lib.types.package;
+              description = "The vim plugin package.";
+            };
+            setup = lib.mkOption {
+              default = "";
+              type = lib.types.str;
+              description = "Lua string to execute after loading the plugin.";
+            };
+            after = lib.mkOption {
+              default = [ ];
+              type = lib.types.listOf lib.types.str;
+              description = "Plugin names this plugin must load after.";
+            };
           };
-          setup = lib.mkOption {
-            default = "";
-            type = lib.types.str;
-            description = "Lua string to execute after loading the plugin.";
-          };
-          after = lib.mkOption {
-            default = [ ];
-            type = lib.types.listOf lib.types.str;
-            description = "Plugin names this plugin must load after.";
-          };
-        };
-      });
+        }
+      );
     };
 
     extra_config_lua = lib.mkOption {

@@ -1,5 +1,10 @@
 # Installs tealdeer, a fast Rust implementation of tldr for simplified command examples.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_tealdeer = config.eiros.system.default_applications.utilities.tealdeer;
 in

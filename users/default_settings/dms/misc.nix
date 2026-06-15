@@ -227,7 +227,11 @@
     };
 
     clipboard_visible_entry_actions = lib.mkOption {
-      default = [ "pin" "edit" "delete" ];
+      default = [
+        "pin"
+        "edit"
+        "delete"
+      ];
       type = lib.types.listOf lib.types.str;
       description = "Which per-entry action buttons are shown on clipboard history items. Options: pin, edit, delete.";
       example = lib.literalExpression ''

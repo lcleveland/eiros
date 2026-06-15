@@ -12,10 +12,8 @@ let
   discoverPkg =
     if pkgs ? kdePackages && pkgs.kdePackages ? discover then
       pkgs.kdePackages.discover
-    else if pkgs ? discover then
-      pkgs.discover
     else
-      null;
+      pkgs.discover or null;
 in
 {
   options.eiros.system.default_applications.utilities.flatpak = {
@@ -54,14 +52,17 @@ in
   };
 
   config = lib.mkIf eiros_flatpak.enable {
-    warnings = lib.optional (eiros_flatpak.discover && discoverPkg == null)
-      "eiros: flatpak.discover = true but no Discover package found in pkgs";
+    warnings = lib.optional (
+      eiros_flatpak.discover && discoverPkg == null
+    ) "eiros: flatpak.discover = true but no Discover package found in pkgs";
 
     services.flatpak.enable = true;
 
     services.packagekit.enable = eiros_flatpak.discover;
 
-    environment.systemPackages = lib.optionals (eiros_flatpak.discover && discoverPkg != null) [ discoverPkg ];
+    environment.systemPackages = lib.optionals (eiros_flatpak.discover && discoverPkg != null) [
+      discoverPkg
+    ];
 
     # Register Flathub as a system-wide Flatpak remote on first boot.
     systemd.services.flatpak-repo = {

@@ -1,5 +1,5 @@
 # Enables sops-nix for declarative secret management via SOPS + age/GPG.
-{ config, lib, inputs, ... }:
+{ config, lib, ... }:
 let
   eiros_sops = config.eiros.system.security.sops;
 in

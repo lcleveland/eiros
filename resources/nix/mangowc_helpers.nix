@@ -13,7 +13,8 @@ let
   make_bind_line =
     kb:
     let
-      modifier_keys_str = if kb.modifier_keys == [ ] then "none" else lib.concatStringsSep "+" kb.modifier_keys;
+      modifier_keys_str =
+        if kb.modifier_keys == [ ] then "none" else lib.concatStringsSep "+" kb.modifier_keys;
       command_args_str = if kb.command_arguments == null then "" else kb.command_arguments;
     in
     "${modifier_keys_str},${kb.key_symbol},${kb.mangowc_command},${command_args_str}";
@@ -49,43 +50,53 @@ in
         "${name}=${toString value}";
   };
 
-  keybind_submodule = lib.types.submodule (
-    { ... }:
-    {
-      options = {
-        command_arguments = lib.mkOption {
-          default = null;
-          description = "Optional command arguments.";
-          example = "vivaldi";
-          type = lib.types.nullOr lib.types.str;
-        };
-
-        flag_modifiers = lib.mkOption {
-          default = [ ];
-          description = "MangoWC bind flags: l (lock), r (release), s (keysym), p (pass).";
-          example = [ "l" "s" ];
-          type = lib.types.listOf (lib.types.enum [ "l" "r" "s" "p" ]);
-        };
-
-        key_symbol = lib.mkOption {
-          description = "Key symbol such as \"Return\", \"Q\", or \"space\".";
-          example = "Return";
-          type = lib.types.str;
-        };
-
-        mangowc_command = lib.mkOption {
-          description = "MangoWC command (e.g., \"spawn\", \"killclient\", \"quit\").";
-          example = "spawn";
-          type = lib.types.str;
-        };
-
-        modifier_keys = lib.mkOption {
-          default = [ ];
-          description = "Modifier keys joined using '+', e.g., [\"SUPER\" \"SHIFT\"].";
-          example = [ "SUPER" "SHIFT" ];
-          type = lib.types.listOf lib.types.str;
-        };
+  keybind_submodule = lib.types.submodule (_: {
+    options = {
+      command_arguments = lib.mkOption {
+        default = null;
+        description = "Optional command arguments.";
+        example = "vivaldi";
+        type = lib.types.nullOr lib.types.str;
       };
-    }
-  );
+
+      flag_modifiers = lib.mkOption {
+        default = [ ];
+        description = "MangoWC bind flags: l (lock), r (release), s (keysym), p (pass).";
+        example = [
+          "l"
+          "s"
+        ];
+        type = lib.types.listOf (
+          lib.types.enum [
+            "l"
+            "r"
+            "s"
+            "p"
+          ]
+        );
+      };
+
+      key_symbol = lib.mkOption {
+        description = "Key symbol such as \"Return\", \"Q\", or \"space\".";
+        example = "Return";
+        type = lib.types.str;
+      };
+
+      mangowc_command = lib.mkOption {
+        description = "MangoWC command (e.g., \"spawn\", \"killclient\", \"quit\").";
+        example = "spawn";
+        type = lib.types.str;
+      };
+
+      modifier_keys = lib.mkOption {
+        default = [ ];
+        description = "Modifier keys joined using '+', e.g., [\"SUPER\" \"SHIFT\"].";
+        example = [
+          "SUPER"
+          "SHIFT"
+        ];
+        type = lib.types.listOf lib.types.str;
+      };
+    };
+  });
 }

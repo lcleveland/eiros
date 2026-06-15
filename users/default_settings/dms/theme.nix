@@ -16,7 +16,12 @@
 
     current_theme_category = lib.mkOption {
       default = "dynamic";
-      type = lib.types.enum [ "generic" "dynamic" "custom" "registry" ];
+      type = lib.types.enum [
+        "generic"
+        "dynamic"
+        "custom"
+        "registry"
+      ];
       description = "Theme category tab shown in the DMS Theme Color picker.";
       example = lib.literalExpression ''
         {

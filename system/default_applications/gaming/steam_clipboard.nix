@@ -1,7 +1,12 @@
 # Injects wl-clipboard-x11 and xdotool into Steam's FHS container so Proton
 # games can access the Wayland clipboard via XWayland clipboard atoms.
 # The actual Wayland↔X11 bridge daemons live in clipboard_bridge.nix.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_steam_clipboard = config.eiros.system.default_applications.gaming.steam_clipboard;
 in

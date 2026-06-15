@@ -1,5 +1,10 @@
 # Installs and starts a graphical Polkit authentication agent for Wayland sessions.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_polkit_agent = config.eiros.system.security.polkit_agent;
 in

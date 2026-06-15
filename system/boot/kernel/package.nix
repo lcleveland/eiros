@@ -23,8 +23,7 @@ in
   config = {
     assertions = [
       {
-        assertion =
-          (eiros_kernel.package ? kernel) && (lib.isDerivation eiros_kernel.package.kernel);
+        assertion = (eiros_kernel.package ? kernel) && (lib.isDerivation eiros_kernel.package.kernel);
         message = "eiros.system.boot.kernel.package must be a linuxPackages set (an attrset containing a derivation at .kernel), e.g. pkgs.linuxPackages_latest.";
       }
     ];

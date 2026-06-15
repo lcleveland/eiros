@@ -1,5 +1,10 @@
 # Configures CUPS printing and SANE scanning with optional Avahi network discovery.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_printing = config.eiros.system.hardware.printing;
   eiros_scanning = config.eiros.system.hardware.scanning;
@@ -103,7 +108,7 @@ in
     (lib.mkIf eiros_printing.enable {
       services.printing = {
         enable = true;
-        drivers = eiros_printing.drivers;
+        inherit (eiros_printing) drivers;
       };
 
       services.avahi = lib.mkIf eiros_printing.discovery.enable {
@@ -117,8 +122,7 @@ in
       hardware.sane = {
         enable = true;
         extraBackends =
-          lib.optionals eiros_scanning.airscan.enable [ pkgs.sane-airscan ]
-          ++ eiros_scanning.extra_backends;
+          lib.optionals eiros_scanning.airscan.enable [ pkgs.sane-airscan ] ++ eiros_scanning.extra_backends;
       };
     })
   ];

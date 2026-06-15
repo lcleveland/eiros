@@ -1,5 +1,10 @@
 # Installs Nix language tooling: nil LSP server and nixfmt formatter.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_nix_tools = config.eiros.system.default_applications.editors.nix_tools;
 in

@@ -1,5 +1,10 @@
 # Installs gping, a ping tool with a real-time ASCII graph for visualizing latency.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_gping = config.eiros.system.default_applications.system_monitoring.gping;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;

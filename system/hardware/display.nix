@@ -1,5 +1,10 @@
 # Installs brightnessctl for keyboard-driven screen brightness control.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_display = config.eiros.system.hardware.display;
 in

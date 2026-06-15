@@ -1,5 +1,10 @@
 # Installs lazygit, a TUI git client.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_lazygit = config.eiros.system.default_applications.version_control.lazygit;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;

@@ -1,5 +1,10 @@
 # Installs Zellij terminal multiplexer with optional shell auto-attach integration.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_zellij = config.eiros.system.default_applications.shells.zellij;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;
@@ -43,15 +48,17 @@ in
   config = lib.mkIf eiros_zellij.enable {
     environment.systemPackages = [ pkgs.zellij ];
 
-    programs.zsh.interactiveShellInit = lib.mkIf (eiros_zellij.auto_attach.enable && eiros_zsh.enable) ''
-      if [[ -z "$ZELLIJ" ]]; then
-        if zellij list-sessions 2>/dev/null | grep -q .; then
-          zellij attach
-        else
-          zellij
-        fi
-        ${lib.optionalString eiros_zellij.auto_exit.enable "exit"}
-      fi
-    '';
+    programs.zsh.interactiveShellInit =
+      lib.mkIf (eiros_zellij.auto_attach.enable && eiros_zsh.enable)
+        ''
+          if [[ -z "$ZELLIJ" ]]; then
+            if zellij list-sessions 2>/dev/null | grep -q .; then
+              zellij attach
+            else
+              zellij
+            fi
+            ${lib.optionalString eiros_zellij.auto_exit.enable "exit"}
+          fi
+        '';
   };
 }

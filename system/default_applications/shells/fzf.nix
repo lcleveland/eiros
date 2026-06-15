@@ -1,5 +1,10 @@
 # Installs fzf fuzzy finder and configures its default command and display options.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_fzf = config.eiros.system.default_applications.shells.fzf;
 in
@@ -44,7 +49,7 @@ in
 
     environment.variables = {
       FZF_DEFAULT_COMMAND = eiros_fzf.default_command;
-      FZF_DEFAULT_OPTS    = eiros_fzf.default_opts;
+      FZF_DEFAULT_OPTS = eiros_fzf.default_opts;
     };
 
     programs.zsh.interactiveShellInit = ''

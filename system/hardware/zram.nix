@@ -43,7 +43,7 @@ in
     zramSwap = {
       enable = true;
       priority = 100;
-      algorithm = eiros_zram.algorithm;
+      inherit (eiros_zram) algorithm;
       memoryPercent = eiros_zram.memory_percent;
     };
   };

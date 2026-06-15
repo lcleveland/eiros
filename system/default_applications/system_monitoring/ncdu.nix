@@ -1,5 +1,10 @@
 # Installs ncdu, an interactive TUI disk usage analyzer.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_ncdu = config.eiros.system.default_applications.system_monitoring.ncdu;
 in

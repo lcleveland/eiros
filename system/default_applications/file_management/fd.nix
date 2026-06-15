@@ -1,5 +1,10 @@
 # Installs fd, a fast and user-friendly find replacement.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   eiros_fd = config.eiros.system.default_applications.file_management.fd;
   eiros_zsh = config.eiros.system.default_applications.shells.zsh;
