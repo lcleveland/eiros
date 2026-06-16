@@ -6,6 +6,7 @@
       dank_material_shell,
       dms_docker_manager,
       dms_ssh_connections,
+      dms_official_plugins,
       wallpaper_carousel,
       eiros_hardware,
       eiros_users,
@@ -26,6 +27,7 @@
           dank_material_shell
           dms_docker_manager
           dms_ssh_connections
+          dms_official_plugins
           wallpaper_carousel
           eiros_hardware
           eiros_users
@@ -81,6 +83,11 @@
 
     dms_ssh_connections = {
       url = "github:merdely/dms-plugins";
+      flake = false;
+    };
+
+    dms_official_plugins = {
+      url = "github:AvengeMedia/dms-plugins";
       flake = false;
     };
 
