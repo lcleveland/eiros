@@ -10,7 +10,7 @@ let
 in
 {
   options.eiros.system.nix.nix_alien.enable = lib.mkOption {
-    default = true;
+    default = false;
     description = "Install nix-alien, which wraps unpatched binaries in a FHS environment by auto-detecting required libraries. Complements nix-ld for cases where the dynamic linker stub is insufficient.";
     example = lib.literalExpression ''
       {
