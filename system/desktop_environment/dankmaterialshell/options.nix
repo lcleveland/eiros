@@ -401,29 +401,29 @@ in
 
         inherit (eiros_dms) plugins;
 
-        greeter = lib.mkIf eiros_dms.greeter.enable {
-          enable = true;
-
-          configFiles = eiros_dms.greeter.config_files;
-          configHome = eiros_dms.greeter.config_home;
-
-          logs = lib.mkIf eiros_dms.greeter.logs.enable {
-            path = eiros_dms.greeter.logs.path;
-            save = true;
-          };
-
-          compositor = {
-            name = eiros_dms.greeter.compositor.name;
-            customConfig = lib.optionalString (eiros_dms.greeter.compositor.name == "mango") (
-              mangowc_generator (make_mangowc_config eiros_dms.greeter.mango)
-            );
-          };
-        };
-
         systemd = {
           enable = eiros_dms.systemd.enable;
           restartIfChanged = eiros_dms.systemd.restart_if_changed;
           target = eiros_dms.systemd.target;
+        };
+      };
+
+      programs.dms-greeter = lib.mkIf eiros_dms.greeter.enable {
+        enable = true;
+
+        configFiles = eiros_dms.greeter.config_files;
+        configHome = eiros_dms.greeter.config_home;
+
+        logs = lib.mkIf eiros_dms.greeter.logs.enable {
+          path = eiros_dms.greeter.logs.path;
+          save = true;
+        };
+
+        compositor = {
+          name = eiros_dms.greeter.compositor.name;
+          customConfig = lib.optionalString (eiros_dms.greeter.compositor.name == "mango") (
+            mangowc_generator (make_mangowc_config eiros_dms.greeter.mango)
+          );
         };
       };
     })

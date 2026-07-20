@@ -3,6 +3,7 @@
 
   outputs =
     {
+      dank_greeter,
       dank_material_shell,
       dms_docker_manager,
       dms_ssh_connections,
@@ -24,6 +25,7 @@
     let
       inputs = {
         inherit
+          dank_greeter
           dank_material_shell
           dms_docker_manager
           dms_ssh_connections
@@ -53,9 +55,8 @@
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         modules = [
           dank_material_shell.nixosModules.dank-material-shell
-          dank_material_shell.nixosModules.greeter
+          dank_greeter.nixosModules.default
           eiros_hardware.nixosModules.default
-          eiros_users.nixosModules.default
           hjem.nixosModules.default
           mango.nixosModules.mango
           nix-index-database.nixosModules.default
@@ -63,6 +64,7 @@
           sops-nix.nixosModules.sops
           { nixpkgs.overlays = [ nix-alien.overlays.default ]; }
         ]
+        ++ eiros_users.nixosModules.default
         ++ (import_modules ./system)
         ++ (import_modules ./users);
 
@@ -71,6 +73,11 @@
     };
 
   inputs = {
+    dank_greeter = {
+      url = "github:AvengeMedia/dank-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dank_material_shell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
