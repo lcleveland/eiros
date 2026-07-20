@@ -63,8 +63,10 @@
           nvf.nixosModules.default
           sops-nix.nixosModules.sops
           { nixpkgs.overlays = [ nix-alien.overlays.default ]; }
+          # eiros_users.nixosModules.default has varied between a bare list of
+          # modules and a single module across revisions; toList normalises both.
+          { imports = nixpkgs.lib.toList eiros_users.nixosModules.default; }
         ]
-        ++ eiros_users.nixosModules.default
         ++ (import_modules ./system)
         ++ (import_modules ./users);
 
